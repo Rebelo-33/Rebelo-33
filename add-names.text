@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Participants</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="scripts.js"></script>
+  <script defer src="language.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
+    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+    <button onclick="addName()" data-lang="addName">Add Name</button>
+    <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+    <ul id="nameList"></ul>
+    <button onclick="saveList()" data-lang="saveList">Save List</button>
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+  </div>
+</body>
+</html>
