@@ -62,12 +62,26 @@ const translations = {
   }
 };
 
-document.getElementById('language-selector').addEventListener('change', function() {
-  const lang = this.value;
+function applyLanguage(lang) {
   document.querySelectorAll('[data-lang]').forEach(el => {
     const key = el.getAttribute('data-lang');
-    if (translations[lang][key]) {
+    if (translations[lang] && translations[lang][key]) {
       el.textContent = translations[lang][key];
     }
   });
+  localStorage.setItem('lang', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selector = document.getElementById('language-selector');
+  const savedLang = localStorage.getItem('lang') || 'en';
+
+  if (selector) {
+    selector.value = savedLang;
+    selector.addEventListener('change', function () {
+      applyLanguage(this.value);
+    });
+  }
+
+  applyLanguage(savedLang);
 });
