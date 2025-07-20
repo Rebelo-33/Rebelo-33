@@ -113,6 +113,8 @@ window.loadMyLists = async function () {
   });
 };
 
+<script defer src="language.js"></script>
+
 // Draw name logic
 window.drawName = async function () {
   const params = new URLSearchParams(window.location.search);
