@@ -1,43 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="myLists">My Lists</title>
+  <title>My Lists</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
+  <script defer type="module">
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    import { db } from './firebase-config.js';document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("listAccessForm");
+  const listDisplay = document.getElementById("listDisplay");
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const listCode = document.getElementById("listCode").value.trim();
+    const pin = document.getElementById("listPin").value.trim();
+
+    if (!listCode || !pin) {
+      alert("Please enter both code and PIN");
+      return;
+    }
+
+    const ref = doc(db, "lists", listCode);
+    const snapshot = await getDoc(ref);
+
+    if (!snapshot.exists()) {
+      alert("List not found.");
+      return;
+    }
+
+    const data = snapshot.data();
+    if (data.pin !== pin) {
+      alert("Incorrect PIN.");
+      return;
+    }
+
+    // Show list info
+    listDisplay.innerHTML = `
+      <h3 data-lang="listNameLabel">List Name:</h3> <p>${data.name}</p>
+      <h3 data-lang="participantsLabel">Participants:</h3>
+      <ul>${data.participants.map(p => `<li>${p}</li>`).join('')}</ul>
+      <p><strong>List Code:</strong> ${listCode}</p>
+      <button onclick="copyCode('${listCode}')">Copy Link</button>
+    `;
+  };
+});
+
+function copyCode(code) {
+  const fullUrl = `${window.location.origin}/draw.html?list=${code}`;
+  navigator.clipboard.writeText(fullUrl);
+  alert("Link copied to clipboard!");
+}
+
+  </script>
 </head>
 <body>
   <div class="container">
-    <h1>🎁 <span data-lang="myLists">My Lists</span></h1>
-
-    <!-- Language Selector -->
+    <h1 data-lang="myLists">My Lists</h1>
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
       <option value="pt">Português</option>
-    </select>
+    </select><form id="listAccessForm">
+  <input type="text" id="listCode" placeholder="Enter List Code" required />
+  <input type="password" id="listPin" placeholder="Enter 4-digit PIN" pattern="\\d{4}" required />
+  <button type="submit" data-lang="accessList">Access</button>
+</form>
 
-    <!-- PIN Input to Access Lists -->
-    <p>Enter your 4-digit PIN to access your saved list:</p>
-    <input type="password" id="pinInput" maxlength="4" placeholder="Enter PIN" />
-    <button onclick="loadListByPin()" data-lang="accessList">Access</button>
+<div id="listDisplay" style="margin-top: 20px;"></div>
+<button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
 
-    <!-- List Details Display -->
-    <div id="listDetails" style="display:none; margin-top: 20px;">
-      <h3 data-lang="listNameLabel">List Name:</h3>
-      <p id="listNameDisplay"></p>
-
-      <h3 data-lang="participantsLabel">Participants:</h3>
-      <ul id="participantsListDisplay" style="text-align:left; margin-left: 20px;"></ul>
-
-      <button onclick="goToDrawPage()" data-lang="goToDraw">Go to Draw Page</button>
-    </div>
-
-    <!-- Back -->
-    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
   </div>
 </body>
 </html>
