@@ -1,4 +1,5 @@
-// ✅ Translation dictionary
+// language.js
+
 const translations = {
   en: {
     title: "Secret Gift Exchange",
@@ -10,12 +11,10 @@ const translations = {
     removeName: "Remove Name",
     saveList: "Save List",
     backHome: "Back to Home",
-    drawIntro: "Click the button below to draw a name. You will only be able to draw once and cannot see the full list.",
+    drawIntro: "Click the button below to draw a name. You will only be able to draw once.",
     drawName: "Draw Name",
     copy: "Copy",
     email: "Send to Email",
-    shareLink: "Share This Link:",
-    shareWhatsapp: "Share via WhatsApp",
     listNameLabel: "List Name:",
     participantsLabel: "Participants:",
     myLists: "My Lists",
@@ -35,8 +34,6 @@ const translations = {
     drawName: "Sacar Nombre",
     copy: "Copiar",
     email: "Enviar por Correo",
-    shareLink: "Comparte este enlace:",
-    shareWhatsapp: "Compartir por WhatsApp",
     listNameLabel: "Nombre de la Lista:",
     participantsLabel: "Participantes:",
     myLists: "Mis Listas",
@@ -56,8 +53,6 @@ const translations = {
     drawName: "Tirer un Nom",
     copy: "Copier",
     email: "Envoyer par Email",
-    shareLink: "Partagez ce lien :",
-    shareWhatsapp: "Partager via WhatsApp",
     listNameLabel: "Nom de la Liste :",
     participantsLabel: "Participants :",
     myLists: "Mes Listes",
@@ -77,8 +72,6 @@ const translations = {
     drawName: "Sortear Nome",
     copy: "Copiar",
     email: "Enviar por Email",
-    shareLink: "Compartilhe este link:",
-    shareWhatsapp: "Compartilhar no WhatsApp",
     listNameLabel: "Nome da Lista:",
     participantsLabel: "Participantes:",
     myLists: "Minhas Listas",
@@ -86,7 +79,6 @@ const translations = {
   }
 };
 
-// ✅ Apply selected language to all elements marked with data-lang
 function applyLanguage(lang) {
   document.querySelectorAll('[data-lang]').forEach(el => {
     const key = el.getAttribute('data-lang');
@@ -97,7 +89,6 @@ function applyLanguage(lang) {
   localStorage.setItem('lang', lang);
 }
 
-// ✅ Automatically apply saved/default language
 document.addEventListener('DOMContentLoaded', () => {
   const selector = document.getElementById('language-selector');
   const savedLang = localStorage.getItem('lang') || 'en';
