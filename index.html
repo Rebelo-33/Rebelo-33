@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="title">Secret Gift Exchange</title>
+  <title>Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
@@ -20,20 +19,36 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Intro Text -->
+    <!-- Welcome Message -->
     <p data-lang="intro">
-      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name.
+      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name — without seeing the full list.
     </p>
 
-    <!-- Navigation Buttons -->
+    <!-- Create List -->
     <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
-    <button id="drawBtn" onclick="goToDrawPage()" data-lang="goToDraw" disabled>Go to Draw Page</button>
-    <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
 
+    <!-- Join List by Code -->
+    <div style="margin-top: 20px">
+      <input type="text" id="joinCodeInput" placeholder="Enter list code to join" />
+      <button onclick="joinListByCode()" data-lang="goToDraw">Go to Draw Page</button>
+    </div>
+
+    <!-- Footer -->
     <footer>
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>&copy; 2025 All rights reserved</p>
     </footer>
   </div>
+
+  <script>
+    function joinListByCode() {
+      const code = document.getElementById('joinCodeInput').value.trim();
+      if (code) {
+        window.location.href = `draw.html?list=${code}`;
+      } else {
+        alert("Please enter a list code.");
+      }
+    }
+  </script>
 </body>
 </html>
