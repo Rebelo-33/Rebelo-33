@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Lists</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="myLists">My Lists</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="firebase-config.js"></script>
   <script defer src="scripts.js"></script>
@@ -12,15 +12,24 @@
 </head>
 <body>
   <div class="container">
-    <h1 data-lang="myLists">My Lists</h1>
+    <h1><span data-lang="myLists">My Lists</span></h1>
+
+    <!-- Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
       <option value="pt">Português</option>
     </select>
-    <ul id="myListsContainer"></ul>
+
+    <p data-lang="enterPin">Enter your 4-digit PIN to view your list(s):</p>
+    <input type="text" id="pinInput" maxlength="4" placeholder="1234" />
+    <button onclick="loadMyLists()" data-lang="accessList">Access</button>
+
+    <ul id="myListsOutput"></ul>
+
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
   </div>
 </body>
 </html>
