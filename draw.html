@@ -1,78 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-lang="title">Secret Gift Exchange</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="drawName">Draw Name</title>
+  <link rel="stylesheet" href="style.css" />
   <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1><!-- Language Selector -->
-<select id="language-selector">
-  <option value="en">English</option>
-  <option value="es">Español</option>
-  <option value="fr">Français</option>
-  <option value="pt">Português</option>
-</select>
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
-<!-- Instructions -->
-<p data-lang="drawIntro">Click the button below to draw a name. You will only be able to draw once.</p>
+    <!-- Language Selector -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
 
-<!-- Draw Button -->
-<button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
+    <!-- Draw Instructions -->
+    <p data-lang="drawIntro">
+      Click the button below to draw a name. You will only be able to draw once and cannot see the full list.
+    </p>
 
-<!-- Result -->
-<p id="drawnName"></p>
+    <!-- Draw Button -->
+    <button onclick="drawName()" id="drawNameBtn" data-lang="drawName">Draw Name</button>
 
-<!-- Action Buttons -->
-<button onclick="copyName()" data-lang="copy">Copy</button>
-<button onclick="sendEmail()" data-lang="email">Send to Email</button>
+    <!-- Result Display -->
+    <p id="drawnName"></p>
 
-<!-- Participant Details -->
-<div id="listDetails" style="margin-top: 30px; text-align: left;"></div>
+    <!-- Sharing Buttons -->
+    <button onclick="copyName()" data-lang="copy">Copy</button>
+    <button onclick="sendEmail()" data-lang="email">Send to Email</button>
 
-<!-- Back Home -->
-<button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <!-- Navigation -->
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
 
-  </div>  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const listName = urlParams.get('list');
-      const userId = localStorage.getItem('userId') || Date.now().toString();
-      localStorage.setItem('userId', userId);
-      localStorage.setItem('listName', listName);
+    <!-- Display List Info -->
+    <div id="listDetails" style="margin-top: 20px;">
+      <h3 data-lang="listNameLabel">List Name:</h3>
+      <p id="listDisplayName"></p>
 
-      // Set language
-      const lang = localStorage.getItem('lang') || 'en';
-      applyLanguage(lang);
-
-      // Check if already drawn
-      const drawn = localStorage.getItem(`list_${listName}_drawn_${userId}`);
-      if (drawn) {
-        document.getElementById('drawnName').textContent = `You got: ${drawn}`;
-        const drawBtn = document.getElementById('drawBtn');
-        drawBtn.textContent = 'My Drawn Name Is';
-        drawBtn.disabled = true;
-      }
-
-      // Show list details
-      const participants = JSON.parse(localStorage.getItem(`list_${listName}_participants`) || '[]');
-      const detailBox = document.getElementById('listDetails');
-      if (listName && participants.length) {
-        const h3 = document.createElement('h3');
-        h3.textContent = `${listName} Participants:`;
-        const ul = document.createElement('ul');
-        participants.forEach(p => {
-          const li = document.createElement('li');
-          li.textContent = p;
-          ul.appendChild(li);
-        });
-        detailBox.appendChild(h3);
-        detailBox.appendChild(ul);
-      }
-    });
-  </script></body>
+      <h3 data-lang="participantsLabel">Participants:</h3>
+      <ul id="participantsList" style="text-align:left; margin-left: 20px;"></ul>
+    </div>
+  </div>
+</body>
 </html>
