@@ -1,0 +1,15 @@
+// firestore.rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /lists/{listId} {
+      allow read: if true;
+      allow write: if request.method == 'create';
+    }
+
+    match /lists/{listId}/drawn/{userId} {
+      allow read: if true;
+      allow write: if !exists(/databases/$(database)/documents/lists/$(listId)/drawn/$(userId));
+    }
+  }
+}

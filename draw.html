@@ -1,0 +1,30 @@
+<!-- draw.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Draw Name</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="firebase-config.js"></script>
+  <script defer src="scripts.js"></script>
+  <script defer src="language.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 data-lang="title">Secret Gift Exchange</h1>
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+    <p data-lang="drawIntro">Click the button below to draw a name. You will only be able to draw once.</p>
+    <button onclick="drawName()" data-lang="drawName">Draw Name</button>
+    <p id="drawnName"></p>
+    <button onclick="copyName()" data-lang="copy">Copy</button>
+    <button onclick="sendEmail()" data-lang="email">Send to Email</button>
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+  </div>
+</body>
+</html>

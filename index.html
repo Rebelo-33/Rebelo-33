@@ -1,0 +1,39 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="title">Secret Gift Exchange</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="firebase-config.js"></script>
+  <script defer src="scripts.js"></script>
+  <script defer src="language.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+
+    <p data-lang="intro">
+      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.
+    </p>
+
+    <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
+    <button id="drawBtn" onclick="goToDrawPage()" data-lang="goToDraw" disabled>Go to Draw Page</button>
+    <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
+    <button onclick="window.location.href='help.html'">Help</button>
+
+    <footer>
+      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p>&copy; 2025 All rights reserved</p>
+    </footer>
+  </div>
+</body>
+</html>
