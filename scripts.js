@@ -1,241 +1,123 @@
-// ✅ Global Variables
+// Global list state
 let participants = [];
-let listName = '';
-let userId = '';
+let listName = localStorage.getItem("listName") || "";
 
-// ✅ Utility: Get Query Parameter from URL
-function getQueryParam(param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param);
-}
-
-// ✅ Add Name to List
+// ✅ Add a participant name
 function addName() {
-  const input = document.getElementById('nameInput');
+  const input = document.getElementById("nameInput");
   const name = input.value.trim();
-
-  if (!name) {
-    alert("Please enter a name.");
-    return;
-  }
-  if (participants.includes(name)) {
-    alert("Name already exists in the list. Please enter a unique name.");
-    return;
-  }
-  if (name.length > 30) {
-    alert("Name must be 30 characters or fewer.");
-    return;
-  }
+  if (!name) return alert("Please enter a name.");
+  if (name.length > 30) return alert("Name must be 30 characters or fewer.");
+  if (participants.includes(name)) return alert("Name already exists.");
 
   participants.push(name);
   updateList();
-  input.value = '';
+  input.value = "";
 }
 
-// ✅ Remove Name From List
+// ✅ Remove by name or pop last
 function removeName() {
-  const input = document.getElementById('nameInput');
+  const input = document.getElementById("nameInput");
   const name = input.value.trim();
+  let removed;
 
   if (!name && participants.length > 0) {
-    const removed = participants.pop();
-    alert(`Removed: ${removed}`);
+    removed = participants.pop();
   } else {
     const index = participants.indexOf(name);
-    if (index > -1) {
-      participants.splice(index, 1);
-      alert(`Removed: ${name}`);
-    } else {
-      alert("Name not found in list.");
-    }
+    if (index > -1) removed = participants.splice(index, 1)[0];
   }
 
+  if (removed) alert(`Removed: ${removed}`);
+  else alert("Name not found in list.");
+
   updateList();
-  input.value = '';
+  input.value = "";
 }
 
-// ✅ Update DOM List Display
+// ✅ Display participant names
 function updateList() {
-  const list = document.getElementById('nameList');
+  const list = document.getElementById("nameList");
   if (!list) return;
-
-  list.innerHTML = '';
+  list.innerHTML = "";
   participants.forEach(name => {
-    const li = document.createElement('li');
+    const li = document.createElement("li");
     li.textContent = name;
     list.appendChild(li);
   });
 }
 
-// ✅ Save the Created List with PIN and show copy link
+// ✅ Save list with name and PIN
 function saveList() {
-  const name = prompt("Enter a name for this list:");
-  if (!name) {
-    alert("List name is required.");
-    return;
-  }
+  const name = prompt("Enter a name for this list:").trim();
+  if (!name) return alert("List name is required.");
+  if (participants.length < 2) return alert("Add at least two participants.");
 
-  const pin = prompt("Set a 4-digit PIN to protect your list:");
-  if (!pin || !/^\d{4}$/.test(pin)) {
-    alert("A valid 4-digit numeric PIN is required.");
-    return;
-  }
-
-  if (participants.length < 2) {
-    alert("Add at least two participants.");
-    return;
-  }
+  const pin = prompt("Set a 4-digit PIN to protect your list:").trim();
+  if (!/^\d{4}$/.test(pin)) return alert("Please enter a valid 4-digit PIN.");
 
   listName = name;
-  localStorage.setItem(`list_${listName}_pin`, pin);
+  localStorage.setItem("listName", listName);
   localStorage.setItem(`list_${listName}_participants`, JSON.stringify(participants));
+  localStorage.setItem(`list_${listName}_pin`, pin);
 
-  let myLists = JSON.parse(localStorage.getItem('myLists') || '[]');
-  if (!myLists.includes(listName)) {
-    myLists.push(listName);
-    localStorage.setItem('myLists', JSON.stringify(myLists));
-  }
+  const userId = Date.now().toString();
+  localStorage.setItem("userId", userId);
 
-  const shareUrl = `${window.location.origin}/draw.html?list=${encodeURIComponent(listName)}`;
-  navigator.clipboard.writeText(shareUrl);
-
-  alert("List saved! Link copied to clipboard:\n" + shareUrl);
-  window.location.href = 'index.html';
+  // Show share link
+  const link = `${window.location.origin}/draw.html?list=${encodeURIComponent(listName)}`;
+  document.getElementById("shareLink").value = link;
+  document.getElementById("shareContainer").style.display = "block";
+  alert("List saved! Share the link below with your participants.");
 }
 
-// ✅ Show My Lists with PIN Access
-function showMyLists() {
-  const container = document.getElementById('myListsContainer');
-  container.innerHTML = '';
-  const myLists = JSON.parse(localStorage.getItem('myLists') || '[]');
-
-  if (myLists.length === 0) {
-    container.innerHTML = '<p>You have no saved lists.</p>';
-    return;
-  }
-
-  myLists.forEach(name => {
-    const div = document.createElement('div');
-    div.style.margin = '10px 0';
-
-    const label = document.createElement('span');
-    label.textContent = name + ' ';
-
-    const btn = document.createElement('button');
-    btn.textContent = 'Access';
-    btn.onclick = () => {
-      const pin = prompt(`Enter 4-digit PIN for list \"${name}\"`);
-      const storedPin = localStorage.getItem(`list_${name}_pin`);
-      if (pin === storedPin) {
-        alert(`List: ${name}\n\n` + JSON.parse(localStorage.getItem(`list_${name}_participants`)).join(', '));
-      } else {
-        alert("Incorrect PIN");
-      }
-    };
-
-    div.appendChild(label);
-    div.appendChild(btn);
-    container.appendChild(div);
-  });
-}
-
-// ✅ Draw a Name from the List
+// ✅ Draw a name randomly
 function drawName() {
-  if (!listName) {
-    alert("No list selected.");
-    return;
-  }
+  const urlParams = new URLSearchParams(window.location.search);
+  const listName = urlParams.get("list") || localStorage.getItem("listName");
+  const userId = localStorage.getItem("userId") || Date.now().toString();
+  localStorage.setItem("userId", userId);
 
   const drawnKey = `list_${listName}_drawn_${userId}`;
-  const drawn = localStorage.getItem(drawnKey);
-
-  if (drawn) {
-    document.getElementById('drawnName').textContent = `🎉 ${drawn}`;
-    toggleDrawButton(true);
+  if (localStorage.getItem(drawnKey)) {
+    alert("You already drew a name.");
     return;
   }
 
-  const list = JSON.parse(localStorage.getItem(`list_${listName}_participants`) || '[]');
-  if (list.length < 1) {
-    alert('Not enough participants remaining.');
-    return;
-  }
+  const listKey = `list_${listName}_participants`;
+  const list = JSON.parse(localStorage.getItem(listKey) || "[]");
+  if (list.length < 1) return alert("No names left to draw.");
 
   const index = Math.floor(Math.random() * list.length);
-  const name = list.splice(index, 1)[0];
+  const drawn = list.splice(index, 1)[0];
 
-  localStorage.setItem(drawnKey, name);
-  localStorage.setItem(`list_${listName}_participants`, JSON.stringify(list));
+  localStorage.setItem(drawnKey, drawn);
+  localStorage.setItem(listKey, JSON.stringify(list));
+  document.getElementById("drawnName").textContent = `You got: ${drawn}`;
 
-  document.getElementById('drawnName').textContent = `🎉 ${name}`;
-  toggleDrawButton(true);
-}
-
-// ✅ Toggle Draw/View Button Text
-function toggleDrawButton(drawn) {
-  const drawBtn = document.getElementById('drawBtn');
-  if (drawn) {
-    drawBtn.textContent = "My Drawn Name Is...";
+  const drawBtn = document.getElementById("drawBtn");
+  if (drawBtn) {
+    drawBtn.textContent = "My Drawn Name Is";
     drawBtn.disabled = true;
   }
 }
 
-// ✅ Copy Name to Clipboard
+// ✅ Copy drawn name text
 function copyName() {
-  const name = document.getElementById('drawnName').textContent;
-  navigator.clipboard.writeText(name);
+  const name = document.getElementById("drawnName").textContent;
+  navigator.clipboard.writeText(name).then(() => alert("Copied!"));
 }
 
-// ✅ Send Name via Email
+// ✅ Send drawn name to email
 function sendEmail() {
-  const name = document.getElementById('drawnName').textContent;
+  const name = document.getElementById("drawnName").textContent;
   window.location.href = `mailto:?subject=Your Secret Gift Exchange Name&body=${encodeURIComponent(name)}`;
 }
 
-// ✅ On Load: Handle Page Behavior
-window.onload = function () {
-  // Handle draw.html loading from shared link
-  const pageListName = getQueryParam('list');
-  if (pageListName) {
-    listName = pageListName;
-    userId = localStorage.getItem('userId') || crypto.randomUUID();
-    localStorage.setItem('userId', userId);
-
-    const savedParticipants = JSON.parse(localStorage.getItem(`list_${listName}_participants`) || '[]');
-
-    if (savedParticipants.length > 0) {
-      document.getElementById('drawBtn').disabled = false;
-      document.getElementById('currentListName').textContent = listName;
-
-      const ul = document.getElementById('participantList');
-      savedParticipants.forEach(name => {
-        const li = document.createElement('li');
-        li.textContent = name;
-        ul.appendChild(li);
-      });
-
-      const alreadyDrawn = localStorage.getItem(`list_${listName}_drawn_${userId}`);
-      if (alreadyDrawn) {
-        document.getElementById('drawnName').textContent = `🎉 ${alreadyDrawn}`;
-        toggleDrawButton(true);
-      }
-    }
-  }
-
-  // Handle add-names.html loading
-  const nameListEl = document.getElementById('nameList');
-  if (nameListEl) {
-    const savedListName = localStorage.getItem('listName');
-    if (savedListName) {
-      listName = savedListName;
-      participants = JSON.parse(localStorage.getItem(`list_${listName}_participants`) || '[]');
-      updateList();
-    }
-  }
-
-  // Handle my-lists.html loading
-  const myListsSection = document.getElementById('myListsContainer');
-  if (myListsSection) {
-    showMyLists();
-  }
-};
+// ✅ Copy share link
+function copyShareLink() {
+  const input = document.getElementById("shareLink");
+  input.select();
+  document.execCommand("copy");
+  alert("Link copied to clipboard!");
+}
