@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="myLists">My Lists</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 data-lang="myLists">My Lists</h1>
+    <h1>🎁 <span data-lang="myLists">My Lists</span></h1>
 
     <!-- Language Selector -->
     <select id="language-selector">
@@ -20,58 +20,24 @@
       <option value="pt">Português</option>
     </select>
 
-    <p>Enter the list name and 4-digit PIN to access your saved list:</p>
+    <!-- PIN Input to Access Lists -->
+    <p>Enter your 4-digit PIN to access your saved list:</p>
+    <input type="password" id="pinInput" maxlength="4" placeholder="Enter PIN" />
+    <button onclick="loadListByPin()" data-lang="accessList">Access</button>
 
-    <input type="text" id="listAccessName" placeholder="List Name" style="width: 100%; padding: 10px;">
-    <input type="password" id="listAccessPin" placeholder="4-digit PIN" maxlength="4" style="width: 100%; padding: 10px;">
-    <button onclick="accessList()" data-lang="accessList">Access</button>
+    <!-- List Details Display -->
+    <div id="listDetails" style="display:none; margin-top: 20px;">
+      <h3 data-lang="listNameLabel">List Name:</h3>
+      <p id="listNameDisplay"></p>
 
-    <div id="listResults" style="margin-top: 20px;"></div>
+      <h3 data-lang="participantsLabel">Participants:</h3>
+      <ul id="participantsListDisplay" style="text-align:left; margin-left: 20px;"></ul>
 
+      <button onclick="goToDrawPage()" data-lang="goToDraw">Go to Draw Page</button>
+    </div>
+
+    <!-- Back -->
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const lang = localStorage.getItem('lang') || 'en';
-      applyLanguage(lang);
-    });
-
-    function accessList() {
-      const listName = document.getElementById('listAccessName').value.trim();
-      const pin = document.getElementById('listAccessPin').value.trim();
-      const storedPin = localStorage.getItem(`list_${listName}_pin`);
-      const participants = localStorage.getItem(`list_${listName}_participants`);
-
-      const resultBox = document.getElementById('listResults');
-      resultBox.innerHTML = '';
-
-      if (!listName || !pin) {
-        resultBox.textContent = 'Please fill in both fields.';
-        return;
-      }
-
-      if (pin !== storedPin) {
-        resultBox.textContent = 'Incorrect PIN.';
-        return;
-      }
-
-      if (!participants) {
-        resultBox.textContent = 'List not found.';
-        return;
-      }
-
-      const parsed = JSON.parse(participants);
-      const ul = document.createElement('ul');
-      parsed.forEach(name => {
-        const li = document.createElement('li');
-        li.textContent = name;
-        ul.appendChild(li);
-      });
-      resultBox.innerHTML = `<h3>${listName}</h3>`;
-      resultBox.appendChild(ul);
-    }
-  </script>
 </body>
 </html>
-
