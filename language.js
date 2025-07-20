@@ -1,8 +1,8 @@
-
+//  Translation dictionary
 const translations = {
   en: {
     title: "Secret Gift Exchange",
-    intro: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name — without seeing the full list.",
+    intro: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name.",
     createList: "Create a New List",
     goToDraw: "Go to Draw Page",
     addIntro: "Add participants to your list. Each name must be unique and no longer than 30 characters.",
@@ -10,10 +10,14 @@ const translations = {
     removeName: "Remove Name",
     saveList: "Save List",
     backHome: "Back to Home",
-    drawIntro: "Click the button below to draw a name. You will only be able to draw once and cannot see the full list.",
+    drawIntro: "Click the button below to draw a name. You will only be able to draw once.",
     drawName: "Draw Name",
     copy: "Copy",
-    email: "Send to Email"
+    email: "Send to Email",
+    listNameLabel: "List Name:",
+    participantsLabel: "Participants:",
+    myLists: "My Lists",
+    accessList: "Access"
   },
   es: {
     title: "Intercambio de Regalos Secreto",
@@ -28,7 +32,11 @@ const translations = {
     drawIntro: "Haz clic en el botón para sacar un nombre. Solo podrás hacerlo una vez.",
     drawName: "Sacar Nombre",
     copy: "Copiar",
-    email: "Enviar por Correo"
+    email: "Enviar por Correo",
+    listNameLabel: "Nombre de la Lista:",
+    participantsLabel: "Participantes:",
+    myLists: "Mis Listas",
+    accessList: "Acceder"
   },
   fr: {
     title: "Échange de Cadeaux Secret",
@@ -43,7 +51,11 @@ const translations = {
     drawIntro: "Cliquez sur le bouton pour tirer un nom. Vous ne pouvez le faire qu'une seule fois.",
     drawName: "Tirer un Nom",
     copy: "Copier",
-    email: "Envoyer par Email"
+    email: "Envoyer par Email",
+    listNameLabel: "Nom de la Liste :",
+    participantsLabel: "Participants :",
+    myLists: "Mes Listes",
+    accessList: "Accéder"
   },
   pt: {
     title: "Amigo Secreto",
@@ -55,13 +67,18 @@ const translations = {
     removeName: "Remover Nome",
     saveList: "Salvar Lista",
     backHome: "Voltar ao Início",
-    drawIntro: "Clique no botão para sortear um nome. Você só poderá fazer isso uma vez.",
+    drawIntro: "Clique no botão abaixo para sortear um nome. Você só poderá fazer isso uma vez.",
     drawName: "Sortear Nome",
     copy: "Copiar",
-    email: "Enviar por Email"
+    email: "Enviar por Email",
+    listNameLabel: "Nome da Lista:",
+    participantsLabel: "Participantes:",
+    myLists: "Minhas Listas",
+    accessList: "Acessar"
   }
 };
 
+// Apply selected language to all elements marked with data-lang
 function applyLanguage(lang) {
   document.querySelectorAll('[data-lang]').forEach(el => {
     const key = el.getAttribute('data-lang');
@@ -72,6 +89,7 @@ function applyLanguage(lang) {
   localStorage.setItem('lang', lang);
 }
 
+// Automatically apply saved/default language
 document.addEventListener('DOMContentLoaded', () => {
   const selector = document.getElementById('language-selector');
   const savedLang = localStorage.getItem('lang') || 'en';
