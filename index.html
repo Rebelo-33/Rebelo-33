@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">Secret Gift Exchange</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
@@ -21,45 +21,19 @@
     </select>
 
     <!-- Intro Text -->
-    <p data-lang="intro">Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name — without seeing the full list.</p>
+    <p data-lang="intro">
+      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name.
+    </p>
 
-    <!-- Buttons -->
+    <!-- Navigation Buttons -->
     <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
-    <button onclick="goToDrawPage()" id="drawBtn" data-lang="goToDraw" disabled>Go to Draw Page</button>
+    <button id="drawBtn" onclick="goToDrawPage()" data-lang="goToDraw" disabled>Go to Draw Page</button>
     <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
 
-    <!-- Footer -->
     <footer>
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>&copy; 2025 All rights reserved</p>
     </footer>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const drawBtn = document.getElementById('drawBtn');
-      const listName = localStorage.getItem('listName');
-      const userId = localStorage.getItem('userId');
-
-      // Enable "Go to Draw Page" only if list exists
-      if (listName && localStorage.getItem(`list_${listName}_participants`)) {
-        drawBtn.disabled = false;
-
-        // If name already drawn, update button label
-        if (localStorage.getItem(`list_${listName}_drawn_${userId}`)) {
-          drawBtn.textContent = "View Drawn Name";
-        }
-      }
-    });
-
-    function goToDrawPage() {
-      const listName = localStorage.getItem('listName');
-      if (listName) {
-        window.location.href = `draw.html?list=${encodeURIComponent(listName)}`;
-      } else {
-        alert("No saved list found.");
-      }
-    }
-  </script>
 </body>
 </html>
