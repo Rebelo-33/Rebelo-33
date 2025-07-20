@@ -3,10 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="drawName">Draw Name</title>
+  <title>Draw Name</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
+  <script defer type="module">
+    import { loadListFromCode, drawName } from './scripts.js';
+
+    let drawnResult = null;
+    let userName = "";
+    let listCode = new URLSearchParams(window.location.search).get("list");
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!listCode) {
+        alert("No list code provided.");
+        return;
+      }
+
+      const data = await loadListFromCode(listCode);
+      if (!data) return;
+
+      const listInfo = document.getElementById("listInfo");
+      listInfo.innerHTML = `<p><strong data-lang="listNameLabel">List Name:</strong> ${data.name}</p>
+        <p><strong data-lang="participantsLabel">Participants:</strong> ${data.participants.join(", ")}</p>`;
+
+      document.getElementById("drawButton").onclick = async () => {
+        userName = document.getElementById("userNameInput").value.trim();
+        if (!userName) {
+          alert("Please enter your name.");
+          return;
+        }
+        drawnResult = await drawName(listCode, userName);
+        document.getElementById("drawnName").textContent = `You got: ${drawnResult}`;
+        document.getElementById("drawButton").style.display = 'none';
+      };
+    });
+  </script>
 </head>
 <body>
   <div class="container">
@@ -20,32 +51,18 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Draw Instructions -->
-    <p data-lang="drawIntro">
-      Click the button below to draw a name. You will only be able to draw once.
-    </p>
+    <p data-lang="drawIntro">Click the button below to draw a name. You will only be able to draw once.</p>
 
-    <!-- Draw Button -->
-    <button onclick="drawName()" id="drawNameBtn" data-lang="drawName">Draw Name</button>
-
-    <!-- Result Display -->
+    <!-- User Input -->
+    <input type="text" id="userNameInput" placeholder="Enter your name" />
+    <button id="drawButton" data-lang="drawName">Draw Name</button>
     <p id="drawnName"></p>
 
-    <!-- Sharing Buttons -->
-    <button onclick="copyName()" data-lang="copy">Copy</button>
-    <button onclick="sendEmail()" data-lang="email">Send to Email</button>
+    <!-- List Info -->
+    <div id="listInfo"></div>
 
-    <!-- Navigation -->
+    <!-- Back Home -->
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
-
-    <!-- Display List Info -->
-    <div id="listDetails" style="margin-top: 20px;">
-      <h3 data-lang="listNameLabel">List Name:</h3>
-      <p id="listDisplayName"></p>
-
-      <h3 data-lang="participantsLabel">Participants:</h3>
-      <ul id="participantsList" style="text-align:left; margin-left: 20px;"></ul>
-    </div>
   </div>
 </body>
 </html>
