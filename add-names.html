@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="title">Add Participants</title>
+  <title>Add Participants</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="scripts.js"></script>
+  <script defer type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
@@ -20,32 +20,23 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Intro Text -->
-    <p data-lang="addIntro">
-      Add participants to your list. Each name must be unique and no longer than 30 characters.
-    </p>
+    <!-- Instructions -->
+    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <!-- List Display -->
+    <!-- Participant List -->
     <ul id="nameList" style="text-align:left; margin-left: 20px;"></ul>
 
-    <!-- Input and Name Controls -->
+    <!-- Name Input -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
-    <button onclick="addName()" data-lang="addName">Add Name</button>
-    <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+    <button onclick="addNameToList(document.getElementById('nameInput').value)" data-lang="addName">Add Name</button>
 
-    <!-- Save List -->
-    <button onclick="saveList()" data-lang="saveList">Save List</button>
-    <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
+    <!-- Save List Form -->
+    <input type="text" id="listNameInput" placeholder="Enter List Name" />
+    <input type="password" id="listPinInput" maxlength="4" placeholder="Enter 4-digit PIN" />
+    <button onclick="saveListToFirestore(listNameInput.value, listPinInput.value)" data-lang="saveList">Save List</button>
+
+    <!-- Back Navigation -->
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
-
-    <!-- Share Link Section (after saving list) -->
-    <div id="shareContainer" style="display:none;">
-      <h3 data-lang="shareLink">Share This Link:</h3>
-      <input type="text" id="shareLink" readonly />
-      <button onclick="copyShareLink()" data-lang="copy">Copy</button>
-      <button onclick="shareWhatsApp()" data-lang="shareWhatsapp">Share via WhatsApp</button>
-      <button onclick="shareEmail()" data-lang="email">Share via Email</button>
-    </div>
   </div>
 </body>
 </html>
