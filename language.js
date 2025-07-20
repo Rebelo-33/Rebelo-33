@@ -3,7 +3,7 @@
 const translations = {
   en: {
     title: "Secret Gift Exchange",
-    intro: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name — without seeing the full list.",
+    intro: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants. Each person will receive a random name.",
     createList: "Create a New List",
     goToDraw: "Go to Draw Page",
     addIntro: "Add participants to your list. Each name must be unique and no longer than 30 characters.",
