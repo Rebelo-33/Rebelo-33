@@ -3,37 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add Participants</title>
+  <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
-    
-    <!-- Language Selector -->
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-    </select>
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1><!-- Language Selector -->
+<select id="language-selector">
+  <option value="en">English</option>
+  <option value="es">Español</option>
+  <option value="fr">Français</option>
+  <option value="pt">Português</option>
+</select>
 
-    <!-- Instruction -->
-    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
-    
-    <!-- Name List - moved above input -->
-    <ul id="nameList" style="text-align:left; margin-left: 20px;"></ul>
+<!-- Intro -->
+<p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <!-- Input and buttons -->
-    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
-    <button onclick="addName()" data-lang="addName">Add Name</button>
-    <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+<!-- Participant List (Above Input) -->
+<ul id="nameList" style="text-align:left; margin-left: 20px;"></ul>
 
-    <!-- Save and navigation -->
-    <button onclick="saveList()" data-lang="saveList">Save List</button>
-    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
-  </div>
-</body>
+<!-- Input and Actions -->
+<input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+<button onclick="addName()" data-lang="addName">Add Name</button>
+<button onclick="removeName()" data-lang="removeName">Remove Name</button>
+
+<!-- Save List -->
+<button onclick="saveList()" data-lang="saveList">Save List</button>
+<button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+
+<!-- Optional: Show My Lists -->
+<button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
+
+<!-- Link display -->
+<div id="shareContainer" style="margin-top: 20px; display: none;">
+  <p><strong>Share this link with participants:</strong></p>
+  <input type="text" id="shareLink" readonly style="width:100%; padding:10px;"/>
+  <button onclick="copyShareLink()">Copy Link</button>
+</div>
+
+  </div>  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lang = localStorage.getItem('lang') || 'en';
+      applyLanguage(lang);
+    });
+  </script></body>
 </html>
