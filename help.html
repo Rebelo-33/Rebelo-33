@@ -3,15 +3,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Help - Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🎁 Help Guide</h1>
+    <h1>📘 Help & Instructions</h1>
 
+    <!-- Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -19,16 +20,17 @@
       <option value="pt">Português</option>
     </select>
 
-    <h2>Website Navigation Instructions</h2>
-    <ul style="text-align:left;">
-      <li><strong>Create a New List:</strong> Start a list, add names, and protect it with a PIN.</li>
-      <li><strong>Save List:</strong> Click Save to store your list to Firebase.</li>
-      <li><strong>Copy Link:</strong> Share the generated URL via WhatsApp or Email.</li>
-      <li><strong>Draw Name:</strong> Visit the shared link, enter the PIN, and draw a name (once).</li>
-      <li><strong>View Drawn Name:</strong> Revisit the link to see your match again.</li>
-      <li><strong>My Lists:</strong> Lets you access lists you've created from the same device.</li>
-      <li><strong>Help:</strong> Access this guide from any page.</li>
+    <h2>How to use the site:</h2>
+    <ul style="text-align: left;">
+      <li><strong>Create a New List</strong>: Click "Create a New List" on the home page. Add unique names and save it with a 4-digit PIN.</li>
+      <li><strong>Save Your List</strong>: After entering names, click "Save List". A link will be generated to share with participants.</li>
+      <li><strong>Access My Lists</strong>: Use the 4-digit PIN to retrieve and view any list you've created.</li>
+      <li><strong>Draw a Name</strong>: Participants can draw a name from the shared link. Each name can only be drawn once.</li>
+      <li><strong>View Drawn Name</strong>: If you revisit the draw page, your drawn name will be shown again without redrawing.</li>
+      <li><strong>Copy or Send</strong>: You can copy your drawn name or send it to your email.</li>
     </ul>
+
+    <p>If you have any issues, please contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>.</p>
 
     <button onclick="window.location.href='index.html'">Back to Home</button>
   </div>
