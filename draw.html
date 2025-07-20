@@ -3,21 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Draw Name</title>
+  <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-  
-  <!-- Script for drawing logic and name handling -->
   <script defer src="scripts.js"></script>
-  
-  <!-- Script for language selection and translation -->
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- App Title -->
-    <h1 data-lang="title">Secret Gift Exchange</h1>
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
-    <!-- Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -25,23 +19,30 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Introduction -->
-    <p data-lang="drawIntro">
-      Click the button below to draw a name. You will only be able to draw once.
-    </p>
+    <p id="drawnName" style="font-weight: bold; font-size: 1.5rem;"></p>
 
-    <!-- Button to Draw or View Drawn Name -->
-    <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
-
-    <!-- Display Drawn Name -->
-    <p id="drawnName"></p>
-
-    <!-- Utility Buttons -->
+    <button id="drawBtn" onclick="drawName()" disabled data-lang="drawName">Draw a Name</button>
     <button onclick="copyName()" data-lang="copy">Copy</button>
-    <button onclick="sendEmail()" data-lang="email">Send to Email</button>
-
-    <!-- Navigation -->
+    <button onclick="sendEmail()" data-lang="email">Send via Email</button>
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+
+    <h3><span data-lang="listNameLabel">List Name:</span> <span id="currentListName">-</span></h3>
+    <h4 data-lang="participantsLabel">Participants:</h4>
+    <ul id="participantList" style="text-align:left; margin-left: 20px;"></ul>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const selector = document.getElementById('language-selector');
+      const savedLang = localStorage.getItem('lang') || 'en';
+      if (selector) {
+        selector.value = savedLang;
+        selector.addEventListener('change', function () {
+          applyLanguage(this.value);
+        });
+      }
+      applyLanguage(savedLang);
+    });
+  </script>
 </body>
 </html>
