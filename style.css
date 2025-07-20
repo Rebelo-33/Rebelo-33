@@ -1,79 +1,18 @@
-/* General styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f4f4f4;
-}
+/* style.css */ body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7f7f7; color: #333; }
 
-.container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  text-align: center;
-}
+.container { max-width: 600px; margin: auto; padding: 20px; background: white; text-align: center; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 
-h1, h3 {
-  margin-top: 0;
-  color: #333;
-}
+h1 { font-size: 28px; margin-bottom: 10px; }
 
-select, input, button {
-  font-size: 16px;
-  margin: 10px 0;
-}
+select, input[type="text"], input[type="password"] { padding: 10px; margin: 10px 5px; width: 80%; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
 
-input[type="text"], input[type="password"] {
-  padding: 10px;
-  width: 80%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+button { padding: 10px 20px; font-size: 16px; margin: 10px 5px; border: none; border-radius: 8px; background-color: #007bff; color: white; cursor: pointer; transition: background 0.3s ease; }
 
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+button:hover { background-color: #0056b3; }
 
-button:disabled {
-  background-color: #999;
-  cursor: not-allowed;
-}
+ul { list-style-type: none; padding: 0; text-align: left; margin: 10px 0; }
 
-ul {
-  list-style-type: none;
-  padding-left: 0;
-  text-align: left;
-  margin-left: 20px;
-}
+ul li { padding: 5px 0; border-bottom: 1px solid #ddd; }
 
-ul li {
-  padding: 5px 0;
-}
+footer { margin-top: 20px; font-size: 14px; color: #777; }
 
-#drawnName {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-#shareContainer {
-  margin-top: 30px;
-}
-
-#shareLink {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
