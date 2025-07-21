@@ -1,13 +1,12 @@
-<!-- index.html -->
+<!-- ✅ index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="firebase-config.js"></script>
-  <script defer src="scripts.js"></script>
+  <script type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
@@ -29,7 +28,7 @@
 
     <!-- Navigation Buttons -->
     <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
-    <button id="drawBtn" onclick="goToDrawPage()" data-lang="goToDraw" disabled>Go to Draw Page</button>
+    <button id="drawBtn" data-lang="goToDraw">Go to Draw Page</button>
     <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
     <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
 
