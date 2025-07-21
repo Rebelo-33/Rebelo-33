@@ -1,4 +1,4 @@
-// ✅ language.js
+// ✅ language.js 
 const translations = {
   en: {
     title: "Secret Gift Exchange",
