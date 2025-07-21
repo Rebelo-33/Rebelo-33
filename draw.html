@@ -2,12 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Draw Name</title>
-  <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
-  <script defer src="scripts.js"></script>
+  <title data-lang="drawName">Draw Name</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script defer type="module" src="draw.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
@@ -22,19 +21,18 @@
       <option value="pt">Português</option>
     </select>
 
-    <p data-lang="drawIntro">Click the button below to draw a name. You will only be able to draw once.</p>
-    
-    <input type="text" id="listPinInput" placeholder="Enter List PIN" />
-    <button onclick="loadListForDraw()">Load List</button>
+    <!-- Instructions -->
+    <p data-lang="drawIntro">Click below to draw a name. You can only draw once.</p>
 
-    <div id="drawSection" style="display:none;">
-      <button onclick="drawName()" id="drawNameBtn" data-lang="drawName">Draw Name</button>
-      <p id="drawnName" style="font-weight:bold;"></p>
-      <button onclick="copyName()" data-lang="copy">Copy</button>
-      <button onclick="sendEmail()" data-lang="email">Send to Email</button>
-    </div>
+    <!-- Button + Drawn Name -->
+    <button id="drawBtn" data-lang="drawName">Draw Name</button>
+    <p id="drawnNameDisplay"></p>
 
+    <!-- Actions -->
+    <button onclick="copyName()" data-lang="copy">Copy</button>
+    <button onclick="sendEmail()" data-lang="email">Send to Email</button>
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
   </div>
 </body>
 </html>
