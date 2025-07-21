@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add Participants</title>
+  <title data-lang="addParticipants">Add Participants</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
-  <script defer src="scripts.js"></script>
+  <script type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
@@ -22,18 +21,23 @@
       <option value="pt">Português</option>
     </select>
 
+    <!-- Instructions -->
     <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <!-- Name List -->
+    <!-- Name Input -->
+    <input type="text" id="nameInput" placeholder="Enter name" maxlength="30" />
     <ul id="nameList" style="text-align:left; margin-left: 20px;"></ul>
-
-    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
     <button onclick="addName()" data-lang="addName">Add Name</button>
     <button onclick="removeName()" data-lang="removeName">Remove Name</button>
-    <br><br>
 
+    <!-- List Details -->
+    <input type="text" id="listNameInput" placeholder="List Name" />
+    <input type="password" id="pinInput" placeholder="4-digit PIN" maxlength="4" />
     <button onclick="saveList()" data-lang="saveList">Save List</button>
+
+    <!-- Navigation -->
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
   </div>
 </body>
 </html>
