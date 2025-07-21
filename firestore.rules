@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /lists/{listId} {
+      allow read: if true;
+      allow write: if request.resource.data.pin == resource.data.pin;
+    }
+    match /draws/{drawId} {
+      allow create: if !exists(/databases/$(database)/documents/draws/$(drawId));
+      allow read: if true;
+      allow update, delete: if false;
+    }
+  }
+}
