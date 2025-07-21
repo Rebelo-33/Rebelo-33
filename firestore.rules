@@ -1,15 +1,18 @@
-// firestore.rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // Match all lists
     match /lists/{listId} {
-      allow read: if true;
-      allow write: if request.method == 'create';
+      allow read: if true; // Anyone can read (to draw from a shared list)
+      allow write: if request.resource.data.pin == resource.data.pin; // Require correct PIN to write
     }
 
-    match /lists/{listId}/drawn/{userId} {
-      allow read: if true;
-      allow write: if !exists(/databases/$(database)/documents/lists/$(listId)/drawn/$(userId));
+    // Match all drawn names for lists
+    match /draws/{drawId} {
+      allow create: if !exists(/databases/$(database)/documents/draws/$(drawId)); // Allow one-time draw per person
+      allow read: if true; // Let users read their draw result
+      allow update, delete: if false; // Prevent changes after draw
     }
   }
 }
