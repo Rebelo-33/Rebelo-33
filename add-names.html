@@ -4,17 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="createList">Create List</title>
+  <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase & Scripts -->
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🎁 <span data-lang="createList">Create a New List</span></h1>
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
     <!-- Language Selector -->
     <select id="language-selector">
@@ -27,19 +25,21 @@
     <!-- Instructions -->
     <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <!-- List of Names (left-aligned above input) -->
+    <!-- Participant Input -->
     <ul id="nameList" style="text-align:left; margin-left: 20px;"></ul>
-
-    <!-- Input and Action Buttons -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
     <button onclick="addName()" data-lang="addName">Add Name</button>
     <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+
+    <!-- Save Button -->
     <button onclick="saveList()" data-lang="saveList">Save List</button>
+
+    <!-- Share Link Display -->
+    <div id="shareLinkBox" style="margin-top: 20px;"></div>
+
+    <!-- Navigation -->
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
     <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
-
-    <!-- 🔗 Sharing output box for organiser -->
-    <div id="shareLinkBox" style="margin-top: 20px;"></div>
   </div>
 </body>
 </html>
