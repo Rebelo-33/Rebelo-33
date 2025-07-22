@@ -2,11 +2,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0;url=access-list.html" />
-  <title>Redirecting...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="drawName">Draw a Name</title>
+  <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="access-list.js"></script>
+  <script defer src="language.js"></script>
 </head>
 <body>
-  <p>If you're not redirected, <a href="access-list.html">click here</a>.</p>
+  <div class="container">
+    <h1 data-lang="drawName">Draw a Name</h1>
+
+    <!-- Language Selector -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+
+    <!-- PIN Modal -->
+    <div id="pinModal">
+      <label for="pinInput" data-lang="listPinLabel">Enter PIN to access list:</label>
+      <input type="password" id="pinInput" maxlength="4" placeholder="1234" />
+      <button onclick="submitPin()" data-lang="submit">Submit</button>
+      <p id="pinError" style="color:red;"></p>
+    </div>
+
+    <!-- List Content -->
+    <div id="listContent" style="display:none;">
+      <h2 id="listName">List</h2>
+
+      <p data-lang="participantsLabel">Participants:</p>
+      <ul id="participantList"></ul>
+
+      <p id="drawnName" style="font-size: 18px; font-weight: bold;"></p>
+      <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
+    </div>
+
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+
+    <footer>
+      <p>&copy; 2025 All rights reserved</p>
+    </footer>
+  </div>
 </body>
 </html>
