@@ -1,0 +1,45 @@
+<!-- ✅ access-list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="myLists">Access Your List</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer type="module" src="access-list.js"></script>
+  <script defer src="language.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 <span data-lang="myLists">My Lists</span></h1>
+
+    <!-- Language Selector -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+
+    <!-- PIN Modal -->
+    <div id="pinModal">
+      <label data-lang="enterPin">Enter your list PIN:</label>
+      <input type="password" id="pinInput" maxlength="6" />
+      <button onclick="submitPin()" data-lang="accessList">Access</button>
+      <p id="pinError" style="color:red;"></p>
+    </div>
+
+    <!-- Content loaded from Firebase -->
+    <div id="listContent" style="display:none;">
+      <h2 id="listName"></h2>
+      <ul id="participantList"></ul>
+      <div id="drawArea">
+        <p id="drawnName"></p>
+        <button id="drawBtn" data-lang="drawName">Draw Name</button>
+      </div>
+    </div>
+
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+  </div>
+</body>
+</html>
