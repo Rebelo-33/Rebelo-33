@@ -1,31 +1,24 @@
 // ✅ access-list.js
 import { db } from './firebase-config.js';
-import {
-  getDoc,
-  updateDoc,
-  doc,
-  arrayRemove,
-  arrayUnion
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { collection, doc, getDoc, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// 🔐 Get list ID and PIN from URL
-const urlParams = new URLSearchParams(window.location.search);
-const listId = urlParams.get("listId");
-const enteredPin = urlParams.get("pin");
+// 🔐 Extract listId from URL
+function getListIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("listId");
+}
 
-// 🎯 Get HTML elements
-const listNameEl = document.getElementById('listName');
-const participantsListEl = document.getElementById('participantsList');
-const drawnNameEl = document.getElementById('drawnName');
-const drawButtonEl = document.getElementById('drawButton');
+const listId = getListIdFromURL();
+let currentListData = null;
+let currentUserDrawnName = localStorage.getItem(`drawn_${listId}`);
 
-// 🔒 LocalStorage key
-const drawnStorageKey = `drawn_${listId}`;
+// 🔑 PIN validation
+export async function submitPin() {
+  const enteredPin = document.getElementById('pinInput').value;
+  const pinError = document.getElementById('pinError');
 
-// 🔍 Fetch and validate list
-async function initListAccess() {
-  if (!listId || !enteredPin) {
-    alert("Missing list ID or PIN.");
+  if (!enteredPin || enteredPin.length !== 4) {
+    pinError.textContent = "Please enter a 4-digit PIN.";
     return;
   }
 
@@ -33,75 +26,76 @@ async function initListAccess() {
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
-    alert("List not found.");
+    pinError.textContent = "List not found.";
     return;
   }
 
   const listData = docSnap.data();
-
-  // 🧪 Validate PIN
   if (listData.pin !== enteredPin) {
-    alert("Incorrect PIN.");
+    pinError.textContent = "Incorrect PIN.";
     return;
   }
 
-  // ✅ Show list name
-  listNameEl.textContent = listData.name || listId;
+  // ✅ Access granted
+  currentListData = listData;
+  showListContent();
+}
 
-  // 🧾 Show participants
-  participantsListEl.innerHTML = '';
-  listData.participants.forEach(p => {
-    const li = document.createElement('li');
-    li.textContent = p;
-    participantsListEl.appendChild(li);
+function showListContent() {
+  document.getElementById("pinModal").style.display = "none";
+  document.getElementById("listContent").style.display = "block";
+
+  document.getElementById("listName").textContent = currentListData.name;
+
+  // List participants
+  const ul = document.getElementById("participantList");
+  ul.innerHTML = "";
+  currentListData.participants.forEach(name => {
+    const li = document.createElement("li");
+    li.textContent = name;
+    ul.appendChild(li);
   });
 
-  // 👀 Check if already drawn
-  const alreadyDrawn = localStorage.getItem(drawnStorageKey);
-  if (alreadyDrawn) {
-    drawnNameEl.textContent = `🎉 You previously drew: ${alreadyDrawn}`;
-    drawButtonEl.style.display = 'none';
+  if (currentUserDrawnName) {
+    document.getElementById("drawnName").textContent = `You drew: ${currentUserDrawnName}`;
+    document.getElementById("drawBtn").style.display = "none";
   }
 }
 
-// 🧙‍♂️ Draw a random name
-async function drawName() {
-  const docRef = doc(db, "lists", listId);
-  const docSnap = await getDoc(docRef);
+// 🎲 Draw logic
+export async function drawName() {
+  if (!currentListData) return;
 
-  if (!docSnap.exists()) {
-    alert("List not found.");
+  if (currentUserDrawnName) {
+    alert("You have already drawn a name.");
     return;
   }
 
-  const data = docSnap.data();
-  let participants = [...data.participants];
-
-  if (participants.length === 0) {
-    alert("All names have been drawn.");
+  const available = currentListData.participants.filter(name => !currentListData.drawn?.includes(name));
+  if (available.length === 0) {
+    alert("No names left to draw.");
     return;
   }
 
-  // ✨ Randomly draw name
-  const index = Math.floor(Math.random() * participants.length);
-  const drawn = participants[index];
+  const randomIndex = Math.floor(Math.random() * available.length);
+  const drawn = available[randomIndex];
 
-  // 💾 Save name locally to prevent re-draw
-  localStorage.setItem(drawnStorageKey, drawn);
-
-  // 🔥 Update Firestore to remove drawn name
-  participants.splice(index, 1);
-  await updateDoc(docRef, {
-    participants: participants
+  // Save to Firestore
+  const updatedDrawn = [...(currentListData.drawn || []), drawn];
+  await updateDoc(doc(db, "lists", listId), {
+    drawn: updatedDrawn,
+    lastDraw: Timestamp.now()
   });
 
-  // 🎉 Show drawn name
-  drawnNameEl.textContent = `🎉 You drew: ${drawn}`;
-  drawButtonEl.style.display = 'none';
+  // Show to user
+  document.getElementById("drawnName").textContent = `You drew: ${drawn}`;
+  localStorage.setItem(`drawn_${listId}`, drawn);
+  currentUserDrawnName = drawn;
+  document.getElementById("drawBtn").style.display = "none";
 }
 
-// 📌 Bind draw button
-drawButtonEl.addEventListener('click', drawName);
-
-// 🚀 Initialize on load
-initListAccess();
+// 🔁 Prompt on page load
+window.onload = () => {
+  document.getElementById("pinModal").style.display = "block";
+  document.getElementById("listContent").style.display = "none";
+};
