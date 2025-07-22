@@ -1,84 +1,87 @@
 // ✅ access-list.js
 import { db } from './firebase-config.js';
-import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-const pinInput = document.getElementById("pinInput");
-const pinBtn = document.getElementById("pinSubmitBtn");
-const pinError = document.getElementById("pinError");
-const listNameHeading = document.getElementById("listNameHeading");
-const participantList = document.getElementById("participantList");
-const listSection = document.getElementById("listSection");
-const pinSection = document.getElementById("pinSection");
-const drawBtn = document.getElementById("drawBtn");
-const drawnNameDisplay = document.getElementById("drawnNameDisplay");
+// Local state
+let listData = null;
+let listId = null;
+let currentUser = localStorage.getItem('userId') || generateUserId();
+localStorage.setItem('userId', currentUser);
 
-let loadedList = null;
-let docId = null;
+// Generate unique user ID
+function generateUserId() {
+  return 'user_' + Math.random().toString(36).substring(2, 10);
+}
 
-pinBtn.addEventListener("click", async () => {
-  const enteredPin = pinInput.value.trim();
+// Submit PIN and load list
+window.submitPin = async function () {
+  const pin = document.getElementById('pinInput').value.trim();
+  const q = query(collection(db, "lists"), where("pin", "==", pin));
+  const snapshot = await getDocs(q);
 
-  if (enteredPin.length !== 4 || isNaN(enteredPin)) {
-    pinError.textContent = "Please enter a 4-digit number PIN.";
+  if (snapshot.empty) {
+    document.getElementById('pinError').textContent = "Invalid PIN.";
     return;
   }
 
-  // Query Firestore for list by PIN
-  const q = query(collection(db, "lists"), where("pin", "==", enteredPin));
-  const querySnapshot = await getDocs(q);
+  const docSnap = snapshot.docs[0];
+  listId = docSnap.id;
+  listData = docSnap.data();
 
-  if (querySnapshot.empty) {
-    pinError.textContent = "No list found with that PIN.";
-    return;
-  }
+  document.getElementById('pinModal').style.display = 'none';
+  renderList(listData);
+};
 
-  // Use first match
-  querySnapshot.forEach((docSnap) => {
-    loadedList = docSnap.data();
-    docId = docSnap.id;
+// Render the list and UI
+function renderList(data) {
+  document.getElementById('listContent').style.display = 'block';
+  document.getElementById('listName').textContent = data.name;
+
+  const ul = document.getElementById('participantList');
+  ul.innerHTML = '';
+  data.participants.forEach(name => {
+    const li = document.createElement('li');
+    li.textContent = name;
+    ul.appendChild(li);
   });
 
-  pinSection.style.display = "none";
-  listSection.style.display = "block";
-
-  // Show list name and participants
-  listNameHeading.textContent = loadedList.name;
-  participantList.innerHTML = loadedList.participants.map(p => `<li>${p}</li>`).join("");
-
-  const alreadyDrawn = localStorage.getItem(`drawn_${docId}`);
-  if (alreadyDrawn) {
-    drawnNameDisplay.textContent = `🎁 You drew: ${alreadyDrawn}`;
-    drawBtn.style.display = "none";
-  } else {
-    drawBtn.style.display = "inline-block";
-  }
-});
-
-// Draw name logic
-drawBtn.addEventListener("click", async () => {
-  if (!loadedList || !docId) return;
-
-  const names = [...loadedList.participants];
-  const drawn = localStorage.getItem(`drawn_${docId}`);
-
+  // If already drawn
+  const drawn = localStorage.getItem(`drawn_${listId}`);
   if (drawn) {
-    drawnNameDisplay.textContent = `🎁 You drew: ${drawn}`;
-    drawBtn.style.display = "none";
+    document.getElementById('drawnName').textContent = `You drew: ${drawn}`;
+    document.getElementById('drawBtn').textContent = "View Drawn Name";
+    document.getElementById('drawBtn').disabled = true;
+  }
+
+  document.getElementById('drawBtn').addEventListener('click', drawName);
+}
+
+// Draw a name randomly
+async function drawName() {
+  if (!listData || !listData.participants) return;
+
+  const drawnAlready = localStorage.getItem(`drawn_${listId}`);
+  if (drawnAlready) {
+    document.getElementById('drawnName').textContent = `You drew: ${drawnAlready}`;
     return;
   }
 
-  // Draw random name
-  const index = Math.floor(Math.random() * names.length);
-  const picked = names.splice(index, 1)[0];
+  let available = listData.participants.filter(n => n !== currentUser);
+  if (available.length === 0) {
+    alert("No available names left.");
+    return;
+  }
 
-  // Save locally (anonymously per device)
-  localStorage.setItem(`drawn_${docId}`, picked);
+  const index = Math.floor(Math.random() * available.length);
+  const drawn = available[index];
 
-  // Update Firestore
-  await updateDoc(doc(db, "lists", docId), {
-    participants: names
-  });
+  document.getElementById('drawnName').textContent = `You drew: ${drawn}`;
+  localStorage.setItem(`drawn_${listId}`, drawn);
 
-  drawnNameDisplay.textContent = `🎁 You drew: ${picked}`;
-  drawBtn.style.display = "none";
-});
+  // Optional: Remove drawn name from Firebase if you want
+  // listData.participants = listData.participants.filter(n => n !== drawn);
+  // await updateDoc(doc(db, "lists", listId), { participants: listData.participants });
+
+  document.getElementById('drawBtn').textContent = "View Drawn Name";
+  document.getElementById('drawBtn').disabled = true;
+}
