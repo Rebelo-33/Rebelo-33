@@ -2,6 +2,7 @@
 import { db } from './firebase-config.js';
 import {
   setDoc,
+  getDoc,
   doc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
@@ -67,16 +68,16 @@ function updateListUI() {
   });
 }
 
-// 💾 Save list to Firestore
+// 💾 Save list to Firestore with unique list name
 window.saveList = async function () {
   if (participants.length < 2) {
     alert("Add at least two participants.");
     return;
   }
 
-  const listName = prompt("Enter a name for your list:");
-  if (!listName) {
-    alert("List name is required.");
+  const listName = prompt("Enter a unique name for your list:");
+  if (!listName || listName.trim().length < 3) {
+    alert("List name must be at least 3 characters.");
     return;
   }
 
@@ -86,18 +87,25 @@ window.saveList = async function () {
     return;
   }
 
-  const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
-
-  const data = {
-    name: listName,
-    participants: [...participants],
-    pin: pin,
-    timestamp: Date.now()
-  };
+  const listId = listName.trim().replace(/\s+/g, '_'); // simple ID format
+  const docRef = doc(db, "lists", listId);
 
   try {
-    await setDoc(doc(db, "lists", listId), data);
-    alert("List saved successfully!");
+    const existing = await getDoc(docRef);
+    if (existing.exists()) {
+      alert("List name already exists. Try a different name.");
+      return;
+    }
+
+    await setDoc(docRef, {
+      name: listName.trim(),
+      participants: [...participants],
+      pin: pin,
+      drawn: [],
+      timestamp: serverTimestamp()
+    });
+
+    alert("✅ List saved successfully!");
 
     const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
 
@@ -107,6 +115,7 @@ window.saveList = async function () {
       <input type="text" value="${accessURL}" readonly id="shareURL" style="width:100%;" />
       <button onclick="copyLink()">Copy Link</button>
     `;
+
   } catch (err) {
     console.error("Error saving list:", err);
     alert("Failed to save list.");
