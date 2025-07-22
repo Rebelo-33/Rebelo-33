@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer type="module" src="firebase-config.js"></script>
   <script defer type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
@@ -21,11 +22,15 @@
       <option value="pt">Português</option>
     </select>
 
-    <p data-lang="intro">Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.</p>
+    <!-- Intro Text -->
+    <p data-lang="intro">
+      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.
+    </p>
 
+    <!-- Navigation Buttons -->
     <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
-    <button id="drawBtn" onclick="goToDrawPage()" data-lang="goToDraw">Go to Draw Page</button>
-    <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
+    <button onclick="window.location.href='access-list.html'" data-lang="goToDraw">Go to Draw Page</button>
+    <button onclick="window.location.href='access-list.html'" data-lang="myLists">My Lists</button>
     <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
 
     <footer>
