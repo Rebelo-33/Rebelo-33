@@ -1,9 +1,14 @@
 // ✅ access-list.js
 import { db } from './firebase-config.js';
 import {
-  doc, getDoc, updateDoc, Timestamp
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// 🔐 Extract listId from URL
 function getListIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("listId");
@@ -13,8 +18,8 @@ const listId = getListIdFromURL();
 let currentListData = null;
 let currentUserDrawnName = localStorage.getItem(`drawn_${listId}`);
 
-// 🔐 Submit PIN to access list
-window.submitPin = async function () {
+// 🔑 PIN validation
+export async function submitPin() {
   const enteredPin = document.getElementById('pinInput').value;
   const pinError = document.getElementById('pinError');
 
@@ -37,17 +42,18 @@ window.submitPin = async function () {
     return;
   }
 
+  // ✅ Access granted
   currentListData = listData;
   showListContent();
-};
+}
 
-// ✅ Render list and drawing interface
 function showListContent() {
   document.getElementById("pinModal").style.display = "none";
   document.getElementById("listContent").style.display = "block";
 
   document.getElementById("listName").textContent = currentListData.name;
 
+  // List participants
   const ul = document.getElementById("participantList");
   ul.innerHTML = "";
   currentListData.participants.forEach(name => {
@@ -62,9 +68,11 @@ function showListContent() {
   }
 }
 
-// ✅ Handle name draw
-window.drawName = async function () {
-  if (!currentListData || currentUserDrawnName) {
+// 🎲 Draw logic
+export async function drawName() {
+  if (!currentListData) return;
+
+  if (currentUserDrawnName) {
     alert("You have already drawn a name.");
     return;
   }
@@ -78,20 +86,21 @@ window.drawName = async function () {
   const randomIndex = Math.floor(Math.random() * available.length);
   const drawn = available[randomIndex];
 
+  // Save to Firestore
   const updatedDrawn = [...(currentListData.drawn || []), drawn];
-
   await updateDoc(doc(db, "lists", listId), {
     drawn: updatedDrawn,
     lastDraw: Timestamp.now()
   });
 
+  // Show to user
+  document.getElementById("drawnName").textContent = `You drew: ${drawn}`;
   localStorage.setItem(`drawn_${listId}`, drawn);
   currentUserDrawnName = drawn;
-
-  document.getElementById("drawnName").textContent = `You drew: ${drawn}`;
   document.getElementById("drawBtn").style.display = "none";
-};
+}
 
+// 🔁 Prompt on page load
 window.onload = () => {
   document.getElementById("pinModal").style.display = "block";
   document.getElementById("listContent").style.display = "none";
