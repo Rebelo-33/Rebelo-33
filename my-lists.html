@@ -3,16 +3,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang="myLists">My Lists</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script defer type="module" src="my-lists.js"></script>
+  <script type="module" src="my-lists.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 data-lang="myLists">My Lists</h1>
+    <h1 data-lang="myLists">📋 My Lists</h1>
 
     <!-- 🌐 Language Selector -->
     <select id="language-selector">
@@ -22,21 +22,13 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- 🔒 PIN Modal -->
-    <div id="pinModal">
-      <label data-lang="enterPinLabel">Enter List Name and 4-digit PIN:</label><br />
-      <input type="text" id="listNameInput" placeholder="List Name" /><br />
-      <input type="password" id="pinInput" maxlength="4" placeholder="4-digit PIN" />
-      <button onclick="submitListPin()" data-lang="accessList">Access</button>
-      <p id="pinError" style="color:red;"></p>
-    </div>
-
-    <!-- 📜 List Display -->
-    <div id="listContent" style="display:none;">
-      <h2 id="listNameTitle"></h2>
-      <ul id="participantList"></ul>
-      <p id="drawnName"></p>
-      <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
+    <!-- 🔐 PIN Form -->
+    <div>
+      <p data-lang="enterPinToAccess">Enter the 4-digit PIN and list name to access your list:</p>
+      <input type="text" id="listNameInput" placeholder="List Name" />
+      <input type="password" id="pinInput" placeholder="PIN" maxlength="4" />
+      <button onclick="accessList()" data-lang="accessList">Access</button>
+      <p id="listError" style="color:red;"></p>
     </div>
 
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
