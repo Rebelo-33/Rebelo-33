@@ -4,12 +4,15 @@ import {
   setDoc,
   doc,
   serverTimestamp,
-  getDoc
+  collection,
+  query,
+  where,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 let participants = [];
 
-// 🚀 Add name to list
+// 🚀 Add name to the list
 window.addName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
@@ -68,7 +71,7 @@ function updateListUI() {
   });
 }
 
-// 💾 Save list to Firestore with PIN and validation
+// 💾 Save list to Firestore
 window.saveList = async function () {
   if (participants.length < 2) {
     alert("Add at least two participants.");
@@ -81,6 +84,14 @@ window.saveList = async function () {
     return;
   }
 
+  // ✅ Check if list name already exists
+  const nameQuery = query(collection(db, "lists"), where("name", "==", listName));
+  const nameSnapshot = await getDocs(nameQuery);
+  if (!nameSnapshot.empty) {
+    alert("List name already exists. Please choose a different name.");
+    return;
+  }
+
   const pin = prompt("Enter a 4-digit PIN to protect your list:");
   if (!pin || !/^\d{4}$/.test(pin)) {
     alert("PIN must be exactly 4 digits.");
@@ -89,25 +100,16 @@ window.saveList = async function () {
 
   const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
 
-  const docRef = doc(db, "lists", listId);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    alert("A list with this name and PIN already exists. Try a different name.");
-    return;
-  }
-
   const data = {
     name: listName,
     participants: [...participants],
     pin: pin,
-    timestamp: serverTimestamp(),
-    drawn: []
+    timestamp: Date.now()
   };
 
   try {
-    await setDoc(docRef, data);
-    alert("✅ List saved successfully!");
+    await setDoc(doc(db, "lists", listId), data);
+    alert("List saved successfully!");
 
     const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
 
@@ -118,7 +120,7 @@ window.saveList = async function () {
       <button onclick="copyLink()">Copy Link</button>
     `;
   } catch (err) {
-    console.error("❌ Error saving list:", err);
+    console.error("Error saving list:", err);
     alert("Failed to save list.");
   }
 };
@@ -129,6 +131,6 @@ window.copyLink = function () {
   if (input) {
     input.select();
     document.execCommand('copy');
-    alert("📋 Link copied to clipboard!");
+    alert("Link copied to clipboard!");
   }
 };
