@@ -3,16 +3,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="myLists">My Lists</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="title">Manage My List</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="my-lists.js" defer></script>
   <script defer src="language.js"></script>
+  <script defer type="module" src="my-lists.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 data-lang="myLists">🔐 My Lists</h1>
+    <h1>📋 <span data-lang="myLists">My Lists</span></h1>
 
     <!-- Language Selector -->
     <select id="language-selector">
@@ -22,19 +22,31 @@
       <option value="pt">Português</option>
     </select>
 
-    <p data-lang="myListsIntro">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
+    <h2 data-lang="accessHeader">Access Your List</h2>
+    <p data-lang="accessInstructions">
+      Enter list name, 4-digit PIN, and your secret code to manage the list.
+    </p>
 
-    <!-- Access Form -->
-    <input type="text" id="listName" placeholder="List Name" maxlength="30" />
-    <input type="text" id="listPin" placeholder="PIN (4 digits)" maxlength="4" />
-    <input type="text" id="secretCode" placeholder="Secret Code" maxlength="30" />
+    <input type="text" id="listName" placeholder="List Name" />
+    <input type="text" id="pin" placeholder="4-digit PIN" maxlength="4" />
+    <input type="text" id="secretCode" placeholder="Secret Code" />
+    <p id="errorMsg" style="color:red;"></p>
+    <button onclick="accessList()" data-lang="access">Access</button>
 
-    <button onclick="accessList()" data-lang="accessList">Access List</button>
+    <!-- Display list if access granted -->
+    <div id="listContent" style="display:none;">
+      <h3 data-lang="yourList">Your List:</h3>
+      <h4 id="loadedListName"></h4>
 
-    <p id="accessError" style="color:red;"></p>
+      <div id="participantList" style="display: flex; flex-wrap: wrap; gap: 20px;"></div>
+
+      <input type="text" id="removeInput" placeholder="Name to remove" />
+      <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+    </div>
 
     <footer>
-      <p><a href="index.html" data-lang="backHome">← Back to Home</a></p>
+      <p>Need help? <a href="mailto:aniziacarvalino19@gmail.com">Contact Support</a></p>
+      <p><a href="index.html" data-lang="backHome">Back to Home</a> | <a href="help.html" data-lang="help">Help</a></p>
     </footer>
   </div>
 </body>
