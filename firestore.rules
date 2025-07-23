@@ -1,0 +1,14 @@
+// ✅ firestore.rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /lists/{listId} {
+      allow create: if !exists(/databases/$(database)/documents/lists/$(listId));
+      allow read: if true;
+      allow update, delete: if true; // For development; restrict later
+    }
+    match /{document=**} {
+      allow read, write: if false; // Block all others
+    }
+  }
+}
