@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="title">Secret Gift Exchange</title>
+  <title data-lang="drawName">Draw Name</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="access-list.js"></script>
@@ -12,9 +12,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+    <h1 data-lang="drawName">🎁 Draw Name</h1>
 
-    <!-- Language Selector -->
+    <!-- 🌐 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -22,27 +22,26 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- 🔐 PIN Modal -->
+    <!-- 🔐 PIN Prompt -->
     <div id="pinModal">
-      <p data-lang="enterPin">Enter PIN to access list:</p>
-      <input type="password" id="pinInput" maxlength="4" placeholder="4-digit PIN" />
+      <p data-lang="pinPrompt">Enter the 4-digit PIN to access your list:</p>
+      <input type="password" id="pinInput" maxlength="4" placeholder="Enter PIN" />
       <button onclick="submitPin()" data-lang="submit">Submit</button>
-      <p id="pinError" style="color:red;"></p>
+      <p id="pinError" style="color: red;"></p>
     </div>
 
-    <!-- ✅ List and Draw UI -->
-    <div id="listContent" style="display:none;">
+    <!-- 🎁 Draw Area -->
+    <div id="listContent" style="display: none;">
       <h2 id="listName"></h2>
 
       <p data-lang="participantsLabel">Participants:</p>
       <ul id="participantList"></ul>
 
-      <p id="drawnName" style="font-size: 1.2em; font-weight: bold;"></p>
       <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
-    </div>
+      <p id="drawnName" style="font-weight: bold;"></p>
 
-    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
-    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    </div>
   </div>
 </body>
 </html>
