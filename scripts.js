@@ -1,24 +1,40 @@
 // ✅ scripts.js
 import { db } from './firebase-config.js';
 import {
-  setDoc, doc, getDoc
+  setDoc,
+  doc,
+  serverTimestamp,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 let participants = [];
 
+// 🚀 Add name to list
 window.addName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
 
-  if (!name) return alert("Please enter a name.");
-  if (participants.includes(name)) return alert("Name already exists.");
-  if (name.length > 30) return alert("Name must be 30 characters or fewer.");
+  if (!name) {
+    alert("Please enter a name.");
+    return;
+  }
+
+  if (participants.includes(name)) {
+    alert("Name already exists.");
+    return;
+  }
+
+  if (name.length > 30) {
+    alert("Name must be 30 characters or fewer.");
+    return;
+  }
 
   participants.push(name);
   input.value = '';
   updateListUI();
 };
 
+// 🗑 Remove last or specific name
 window.removeName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
@@ -40,9 +56,11 @@ window.removeName = function () {
   updateListUI();
 };
 
+// 🔁 Update the name list on screen
 function updateListUI() {
   const listEl = document.getElementById('nameList');
   listEl.innerHTML = '';
+
   participants.forEach(name => {
     const li = document.createElement('li');
     li.textContent = name;
@@ -50,21 +68,32 @@ function updateListUI() {
   });
 }
 
+// 💾 Save list to Firestore with PIN and validation
 window.saveList = async function () {
-  if (participants.length < 2) return alert("Add at least two participants.");
+  if (participants.length < 2) {
+    alert("Add at least two participants.");
+    return;
+  }
 
   const listName = prompt("Enter a name for your list:");
-  if (!listName) return alert("List name is required.");
+  if (!listName) {
+    alert("List name is required.");
+    return;
+  }
 
   const pin = prompt("Enter a 4-digit PIN to protect your list:");
-  if (!pin || !/^\d{4}$/.test(pin)) return alert("PIN must be exactly 4 digits.");
+  if (!pin || !/^\d{4}$/.test(pin)) {
+    alert("PIN must be exactly 4 digits.");
+    return;
+  }
 
   const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
 
-  const ref = doc(db, "lists", listId);
-  const existing = await getDoc(ref);
-  if (existing.exists()) {
-    alert("List name and PIN combination already exists. Please try a different name.");
+  const docRef = doc(db, "lists", listId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    alert("A list with this name and PIN already exists. Try a different name.");
     return;
   }
 
@@ -72,12 +101,13 @@ window.saveList = async function () {
     name: listName,
     participants: [...participants],
     pin: pin,
-    timestamp: Date.now()
+    timestamp: serverTimestamp(),
+    drawn: []
   };
 
   try {
-    await setDoc(ref, data);
-    alert("List saved successfully!");
+    await setDoc(docRef, data);
+    alert("✅ List saved successfully!");
 
     const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
 
@@ -88,16 +118,17 @@ window.saveList = async function () {
       <button onclick="copyLink()">Copy Link</button>
     `;
   } catch (err) {
-    console.error("Error saving list:", err);
+    console.error("❌ Error saving list:", err);
     alert("Failed to save list.");
   }
 };
 
+// 📋 Copy sharable link to clipboard
 window.copyLink = function () {
   const input = document.getElementById('shareURL');
   if (input) {
     input.select();
     document.execCommand('copy');
-    alert("Link copied to clipboard!");
+    alert("📋 Link copied to clipboard!");
   }
 };
