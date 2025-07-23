@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="myLists">Access My List</title>
+  <title data-lang="myLists">My Lists</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="my-lists.js" defer></script>
@@ -12,8 +12,9 @@
 </head>
 <body>
   <div class="container">
-    <h1 data-lang="myLists">Access My Gift List</h1>
+    <h1 data-lang="myLists">My Lists</h1>
 
+    <!-- 🌐 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -21,19 +22,26 @@
       <option value="pt">Português</option>
     </select>
 
-    <form id="listAccessForm">
-      <label for="listNameInput" data-lang="listNameLabel">List Name:</label><br>
-      <input type="text" id="listNameInput" required /><br><br>
+    <!-- 🔐 Organizer Login -->
+    <p data-lang="organiserAccessInstructions">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
 
-      <label for="pinInput">PIN (4 digits):</label><br>
-      <input type="password" id="pinInput" required maxlength="4" pattern="\d{4}" /><br><br>
+    <input type="text" id="listName" placeholder="List Name" />
+    <input type="password" id="pin" maxlength="4" placeholder="4-digit PIN" />
+    <input type="password" id="secretCode" placeholder="Secret Code" />
 
-      <button type="submit" data-lang="accessList">Access</button>
-    </form>
+    <button onclick="accessList()" data-lang="accessList">Access List</button>
+    <p id="errorMsg" style="color:red;"></p>
 
-    <div id="resultArea" style="margin-top: 1rem; color: red;"></div>
+    <div id="listContent" style="display:none;">
+      <h2 id="loadedListName"></h2>
+      <ul id="participantList" class="columns"></ul>
 
-    <br><br>
+      <!-- 🔧 Organizer Actions -->
+      <input type="text" id="removeInput" placeholder="Enter name to remove" />
+      <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+    </div>
+
+    <br />
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
   </div>
 </body>
