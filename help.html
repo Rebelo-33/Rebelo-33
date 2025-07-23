@@ -1,3 +1,27 @@
-// ✅ help.html
-<!-- Annotated help.html -->
-<!-- Full HTML content with comments here -->
+<!-- ✅ help.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help - Secret Gift Exchange</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="language.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📖 Help & Instructions</h1>
+
+    <ul>
+      <li><strong>Create a List:</strong> Click “Create a New List”, add unique names, then enter a unique list name, 4-digit PIN, and secret code. The link will be generated for participants.</li>
+      <li><strong>Access a List:</strong> Click “My Lists” or “Go to Draw Page”, then enter the correct list name and 4-digit PIN.</li>
+      <li><strong>Draw a Name:</strong> Once inside the list, click “Draw Name”. You can only draw once, and your result is stored locally.</li>
+      <li><strong>Copy & Share:</strong> Use the generated link to share the list with participants.</li>
+      <li><strong>Language:</strong> Change language using the dropdown at the top.</li>
+      <li><strong>Manage:</strong> Only the creator with the correct secret code can delete or modify the list in future updates.</li>
+    </ul>
+
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+  </div>
+</body>
+</html>
