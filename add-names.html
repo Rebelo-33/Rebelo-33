@@ -1,3 +1,42 @@
-// ✅ add-names.html
-<!-- Annotated add-names.html -->
-<!-- Full HTML content with comments here -->
+<!-- ✅ add-names.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Participants</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
+  <script defer type="module" src="scripts.js"></script>
+  <script defer src="language.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+
+    <!-- Language Dropdown -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+
+    <!-- Instructions -->
+    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
+
+    <!-- Input for name -->
+    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+    <button onclick="addName()" data-lang="addName">Add Name</button>
+    <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+
+    <!-- Display list -->
+    <div id="nameList" style="display: flex; flex-wrap: wrap; gap: 30px; margin: 20px 0;"></div>
+
+    <!-- Save and share -->
+    <button onclick="saveList()" data-lang="saveList">Save List</button>
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <div id="shareLinkBox" style="margin-top: 20px;"></div>
+  </div>
+</body>
+</html>
