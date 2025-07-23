@@ -3,18 +3,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="myLists">My Lists</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="my-lists.js"></script>
+  <script defer type="module" src="my-lists.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
     <h1 data-lang="myLists">My Lists</h1>
 
-    <!-- Language Selector -->
+    <!-- 🌐 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -22,20 +22,24 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- PIN Access Form -->
-    <form id="pinAccessForm">
-      <label for="accessPin" data-lang="listPinLabel">Enter your 4-digit PIN to access your list:</label>
-      <input type="password" id="accessPin" maxlength="4" required placeholder="1234" />
-      <button type="submit" data-lang="accessList">Access List</button>
-      <p id="pinAccessError" style="color:red;"></p>
-    </form>
+    <!-- 🔒 PIN Modal -->
+    <div id="pinModal">
+      <label data-lang="enterPinLabel">Enter List Name and 4-digit PIN:</label><br />
+      <input type="text" id="listNameInput" placeholder="List Name" /><br />
+      <input type="password" id="pinInput" maxlength="4" placeholder="4-digit PIN" />
+      <button onclick="submitListPin()" data-lang="accessList">Access</button>
+      <p id="pinError" style="color:red;"></p>
+    </div>
+
+    <!-- 📜 List Display -->
+    <div id="listContent" style="display:none;">
+      <h2 id="listNameTitle"></h2>
+      <ul id="participantList"></ul>
+      <p id="drawnName"></p>
+      <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
+    </div>
 
     <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
-    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
-
-    <footer>
-      <p>&copy; 2025 All rights reserved</p>
-    </footer>
   </div>
 </body>
 </html>
