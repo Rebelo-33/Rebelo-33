@@ -1,3 +1,45 @@
-// ✅ draw.html
-<!-- Annotated draw.html -->
-<!-- Full HTML content with comments here -->
+<!-- ✅ draw.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Draw Name</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
+  <script defer type="module" src="access-list.js"></script>
+  <script defer src="language.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 data-lang="drawName">Draw a Name</h1>
+
+    <!-- Language Dropdown -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+
+    <!-- PIN modal -->
+    <div id="pinModal">
+      <label>Enter your 4-digit PIN:</label>
+      <input type="password" id="pinInput" maxlength="4" />
+      <button onclick="submitPin()">Submit</button>
+      <p id="pinError" style="color:red;"></p>
+    </div>
+
+    <!-- List content shown after valid PIN -->
+    <div id="listContent" style="display:none;">
+      <h2 id="listName"></h2>
+      <div id="participantList" style="display:flex; gap: 40px;"></div>
+
+      <p id="drawnName"></p>
+      <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw Name</button>
+      <br/><br/>
+      <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    </div>
+  </div>
+</body>
+</html>
