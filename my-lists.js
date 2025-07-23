@@ -1,43 +1,68 @@
 // ✅ my-lists.js
 import { db } from './firebase-config.js';
-import { getDoc, doc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// 🔐 Get form elements
-const form = document.getElementById('listAccessForm');
-const resultDiv = document.getElementById('resultArea');
+let currentListId = null;
+let currentData = null;
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+window.accessList = async function () {
+  const listName = document.getElementById('listName').value.trim();
+  const pin = document.getElementById('pin').value.trim();
+  const secret = document.getElementById('secretCode').value.trim();
+  const errorMsg = document.getElementById('errorMsg');
 
-  const listName = document.getElementById('listNameInput').value.trim();
-  const pin = document.getElementById('pinInput').value.trim();
+  errorMsg.textContent = '';
 
-  if (!listName || !pin) {
-    resultDiv.textContent = "Please enter both list name and PIN.";
+  if (!listName || !pin || !secret) {
+    errorMsg.textContent = "Please fill in all fields.";
     return;
   }
 
   const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
+  const docRef = doc(db, "lists", listId);
+  const docSnap = await getDoc(docRef);
 
-  try {
-    const docRef = doc(db, 'lists', listId);
-    const docSnap = await getDoc(docRef);
-
-    if (!docSnap.exists()) {
-      resultDiv.textContent = "List not found.";
-      return;
-    }
-
-    const data = docSnap.data();
-    if (data.pin !== pin) {
-      resultDiv.textContent = "Incorrect PIN.";
-      return;
-    }
-
-    // ✅ Redirect to access-list with query params
-    window.location.href = `access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
-  } catch (err) {
-    console.error(err);
-    resultDiv.textContent = "Error accessing the list.";
+  if (!docSnap.exists()) {
+    errorMsg.textContent = "List not found.";
+    return;
   }
-});
+
+  const data = docSnap.data();
+  if (data.secret !== secret) {
+    errorMsg.textContent = "Incorrect secret code.";
+    return;
+  }
+
+  // Show list content
+  currentListId = listId;
+  currentData = data;
+  document.getElementById("listContent").style.display = "block";
+  document.getElementById("loadedListName").textContent = data.name;
+
+  const listEl = document.getElementById('participantList');
+  listEl.innerHTML = '';
+  data.participants.forEach(name => {
+    const li = document.createElement('li');
+    li.textContent = name;
+    listEl.appendChild(li);
+  });
+};
+
+window.removeName = async function () {
+  const removeInput = document.getElementById('removeInput').value.trim();
+  if (!removeInput || !currentData || !currentListId) return;
+
+  const index = currentData.participants.indexOf(removeInput);
+  if (index === -1) {
+    alert("Name not found.");
+    return;
+  }
+
+  currentData.participants.splice(index, 1);
+  await updateDoc(doc(db, "lists", currentListId), {
+    participants: currentData.participants
+  });
+
+  document.getElementById('removeInput').value = '';
+  accessList(); // refresh display
+};
