@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer type="module" src="firebase-config.js"></script>
-  <script defer type="module" src="scripts.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script defer src="scripts.js" type="module"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
-    <!-- Language Selector -->
+    <!-- 🌐 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -22,17 +22,16 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Intro Text -->
-    <p data-lang="intro">
-      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.
-    </p>
+    <!-- ℹ️ Intro -->
+    <p data-lang="intro">Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.</p>
 
-    <!-- Navigation Buttons -->
+    <!-- 🚪 Navigation -->
     <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
-    <button onclick="window.location.href='access-list.html'" data-lang="goToDraw">Go to Draw Page</button>
-    <button onclick="window.location.href='access-list.html'" data-lang="myLists">My Lists</button>
+    <button onclick="window.location.href='draw.html'" data-lang="goToDraw">Go to Draw Page</button>
+    <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
     <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
 
+    <!-- 📩 Footer -->
     <footer>
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>&copy; 2025 All rights reserved</p>
