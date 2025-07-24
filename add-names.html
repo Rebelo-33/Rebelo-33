@@ -1,5 +1,6 @@
 <!-- ✅ add-names.html -->
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,37 +12,38 @@
 </head>
 <body>
   <div class="container">
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1><!-- Language Selector -->
-<select id="language-selector">
-  <option value="en">English</option>
-  <option value="es">Español</option>
-  <option value="fr">Français</option>
-  <option value="pt">Português</option>
-</select>
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
-<!-- Instruction -->
-<p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
+    <!-- Language Selector -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
 
-<!-- Name List -->
-<ul id="nameList"></ul>
+    <!-- Instruction -->
+    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-<!-- Input -->
-<input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+    <!-- Name List -->
+    <ul id="nameList"></ul>
 
-<!-- Controls -->
-<button onclick="addName()" data-lang="addName">Add Name</button>
-<button onclick="removeName()" data-lang="removeName">Remove Name</button>
-<button onclick="saveList()" data-lang="saveList">Save List</button>
-<button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <!-- Input -->
+    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
 
-<!-- Sharing output -->
-<div id="shareLinkBox" style="margin-top: 20px;"></div>
+    <!-- Controls -->
+    <button onclick="addName()" data-lang="addName">Add Name</button>
+    <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+    <button onclick="saveList()" data-lang="saveList">Save List</button>
+    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
 
-<footer>
-  <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-  <p>&copy; 2025 All rights reserved</p>
-</footer>
+    <!-- Sharing output -->
+    <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
+    <footer>
+      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p>&copy; 2025 All rights reserved</p>
+    </footer>
   </div>
 </body>
 </html>
