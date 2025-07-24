@@ -1,9 +1,9 @@
 // ✅ firebase-config.js
-// Firebase App (the core Firebase SDK) is always required and must be listed first
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// ✅ Your web app's Firebase configuration
+// 🔐 Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA_vBdjuDi059d4-Yz-fg57fdZy_1GbmcA",
   authDomain: "gift-exchange-ab8bd.firebaseapp.com",
@@ -14,6 +14,8 @@ const firebaseConfig = {
   measurementId: "G-J98V9GEKFX"
 };
 
-// ✅ Initialize Firebase and export Firestore
+// 🚀 Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// 📦 Export Firestore database
 export const db = getFirestore(app);
