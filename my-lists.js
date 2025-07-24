@@ -5,7 +5,6 @@ import { getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.
 let currentListId = null;
 let currentData = null;
 
-// 🔓 Organiser accesses list using list name, pin, and secret
 window.accessList = async function () {
   const listName = document.getElementById('listName').value.trim();
   const pin = document.getElementById('pin').value.trim();
@@ -29,34 +28,26 @@ window.accessList = async function () {
   }
 
   const data = docSnap.data();
-  if (data.secret !== secret) {
+  if (data.secretCode !== secret) {
     errorMsg.textContent = "Incorrect secret code.";
     return;
   }
 
-  // ✅ Access granted — show UI
+  // ✅ Access granted
   currentListId = listId;
   currentData = data;
-
   document.getElementById("listContent").style.display = "block";
   document.getElementById("loadedListName").textContent = data.name;
 
-  // Render participants in columns of 10
   const listEl = document.getElementById('participantList');
   listEl.innerHTML = '';
-  data.participants.forEach((name, index) => {
-    if (index % 10 === 0) {
-      const col = document.createElement('ul');
-      col.classList.add('column');
-      listEl.appendChild(col);
-    }
+  data.participants.forEach(name => {
     const li = document.createElement('li');
     li.textContent = name;
-    listEl.lastChild.appendChild(li);
+    listEl.appendChild(li);
   });
 };
 
-// 🧹 Remove name from loaded list
 window.removeName = async function () {
   const removeInput = document.getElementById('removeInput').value.trim();
   if (!removeInput || !currentData || !currentListId) return;
@@ -73,5 +64,5 @@ window.removeName = async function () {
   });
 
   document.getElementById('removeInput').value = '';
-  accessList(); // Re-render updated list
+  accessList(); // Refresh UI
 };
