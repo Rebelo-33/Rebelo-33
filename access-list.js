@@ -1,114 +1,91 @@
 // ✅ access-list.js
-// Import Firebase Firestore instance
 import { db } from './firebase-config.js';
-import {
-  collection, doc, getDoc, updateDoc, Timestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { doc, getDoc, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// 🔍 Get listId from the URL (?listId=xxx)
 function getListIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("listId");
 }
 
 const listId = getListIdFromURL();
-let currentListData = null;
-let currentUserDrawnName = localStorage.getItem(`drawn_${listId}`);
+let currentList = null;
+let drawnName = localStorage.getItem(`drawn_${listId}`);
 
-// 🔑 Submit and validate PIN
-export async function submitPin() {
-  const enteredPin = document.getElementById('pinInput').value;
-  const pinError = document.getElementById('pinError');
+// 🔐 Submit PIN
+window.submitPin = async function () {
+  const enteredPin = document.getElementById("pinInput").value;
+  const pinError = document.getElementById("pinError");
 
   if (!enteredPin || enteredPin.length !== 4) {
     pinError.textContent = "Please enter a 4-digit PIN.";
     return;
   }
 
-  const docRef = doc(db, "lists", listId);
-  const docSnap = await getDoc(docRef);
+  try {
+    const docSnap = await getDoc(doc(db, "lists", listId));
+    if (!docSnap.exists()) {
+      pinError.textContent = "List not found.";
+      return;
+    }
 
-  if (!docSnap.exists()) {
-    pinError.textContent = "List not found.";
-    return;
+    const data = docSnap.data();
+    if (data.pin !== enteredPin) {
+      pinError.textContent = "Incorrect PIN.";
+      return;
+    }
+
+    currentList = data;
+    showListContent();
+  } catch (err) {
+    pinError.textContent = "Error accessing list.";
+    console.error(err);
   }
+};
 
-  const listData = docSnap.data();
-  if (listData.pin !== enteredPin) {
-    pinError.textContent = "Incorrect PIN.";
-    return;
-  }
-
-  // ✅ PIN matched — show list
-  currentListData = listData;
-  showListContent();
-}
-
-// 👁 Show participants and draw status
+// 👀 Show list + draw UI
 function showListContent() {
   document.getElementById("pinModal").style.display = "none";
   document.getElementById("listContent").style.display = "block";
+  document.getElementById("listName").textContent = currentList.name;
 
-  document.getElementById("listName").textContent = currentListData.name;
-
-  // Display participants in columns (10 per column)
-  const container = document.getElementById("participantList");
-  container.innerHTML = "";
-
-  const chunks = [];
-  for (let i = 0; i < currentListData.participants.length; i += 10) {
-    chunks.push(currentListData.participants.slice(i, i + 10));
-  }
-
-  chunks.forEach(columnData => {
-    const ul = document.createElement("ul");
-    columnData.forEach(name => {
-      const li = document.createElement("li");
-      li.textContent = name;
-      ul.appendChild(li);
-    });
-    container.appendChild(ul);
+  const ul = document.getElementById("participantList");
+  ul.innerHTML = '';
+  currentList.participants.forEach(name => {
+    const li = document.createElement("li");
+    li.textContent = name;
+    ul.appendChild(li);
   });
 
-  if (currentUserDrawnName) {
-    document.getElementById("drawnName").textContent = `You drew: ${currentUserDrawnName}`;
+  if (drawnName) {
+    document.getElementById("drawnName").textContent = `You drew: ${drawnName}`;
     document.getElementById("drawBtn").style.display = "none";
   }
 }
 
-// 🎁 Random draw logic
-export async function drawName() {
-  if (!currentListData) return;
+// 🎯 Draw name
+window.drawName = async function () {
+  if (!currentList || drawnName) return;
 
-  if (currentUserDrawnName) {
-    alert("You have already drawn a name.");
-    return;
-  }
-
-  const available = currentListData.participants.filter(
-    name => !(currentListData.drawn || []).includes(name)
-  );
-
+  const available = currentList.participants.filter(name => !(currentList.drawn || []).includes(name));
   if (available.length === 0) {
-    alert("No names left to draw.");
+    alert("All names have been drawn.");
     return;
   }
 
-  const drawn = available[Math.floor(Math.random() * available.length)];
+  const random = available[Math.floor(Math.random() * available.length)];
+  const updated = [...(currentList.drawn || []), random];
 
   await updateDoc(doc(db, "lists", listId), {
-    drawn: [...(currentListData.drawn || []), drawn],
+    drawn: updated,
     lastDraw: Timestamp.now()
   });
 
-  localStorage.setItem(`drawn_${listId}`, drawn);
-  currentUserDrawnName = drawn;
-  document.getElementById("drawnName").textContent = `You drew: ${drawn}`;
+  drawnName = random;
+  localStorage.setItem(`drawn_${listId}`, random);
+  document.getElementById("drawnName").textContent = `You drew: ${random}`;
   document.getElementById("drawBtn").style.display = "none";
-}
+};
 
-// 🔁 On page load
 window.onload = () => {
   document.getElementById("pinModal").style.display = "block";
-  document.getElementById("listContent").style.display = "none";
 };
