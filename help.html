@@ -3,27 +3,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="help">Help - Secret Gift Exchange</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="helpPageTitle">Help - Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
   <script defer src="language.js"></script>
-  <style>
-    .top-buttons {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 10px;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
-    <!-- Top Right Help Button -->
+    <!-- 🔹 Top Navigation -->
     <div class="top-buttons">
-      <button onclick="window.location.href='index.html'" data-lang="home">Home</button>
+      <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
     </div>
 
-    <h1 data-lang="help">Help</h1>
+    <!-- 🔹 Page Title -->
+    <h1 data-lang="helpPageTitle">Help - Secret Gift Exchange</h1>
 
+    <!-- 🔹 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -31,24 +27,36 @@
       <option value="pt">Português</option>
     </select>
 
-    <div>
-      <h2 data-lang="howItWorks">How it works:</h2>
-      <ul>
-        <li data-lang="createListHelp">Click "Create a New List", enter participant names, and set a unique list name, PIN, and secret code.</li>
-        <li data-lang="shareLinkHelp">After saving, share the generated link with participants.</li>
-        <li data-lang="drawNameHelp">Participants can draw a name by clicking "Go to Draw Page" and entering the correct PIN.</li>
-        <li data-lang="myListsHelp">Organisers can edit their list later by clicking "My Lists" and logging in using their secret code.</li>
-      </ul>
+    <!-- 🔹 Help Content -->
+    <section>
+      <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
 
-      <h2 data-lang="faq">Frequently Asked Questions</h2>
-      <p><strong data-lang="canIParticipate">Can I participate and organise?</strong> <span data-lang="yesYouCan">Yes! You can draw a name just like any participant.</span></p>
-      <p><strong data-lang="canIDrawTwice">Can I draw twice?</strong> <span data-lang="drawOnce">No. Each participant can only draw once, and the result is saved on your browser.</span></p>
-      <p><strong data-lang="forgotPin">I forgot my PIN or Secret Code</strong> <span data-lang="cannotRecover">Unfortunately, these cannot be recovered for security. You may create a new list or ask organiser to resend it to you.</span></p>
-    </div>
+      <p>
+        <strong data-lang="faqQ1">Can I participate and organise?</strong><br />
+        <span data-lang="faqA1">
+          Yes! As the organiser, you can also participate in the draw just like any other participant. This keeps the fun inclusive and allows you to be part of the exchange too.
+        </span>
+      </p>
+
+      <p>
+        <strong data-lang="faqQ2">Can I draw twice?</strong><br />
+        <span data-lang="faqA2">
+          No. Each participant can only draw one name. To ensure fairness, your result is stored in your browser (local storage), preventing multiple draws from the same device.
+        </span>
+      </p>
+
+      <p>
+        <strong data-lang="faqQ3">I forgot my PIN or Secret Code. What should I do?</strong><br />
+        <span data-lang="faqA3">
+          For security reasons, PINs and secret codes are not recoverable. This is to protect the privacy of all lists. If you are a participant, ask the organiser to resend the access link. If you are the organiser, you may need to create a new list with a new PIN and secret code.
+        </span>
+      </p>
+    </section>
 
     <!-- 🔹 Footer -->
     <footer style="margin-top: 40px;">
-      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p data-lang="footerContact">
+        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a> </p>
       <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
     </footer>
   </div>
