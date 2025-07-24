@@ -1,23 +1,24 @@
 <!-- ✅ help.html -->
+<!-- ✅ help.html – Translatable and Well-Structured -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="help">Help</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="helpPageTitle">Help - Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- 🔹 Top Buttons -->
+    <!-- Help Header and Navigation -->
     <div class="top-buttons">
       <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
     </div>
 
-    <h1 data-lang="help">Help</h1>
-    
-    <!-- 🔹 Language Selector -->
+    <h1 data-lang="helpPageTitle">Help - Secret Gift Exchange</h1>
+
+    <!-- Language Dropdown -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -25,17 +26,9 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- 🔹 FAQ Section -->
-    <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
-    <ul class="help-list">
-      <li data-lang="faqQ1"><strong>Can I participate and organise?</strong> Yes! You can draw a name just like any participant.</li>
-      <li data-lang="faqQ2"><strong>Can I draw twice?</strong> No. Each participant can only draw once, and the result is saved on your browser.</li>
-      <li data-lang="faqQ3"><strong>I forgot my PIN or Secret Code.</strong> Unfortunately, these cannot be recovered for security. You may create a new list or ask the organiser to resend it to you.</li>
-    </ul>
-
-    <!-- 🔹 How It Works Section -->
+    <!-- How it works section -->
     <h2 data-lang="howItWorksTitle">How It Works</h2>
-    <ul class="help-list">
+    <ul>
       <li data-lang="how1">Create a new list and add participant names.</li>
       <li data-lang="how2">Protect your list with a 4-digit PIN and a secret code (for organiser access).</li>
       <li data-lang="how3">Share the access link with participants.</li>
@@ -43,8 +36,20 @@
       <li data-lang="how5">The organiser uses the secret code to manage or edit the list.</li>
     </ul>
 
+    <!-- FAQ Section -->
+    <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
+
+    <p data-lang="faqQ1"></p>
+    <p data-lang="faqA1"></p>
+
+    <p data-lang="faqQ2"></p>
+    <p data-lang="faqA2"></p>
+
+    <p data-lang="faqQ3"></p>
+    <p data-lang="faqA3"></p>
+
     <!-- 🔹 Footer -->
-    <footer>
+    <footer style="margin-top: 40px;">
       <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
     </footer>
