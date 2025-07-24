@@ -1,6 +1,4 @@
-<!-- ✅ my-lists.html -->
-<!DOCTYPE html>
-<html lang="en">
+<!-- ✅ my-lists.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,46 +42,45 @@
   <div class="container">
     <div class="top-buttons">
       <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
-    </div>
+    </div><h1>📝 <span data-lang="myLists">Manage My List</span></h1>
 
-    <h1>📝 <span data-lang="myLists">Manage My List</span></h1>
+<select id="language-selector">
+  <option value="en">English</option>
+  <option value="es">Español</option>
+  <option value="fr">Français</option>
+  <option value="pt">Português</option>
+</select>
 
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-    </select>
+<!-- Access Form -->
+<div id="accessForm">
+  <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
+  <input type="text" id="listName" placeholder="List Name" />
+  <input type="password" id="pin" maxlength="4" placeholder="PIN" />
+  <input type="password" id="secretCode" placeholder="Secret Code" />
+  <button onclick="accessList()" data-lang="access">Access</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
 
-    <!-- Access Form -->
-    <div id="accessForm">
-      <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
-      <input type="text" id="listName" placeholder="List Name" />
-      <input type="password" id="pin" maxlength="4" placeholder="PIN" />
-      <input type="password" id="secretCode" placeholder="Secret Code" />
-      <button onclick="accessList()" data-lang="access">Access</button>
-      <p id="errorMsg" style="color:red;"></p>
-    </div>
+<!-- List Content -->
+<div id="listContent" style="display:none;">
+  <h2><span data-lang="listNameLabel">List:</span> <span id="loadedListName"></span></h2>
+  <div id="participantList" class="columns"></div>
 
-    <!-- List Content -->
-    <div id="listContent" style="display:none;">
-      <h2><span data-lang="listNameLabel">List:</span> <span id="loadedListName"></span></h2>
-      <div id="participantList" class="columns"></div>
+  <input type="text" id="newNameInput" placeholder="Add new name" />
+  <button onclick="addNewName()" data-lang="addName">Add Name</button>
 
-      <input type="text" id="newNameInput" placeholder="Add new name" />
-      <button onclick="addNewName()" data-lang="addName">Add Name</button>
+  <div style="margin-top: 20px;">
+    <button onclick="confirmCancelChanges()" data-lang="cancel">Cancel</button>
+    <button onclick="confirmSaveChanges()" data-lang="saveList">Save List</button>
+    <button onclick="confirmGoBack()" data-lang="backHome">Go Back</button>
+  </div>
+</div>
 
-      <div style="margin-top: 20px;">
-        <button onclick="confirmCancelChanges()" data-lang="cancel">Cancel</button>
-        <button onclick="confirmSaveChanges()" data-lang="saveList">Save List</button>
-        <button onclick="confirmGoBack()" data-lang="backHome">Go Back</button>
-      </div>
-    </div>
+<footer style="margin-top: 40px;">
+  <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+  <p>&copy; 2025 All rights reserved</p>
+</footer>
 
-    <footer style="margin-top: 40px;">
-      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p>&copy; 2025 All rights reserved</p>
-    </footer>
   </div>
 </body>
 </html>
