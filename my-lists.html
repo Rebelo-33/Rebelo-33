@@ -9,17 +9,45 @@
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="my-lists.js"></script>
   <script defer src="language.js"></script>
+
+  <style>
+    .columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .column {
+      flex: 1;
+      min-width: 150px;
+    }
+    .name-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .remove-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 2px 5px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <!-- Help button top right -->
+
+    <!-- 🆘 Top Right Help Button -->
     <div class="top-buttons">
       <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
     </div>
 
+    <!-- 🔠 Page Title -->
     <h1>📝 <span data-lang="myLists">Manage My List</span></h1>
 
-    <!-- Language selector -->
+    <!-- 🌐 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -27,28 +55,29 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Access Form -->
+    <!-- 🔑 Access Form for Organizers -->
     <div id="accessForm">
       <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pin" maxlength="4" placeholder="PIN" />
       <input type="password" id="secretCode" placeholder="Secret Code" />
       <button onclick="accessList()" data-lang="access">Access</button>
+      <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
       <p id="errorMsg" style="color:red;"></p>
     </div>
 
-    <!-- List Content -->
+    <!-- 🧾 List Display & Management -->
     <div id="listContent" style="display:none;">
       <h2><span data-lang="listNameLabel">List:</span> <span id="loadedListName"></span></h2>
-      
-      <!-- Participants in columns -->
+
+      <!-- 📋 Display Names in Columns -->
       <div id="participantList" class="columns"></div>
 
-      <!-- Add New Name -->
+      <!-- ➕ Add Name -->
       <input type="text" id="newNameInput" placeholder="Add new name" />
       <button onclick="addNewName()" data-lang="addName">Add Name</button>
 
-      <!-- Control Buttons -->
+      <!-- ⚙️ Controls -->
       <div style="margin-top: 20px;">
         <button onclick="confirmCancelChanges()" data-lang="cancel">Cancel</button>
         <button onclick="confirmSaveChanges()" data-lang="saveList">Save List</button>
@@ -56,9 +85,10 @@
       </div>
     </div>
 
+    <!-- 📬 Footer -->
     <footer style="margin-top: 40px;">
-      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p>&copy; 2025 All rights reserved</p>
+      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
