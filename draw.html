@@ -2,9 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta setup -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="drawTitle">Draw a Name</title>
+
+  <!-- Stylesheet and Firebase config -->
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="access-list.js"></script>
@@ -12,13 +15,15 @@
 </head>
 <body>
   <div class="container">
+    <!-- Top Right Help Button -->
     <div class="top-buttons">
       <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1>🎁 <span data-lang="drawTitle">Draw a Name</span></h1>
+    <!-- Page Title -->
+    <h1 style="margin-top: 60px;">🎁 <span data-lang="drawTitle">Draw a Name</span></h1>
 
-    <!-- Language Selector -->
+    <!-- Language Dropdown -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -26,7 +31,7 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- PIN Prompt -->
+    <!-- PIN Access Form -->
     <div id="pinModal">
       <p data-lang="enterPin">Enter list name and PIN to continue:</p>
       <input type="text" id="listName" placeholder="List Name" />
@@ -35,20 +40,25 @@
       <p id="pinError" style="color:red;"></p>
     </div>
 
-    <!-- List Content -->
+    <!-- Main Content Display After PIN Entry -->
     <div id="listContent" style="display:none;">
+      <!-- Show list name -->
       <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
       
+      <!-- Participant names listed in columns -->
       <div id="participantList" class="columns"></div>
 
+      <!-- Draw a name button + result -->
       <div style="margin-top: 20px;">
         <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw a Name</button>
         <h3 id="drawnName" style="margin-top: 15px;"></h3>
       </div>
 
+      <!-- Back to Home -->
       <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
     </div>
 
+    <!-- Footer -->
     <footer style="margin-top: 40px;">
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>&copy; 2025 All rights reserved</p>
