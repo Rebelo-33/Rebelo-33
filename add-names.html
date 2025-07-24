@@ -12,6 +12,11 @@
 </head>
 <body>
   <div class="container">
+    <!-- Top Right Help Button -->
+    <div class="top-buttons">
+      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+    </div>
+
     <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
     <!-- Language Selector -->
@@ -25,8 +30,8 @@
     <!-- Instruction -->
     <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <!-- Name List -->
-    <ul id="nameList"></ul>
+    <!-- Name List Displayed in Columns -->
+    <div id="nameListContainer" class="columns"></div>
 
     <!-- Input -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
