@@ -1,91 +1,110 @@
 // ✅ access-list.js
 import { db } from './firebase-config.js';
-import { doc, getDoc, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  Timestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// 🔍 Get list ID and PIN from URL
 function getListIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("listId");
 }
 
 const listId = getListIdFromURL();
-let currentList = null;
-let drawnName = localStorage.getItem(`drawn_${listId}`);
+let currentListData = null;
+let currentUserDrawnName = localStorage.getItem(`drawn_${listId}`);
 
-// 🔐 Submit PIN
-window.submitPin = async function () {
-  const enteredPin = document.getElementById("pinInput").value;
-  const pinError = document.getElementById("pinError");
+// ✅ Validate PIN and load list
+export async function submitPin() {
+  const enteredPin = document.getElementById('pinInput').value;
+  const pinError = document.getElementById('pinError');
+
+  pinError.textContent = '';
 
   if (!enteredPin || enteredPin.length !== 4) {
     pinError.textContent = "Please enter a 4-digit PIN.";
     return;
   }
 
-  try {
-    const docSnap = await getDoc(doc(db, "lists", listId));
-    if (!docSnap.exists()) {
-      pinError.textContent = "List not found.";
-      return;
-    }
+  const docRef = doc(db, "lists", listId);
+  const docSnap = await getDoc(docRef);
 
-    const data = docSnap.data();
-    if (data.pin !== enteredPin) {
-      pinError.textContent = "Incorrect PIN.";
-      return;
-    }
-
-    currentList = data;
-    showListContent();
-  } catch (err) {
-    pinError.textContent = "Error accessing list.";
-    console.error(err);
+  if (!docSnap.exists()) {
+    pinError.textContent = "List not found.";
+    return;
   }
-};
 
-// 👀 Show list + draw UI
+  const listData = docSnap.data();
+
+  if (listData.pin !== enteredPin) {
+    pinError.textContent = "Incorrect PIN.";
+    return;
+  }
+
+  // ✅ PIN verified
+  currentListData = listData;
+  showListContent();
+}
+
+// 🎯 Display the list and draw section
 function showListContent() {
   document.getElementById("pinModal").style.display = "none";
   document.getElementById("listContent").style.display = "block";
-  document.getElementById("listName").textContent = currentList.name;
+  document.getElementById("listName").textContent = currentListData.name;
 
   const ul = document.getElementById("participantList");
   ul.innerHTML = '';
-  currentList.participants.forEach(name => {
+  currentListData.participants.forEach(name => {
     const li = document.createElement("li");
     li.textContent = name;
     ul.appendChild(li);
   });
 
-  if (drawnName) {
-    document.getElementById("drawnName").textContent = `You drew: ${drawnName}`;
+  if (currentUserDrawnName) {
+    document.getElementById("drawnName").textContent = `You drew: ${currentUserDrawnName}`;
     document.getElementById("drawBtn").style.display = "none";
   }
 }
 
-// 🎯 Draw name
-window.drawName = async function () {
-  if (!currentList || drawnName) return;
+// 🎲 Draw a random name
+export async function drawName() {
+  if (!currentListData) return;
 
-  const available = currentList.participants.filter(name => !(currentList.drawn || []).includes(name));
-  if (available.length === 0) {
-    alert("All names have been drawn.");
+  if (currentUserDrawnName) {
+    alert("You have already drawn a name.");
     return;
   }
 
-  const random = available[Math.floor(Math.random() * available.length)];
-  const updated = [...(currentList.drawn || []), random];
+  const available = currentListData.participants.filter(name => {
+    return !currentListData.drawn?.includes(name);
+  });
 
+  if (available.length === 0) {
+    alert("All names have already been drawn.");
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * available.length);
+  const drawn = available[randomIndex];
+
+  const updatedDrawn = [...(currentListData.drawn || []), drawn];
   await updateDoc(doc(db, "lists", listId), {
-    drawn: updated,
+    drawn: updatedDrawn,
     lastDraw: Timestamp.now()
   });
 
-  drawnName = random;
-  localStorage.setItem(`drawn_${listId}`, random);
-  document.getElementById("drawnName").textContent = `You drew: ${random}`;
-  document.getElementById("drawBtn").style.display = "none";
-};
+  currentUserDrawnName = drawn;
+  localStorage.setItem(`drawn_${listId}`, drawn);
 
+  document.getElementById("drawnName").textContent = `You drew: ${drawn}`;
+  document.getElementById("drawBtn").style.display = "none";
+}
+
+// ⏳ Prompt user for PIN on load
 window.onload = () => {
   document.getElementById("pinModal").style.display = "block";
+  document.getElementById("listContent").style.display = "none";
 };
