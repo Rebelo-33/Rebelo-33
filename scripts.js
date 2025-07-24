@@ -6,12 +6,13 @@ import {
   getDocs,
   collection,
   query,
-  where
+  where,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 let participants = [];
 
-// 🚀 Add name to the list
+// 🚀 Add name to list
 window.addName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
@@ -36,7 +37,7 @@ window.addName = function () {
   updateListUI();
 };
 
-// 🗑 Remove specific or last-added name
+// 🗑 Remove last or specific name
 window.removeName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
@@ -58,28 +59,25 @@ window.removeName = function () {
   updateListUI();
 };
 
-// 🔁 Update the name list on screen
+// 🔁 Update the name list on screen in columns of 10
 function updateListUI() {
   const listEl = document.getElementById('nameList');
   listEl.innerHTML = '';
 
-  // 🧱 Display names in columns of 10
-  const chunkSize = 10;
-  const columns = Math.ceil(participants.length / chunkSize);
+  const columns = Math.ceil(participants.length / 10);
   for (let i = 0; i < columns; i++) {
     const ul = document.createElement('ul');
-    ul.classList.add('name-column');
-    const chunk = participants.slice(i * chunkSize, (i + 1) * chunkSize);
-    chunk.forEach(name => {
+    ul.classList.add('column');
+    for (let j = i * 10; j < (i + 1) * 10 && j < participants.length; j++) {
       const li = document.createElement('li');
-      li.textContent = name;
+      li.textContent = participants[j];
       ul.appendChild(li);
-    });
+    }
     listEl.appendChild(ul);
   }
 }
 
-// 💾 Save the list to Firestore
+// 💾 Save list to Firestore
 window.saveList = async function () {
   if (participants.length < 2) {
     alert("Add at least two participants.");
@@ -92,23 +90,23 @@ window.saveList = async function () {
     return;
   }
 
+  // 🔁 Check if list name already exists
+  const nameQuery = query(collection(db, "lists"), where("name", "==", listName));
+  const nameSnapshot = await getDocs(nameQuery);
+  if (!nameSnapshot.empty) {
+    alert("List name already exists. Please choose a different name.");
+    return;
+  }
+
   const pin = prompt("Enter a 4-digit PIN to protect your list:");
   if (!pin || !/^\d{4}$/.test(pin)) {
     alert("PIN must be exactly 4 digits.");
     return;
   }
 
-  const secret = prompt("Enter a secret code (for organiser access):");
-  if (!secret) {
-    alert("Secret code is required.");
-    return;
-  }
-
-  // 🔍 Check if list name already exists
-  const nameQuery = query(collection(db, "lists"), where("name", "==", listName));
-  const nameSnapshot = await getDocs(nameQuery);
-  if (!nameSnapshot.empty) {
-    alert("List name already exists. Please choose a different name.");
+  const secretCode = prompt("Enter a secret code to manage the list later:");
+  if (!secretCode || secretCode.length < 3) {
+    alert("Secret code must be at least 3 characters.");
     return;
   }
 
@@ -118,26 +116,25 @@ window.saveList = async function () {
     name: listName,
     participants: [...participants],
     pin: pin,
-    secretCode: secret,
-    timestamp: Date.now()
+    secret: secretCode,
+    timestamp: serverTimestamp()
   };
 
   try {
     await setDoc(doc(db, "lists", listId), data);
     alert("List saved successfully!");
 
-    const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
+    // ✅ Clear input and show sharing link
+    participants = [];
+    updateListUI();
 
+    const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
     const linkBox = document.getElementById('shareLinkBox');
     linkBox.innerHTML = `
       <p><strong>Share this link with participants:</strong></p>
       <input type="text" value="${accessURL}" readonly id="shareURL" style="width:100%;" />
       <button onclick="copyLink()">Copy Link</button>
     `;
-
-    // 🔁 Reset state
-    participants = [];
-    updateListUI();
   } catch (err) {
     console.error("Error saving list:", err);
     alert("Failed to save list.");
