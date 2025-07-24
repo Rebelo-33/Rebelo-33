@@ -4,24 +4,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Help - Secret Gift Exchange</title>
+  <title data-lang="help">Help - Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="language.js" defer></script>
+  <script defer src="language.js"></script>
+  <style>
+    .top-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>📖 Help & Instructions</h1>
+    <!-- Top Right Help Button -->
+    <div class="top-buttons">
+      <button onclick="window.location.href='index.html'" data-lang="backHome">🏠 Home</button>
+    </div>
 
-    <ul>
-      <li><strong>Create a List:</strong> Click “Create a New List”, add unique names, then enter a unique list name, 4-digit PIN, and secret code. The link will be generated for participants.</li>
-      <li><strong>Access a List:</strong> Click “My Lists” or “Go to Draw Page”, then enter the correct list name and 4-digit PIN.</li>
-      <li><strong>Draw a Name:</strong> Once inside the list, click “Draw Name”. You can only draw once, and your result is stored locally.</li>
-      <li><strong>Copy & Share:</strong> Use the generated link to share the list with participants.</li>
-      <li><strong>Language:</strong> Change language using the dropdown at the top.</li>
-      <li><strong>Manage:</strong> Only the creator with the correct secret code can delete or modify the list in future updates.</li>
-    </ul>
+    <h1 data-lang="help">Help</h1>
 
-    <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+    </select>
+
+    <div>
+      <h2 data-lang="howItWorks">How it works:</h2>
+      <ul>
+        <li data-lang="createListHelp">Click "Create a New List", enter participant names, and set a unique list name, PIN, and secret code.</li>
+        <li data-lang="shareLinkHelp">After saving, share the generated link with participants.</li>
+        <li data-lang="drawNameHelp">Participants can draw a name by clicking "Go to Draw Page" and entering the correct PIN.</li>
+        <li data-lang="myListsHelp">Organisers can edit their list later by clicking "My Lists" and logging in using their secret code.</li>
+      </ul>
+
+      <h2 data-lang="faq">Frequently Asked Questions</h2>
+      <p><strong data-lang="canIParticipate">Can I participate and organise?</strong> <span data-lang="yesYouCan">Yes! You can draw a name just like any participant.</span></p>
+      <p><strong data-lang="canIDrawTwice">Can I draw twice?</strong> <span data-lang="drawOnce">No. Each participant can only draw once, and the result is saved on your browser.</span></p>
+      <p><strong data-lang="forgotPin">I forgot my PIN or Secret Code</strong> <span data-lang="cannotRecover">Unfortunately, these cannot be recovered for security. You may create a new list.</span></p>
+    </div>
+
+    <footer>
+      <p>Need further help? Email <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p>&copy; 2025 All rights reserved</p>
+    </footer>
   </div>
 </body>
 </html>
