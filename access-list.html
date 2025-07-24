@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="accessList">Access Gift List</title>
+  <title data-lang="access">Access List & Draw</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="access-list.js"></script>
@@ -12,14 +12,14 @@
 </head>
 <body>
   <div class="container">
-    <!-- Help button top right -->
+    <!-- Top Help Button -->
     <div class="top-buttons">
       <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1>🔐 <span data-lang="accessList">Access Your List</span></h1>
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
-    <!-- Language selector -->
+    <!-- Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -27,31 +27,30 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- PIN Form -->
+    <!-- PIN Modal -->
     <div id="pinModal">
-      <p data-lang="enterPin">Enter list name and 4-digit PIN:</p>
+      <p data-lang="accessForm">Enter list name and 4-digit PIN to access the list and draw.</p>
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-      <button onclick="submitPin()" data-lang="submit">Submit</button>
-      <p id="pinError" style="color:red;"></p>
+      <button onclick="submitPin()" data-lang="access">Access</button>
+      <p id="pinError" class="error"></p>
     </div>
 
-    <!-- List content -->
+    <!-- List Content -->
     <div id="listContent" style="display:none;">
       <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
       <div id="participantList" class="columns"></div>
 
-      <div style="margin-top: 20px;">
-        <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw a Name</button>
-        <h3 id="drawnName" style="margin-top: 15px;"></h3>
+      <!-- Draw Button and Result -->
+      <div id="drawSection">
+        <button id="drawBtn" onclick="drawName()" data-lang="goToDraw">Draw a Name</button>
+        <p id="drawnName" style="font-weight: bold;"></p>
       </div>
-
-      <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
     </div>
 
-    <footer style="margin-top: 40px;">
-      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p>&copy; 2025 All rights reserved</p>
+    <footer>
+      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
