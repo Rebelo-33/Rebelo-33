@@ -1,30 +1,97 @@
-/* Reset default margins and paddings */
-body, h1, p, ul, li, input, button, select {
+/* ✅ style.css - Global layout and responsive formatting */
+
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  background: #f8f9fa;
 }
 
-/* Body base styling */
-body {
-  background-color: #f8f9fa;
-  color: #333;
-}
-
-/* Container */
+/* Main container layout for center and style */
 .container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background-color: #fff;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background: white;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   position: relative;
-  text-align: center;
 }
 
-/* Top-right Help button */
+/* Page title styling */
+h1 {
+  text-align: center;
+  margin-top: 70px;
+  font-size: 1.8em;
+}
+
+/* Dropdown for language */
+select#language-selector {
+  display: block;
+  margin: 20px auto;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+}
+
+/* Inputs styling */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Button style */
+button {
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Hide default bullets and spacing for name lists */
+#nameList,
+#participantList {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+/* List item format (horizontal layout) */
+#nameList li,
+.name-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Red remove button beside each name */
+.remove-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Help button in the top right corner */
 .top-buttons {
   position: absolute;
   top: 10px;
@@ -32,181 +99,23 @@ body {
   z-index: 1000;
 }
 
-.top-buttons button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.top-buttons button:hover {
-  background-color: #0056b3;
-}
-
-/* Heading */
-h1 {
-  margin-bottom: 20px;
-}
-
-/* Language selector */
-#language-selector {
-  padding: 8px;
-  margin: 20px 0;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-/* Instruction and messages */
-p {
-  margin: 15px 0;
-  font-size: 16px;
-}
-
-/* Button group layout */
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.button-group button,
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.button-group button:hover,
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Input styling */
-input[type="text"],
-input[type="password"] {
-  width: 90%;
-  padding: 10px;
-  margin: 10px auto;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  display: block;
-}
-
-/* Share link input */
-#shareURL {
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 14px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-/* Name list columns */
+/* Columns layout for names - used when name count > 10 */
 .columns {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-  text-align: left;
 }
 
+/* Individual name column */
 .column {
   flex: 1;
-  min-width: 120px;
+  min-width: 150px;
 }
 
-/* Name item layout */
-.name-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-/* Remove button */
-.remove-btn {
-  background: red;
-  color: white;
-  border: none;
-  padding: 2px 6px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-/* Footer */
+/* Footer styling */
 footer {
-  margin-top: 40px;
-  font-size: 14px;
-  color: #555;
-}
-
-footer a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-/* Modal support */
-#pinModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-#pinModal form {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 300px;
   text-align: center;
-}
-
-#pinModal input {
-  margin-bottom: 10px;
-}
-
-/* Media query for responsiveness */
-@media (max-width: 500px) {
-  .container {
-    padding: 20px 10px;
-  }
-
-  .top-buttons {
-    right: 5px;
-    top: 5px;
-  }
-
-  .button-group button {
-    font-size: 15px;
-    padding: 10px;
-  }
-
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-  }
-
-  .column {
-    min-width: 100px;
-  }
+  font-size: 0.9rem;
+  margin-top: 30px;
+  color: #555;
 }
