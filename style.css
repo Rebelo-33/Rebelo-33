@@ -71,3 +71,17 @@ footer {
 #pinModal {
   margin-top: 30px;
 }
+
+.top-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.top-buttons button:hover {
+  background-color: #0056b3;
+}
