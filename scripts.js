@@ -1,37 +1,33 @@
 // ✅ scripts.js
 import { db } from './firebase-config.js';
 import {
-  setDoc, doc, serverTimestamp, getDocs, collection, query, where
+  setDoc,
+  doc,
+  getDoc,
+  query,
+  collection,
+  where,
+  getDocs,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 let participants = [];
 
-// ➕ Add name to the participant list
+// 🚀 Add a name
 window.addName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
 
-  if (!name) {
-    alert("Please enter a name.");
-    return;
-  }
-
-  if (participants.includes(name)) {
-    alert("Name already exists.");
-    return;
-  }
-
-  if (name.length > 30) {
-    alert("Name must be 30 characters or fewer.");
-    return;
-  }
+  if (!name) return alert("Please enter a name.");
+  if (name.length > 30) return alert("Name must be 30 characters or fewer.");
+  if (participants.includes(name)) return alert("Name already added.");
 
   participants.push(name);
   input.value = '';
   updateListUI();
 };
 
-// ➖ Remove last or typed name
+// 🗑 Remove name
 window.removeName = function () {
   const input = document.getElementById('nameInput');
   const name = input.value.trim();
@@ -53,95 +49,81 @@ window.removeName = function () {
   updateListUI();
 };
 
-// 🖥 Update the on-screen name list in columns of 10
+// 🔁 Update name list with columns
 function updateListUI() {
   const listEl = document.getElementById('nameList');
   listEl.innerHTML = '';
-  const chunks = [];
-  for (let i = 0; i < participants.length; i += 10) {
-    chunks.push(participants.slice(i, i + 10));
-  }
-  chunks.forEach(chunk => {
-    const ul = document.createElement('ul');
-    chunk.forEach(name => {
+
+  const columns = Math.ceil(participants.length / 10);
+  for (let c = 0; c < columns; c++) {
+    const col = document.createElement('ul');
+    col.className = 'column';
+    participants.slice(c * 10, (c + 1) * 10).forEach(name => {
       const li = document.createElement('li');
       li.textContent = name;
-      ul.appendChild(li);
+      col.appendChild(li);
     });
-    listEl.appendChild(ul);
-  });
+    listEl.appendChild(col);
+  }
 }
 
 // 💾 Save list to Firebase
 window.saveList = async function () {
-  if (participants.length < 2) {
-    alert("Add at least two participants.");
-    return;
-  }
+  if (participants.length < 2) return alert("Add at least two names.");
 
-  const listName = prompt("Enter a name for your list:");
-  if (!listName) {
-    alert("List name is required.");
-    return;
-  }
+  const listName = prompt("Enter a unique name for your list:");
+  if (!listName) return alert("List name is required.");
 
-  // Check if list name is already taken
+  const pin = prompt("Enter a 4-digit PIN:");
+  if (!pin || !/^\d{4}$/.test(pin)) return alert("PIN must be 4 digits.");
+
+  const secret = prompt("Enter a secret code (for organiser only):");
+  if (!secret) return alert("Secret code is required.");
+
+  const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
+
+  // Check if list name already exists (by name field, not ID)
   const nameQuery = query(collection(db, "lists"), where("name", "==", listName));
-  const snapshot = await getDocs(nameQuery);
-  if (!snapshot.empty) {
+  const nameSnapshot = await getDocs(nameQuery);
+  if (!nameSnapshot.empty) {
     alert("List name already exists. Please choose a different name.");
     return;
   }
 
-  const pin = prompt("Enter a 4-digit PIN to protect your list:");
-  if (!pin || !/^\d{4}$/.test(pin)) {
-    alert("PIN must be exactly 4 digits.");
-    return;
-  }
-
-  const secretCode = prompt("Enter a secret code to manage this list (for organiser only):");
-  if (!secretCode) {
-    alert("Secret code is required.");
-    return;
-  }
-
-  const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
-
   const data = {
     name: listName,
     participants: [...participants],
-    pin: pin,
-    secretCode: secretCode,
-    timestamp: Date.now()
+    pin,
+    secret,
+    drawn: [],
+    timestamp: serverTimestamp()
   };
 
   try {
     await setDoc(doc(db, "lists", listId), data);
     alert("List saved successfully!");
-
-    // Clear current list and show share link
     participants = [];
     updateListUI();
 
-    const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
+    const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}`;
     const linkBox = document.getElementById('shareLinkBox');
     linkBox.innerHTML = `
       <p><strong>Share this link with participants:</strong></p>
-      <input type="text" value="${accessURL}" readonly id="shareURL" style="width:100%;" />
+      <input type="text" value="${accessURL}" readonly id="shareURL" />
       <button onclick="copyLink()">Copy Link</button>
     `;
   } catch (err) {
-    console.error("Error saving list:", err);
-    alert("Failed to save list.");
+    console.error("Failed to save:", err);
+    alert("Error saving the list.");
   }
 };
 
-// 📋 Copy link to clipboard
+// 📋 Copy link
 window.copyLink = function () {
   const input = document.getElementById('shareURL');
   if (input) {
     input.select();
     document.execCommand('copy');
-    alert("Link copied to clipboard!");
+    alert("Link copied!");
   }
 };
