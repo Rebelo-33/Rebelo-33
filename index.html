@@ -3,18 +3,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="scripts.js" defer></script>
-  <script src="language.js" defer></script>
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
+    <!-- Top Right Help Button -->
+    <div class="top-buttons">
+      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+    </div>
+
     <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
 
-    <!-- Language Selector -->
+    <!-- Language Dropdown -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -22,14 +26,12 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Intro Text -->
-    <p data-lang="intro">
-      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.
-    </p>
+    <!-- Intro -->
+    <p data-lang="intro">Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.</p>
 
     <!-- Navigation Buttons -->
     <button onclick="window.location.href='add-names.html'" data-lang="createList">Create a New List</button>
-    <button onclick="window.location.href='access-list.html'" data-lang="goToDraw">Go to Draw Page</button>
+    <button onclick="window.location.href='draw.html'" data-lang="goToDraw">Go to Draw Page</button>
     <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
     <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
 
