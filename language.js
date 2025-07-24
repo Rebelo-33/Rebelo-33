@@ -1,126 +1,113 @@
-// ✅ language.js
-
-// Translation dictionary
+// ✅ language.js - Handles UI translation when language is selected
 const translations = {
   en: {
     title: "Secret Gift Exchange",
-    drawTitle: "Draw a Name",
+    intro: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.",
+    createList: "New List", // ✅ UPDATED TEXT
+    myLists: "My Lists",
+    goToDraw: "Draw Page", // ✅ UPDATED TEXT
+    help: "Help",
     addIntro: "Add participants to your list. Each name must be unique and no longer than 30 characters.",
     addName: "Add Name",
     removeName: "Remove Name",
     saveList: "Save List",
     backHome: "Back to Home",
-    help: "Help",
-    enterPin: "Enter list name and PIN to continue:",
-    submit: "Submit",
-    drawName: "Draw a Name",
-    listNameLabel: "List:",
-    access: "Access",
-    cancel: "Cancel",
-    myLists: "My Lists",
-    goToDraw: "Go to Draw",
-    createList: "Create a New List",
     accessForm: "Enter list name, 4-digit PIN, and your secret code to manage the list.",
-    contact: "Need help? Contact",
+    submit: "Submit",
+    listNameLabel: "List:",
+    drawName: "Draw a Name",
+    drawTitle: "Draw a Name",
+    enterPin: "Enter list name and PIN to continue:",
+    cancel: "Cancel",
+    footerHelp: "Need help? Contact",
     rights: "All rights reserved",
-    back: "Go Back"
   },
   es: {
     title: "Intercambio de Regalos Secreto",
-    drawTitle: "Sortea un Nombre",
-    addIntro: "Agrega participantes. Cada nombre debe ser único y tener menos de 30 caracteres.",
+    intro: "¡Bienvenido! El propósito del intercambio de regalos secreto es facilitar el sorteo de nombres entre un grupo de participantes.",
+    createList: "Nueva Lista",
+    myLists: "Mis Listas",
+    goToDraw: "Página del Sorteo",
+    help: "Ayuda",
+    addIntro: "Agrega participantes a tu lista. Cada nombre debe ser único y tener como máximo 30 caracteres.",
     addName: "Agregar Nombre",
     removeName: "Eliminar Nombre",
     saveList: "Guardar Lista",
     backHome: "Volver al Inicio",
-    help: "Ayuda",
-    enterPin: "Ingresa el nombre de la lista y el PIN:",
+    accessForm: "Ingrese el nombre de la lista, el PIN de 4 dígitos y su código secreto para gestionar la lista.",
     submit: "Enviar",
-    drawName: "Sortea un Nombre",
     listNameLabel: "Lista:",
-    access: "Acceder",
+    drawName: "Sacar un Nombre",
+    drawTitle: "Sacar un Nombre",
+    enterPin: "Ingrese el nombre de la lista y el PIN para continuar:",
     cancel: "Cancelar",
-    myLists: "Mis Listas",
-    goToDraw: "Ir a Sorteo",
-    createList: "Crear una Nueva Lista",
-    accessForm: "Ingresa el nombre de la lista, PIN de 4 dígitos y tu código secreto para administrar.",
-    contact: "¿Necesitas ayuda? Contacta a",
+    footerHelp: "¿Necesitas ayuda? Contacta",
     rights: "Todos los derechos reservados",
-    back: "Volver"
   },
   fr: {
     title: "Échange de Cadeaux Secret",
-    drawTitle: "Tirer un Nom",
-    addIntro: "Ajoutez des participants. Chaque nom doit être unique et avoir 30 caractères max.",
-    addName: "Ajouter un Nom",
-    removeName: "Supprimer un Nom",
-    saveList: "Enregistrer la Liste",
-    backHome: "Retour à l'accueil",
-    help: "Aide",
-    enterPin: "Entrez le nom de la liste et le code PIN :",
-    submit: "Valider",
-    drawName: "Tirer un Nom",
-    listNameLabel: "Liste :",
-    access: "Accéder",
-    cancel: "Annuler",
+    intro: "Bienvenue ! Le but de l'échange de cadeaux secret est de faciliter le tirage au sort des noms entre les participants.",
+    createList: "Nouvelle Liste",
     myLists: "Mes Listes",
-    goToDraw: "Aller au Tirage",
-    createList: "Créer une Nouvelle Liste",
-    accessForm: "Entrez le nom de la liste, un code PIN et votre code secret pour gérer.",
-    contact: "Besoin d'aide ? Contactez",
+    goToDraw: "Page de Tirage",
+    help: "Aide",
+    addIntro: "Ajoutez des participants à votre liste. Chaque nom doit être unique et ne pas dépasser 30 caractères.",
+    addName: "Ajouter un Nom",
+    removeName: "Supprimer le Nom",
+    saveList: "Enregistrer la Liste",
+    backHome: "Retour à l'Accueil",
+    accessForm: "Entrez le nom de la liste, le code PIN à 4 chiffres et votre code secret pour gérer la liste.",
+    submit: "Soumettre",
+    listNameLabel: "Liste :",
+    drawName: "Tirer un Nom",
+    drawTitle: "Tirer un Nom",
+    enterPin: "Entrez le nom de la liste et le PIN pour continuer :",
+    cancel: "Annuler",
+    footerHelp: "Besoin d'aide ? Contactez",
     rights: "Tous droits réservés",
-    back: "Retour"
   },
   pt: {
     title: "Amigo Secreto",
-    drawTitle: "Sortear um Nome",
-    addIntro: "Adicione participantes. Cada nome deve ser único e com até 30 caracteres.",
+    intro: "Bem-vindo! O objetivo do amigo secreto é facilitar o sorteio de nomes entre um grupo de participantes.",
+    createList: "Nova Lista",
+    myLists: "Minhas Listas",
+    goToDraw: "Página do Sorteio",
+    help: "Ajuda",
+    addIntro: "Adicione participantes à sua lista. Cada nome deve ser único e ter no máximo 30 caracteres.",
     addName: "Adicionar Nome",
     removeName: "Remover Nome",
     saveList: "Salvar Lista",
-    backHome: "Voltar ao Início",
-    help: "Ajuda",
-    enterPin: "Digite o nome da lista e o PIN:",
+    backHome: "Voltar para Início",
+    accessForm: "Insira o nome da lista, o PIN de 4 dígitos e seu código secreto para gerenciar a lista.",
     submit: "Enviar",
-    drawName: "Sortear um Nome",
     listNameLabel: "Lista:",
-    access: "Acessar",
+    drawName: "Sortear Nome",
+    drawTitle: "Sortear Nome",
+    enterPin: "Insira o nome da lista e o PIN para continuar:",
     cancel: "Cancelar",
-    myLists: "Minhas Listas",
-    goToDraw: "Ir para Sorteio",
-    createList: "Criar Nova Lista",
-    accessForm: "Digite o nome da lista, PIN de 4 dígitos e código secreto para gerenciar.",
-    contact: "Precisa de ajuda? Contato",
+    footerHelp: "Precisa de ajuda? Contate",
     rights: "Todos os direitos reservados",
-    back: "Voltar"
   }
 };
 
-// Function to update all translatable elements
-function translatePage(lang) {
+// Apply translations based on selected language
+function applyLanguage(lang) {
   const elements = document.querySelectorAll('[data-lang]');
   elements.forEach(el => {
     const key = el.getAttribute('data-lang');
     if (translations[lang] && translations[lang][key]) {
-      if (el.tagName === 'TITLE') {
-        document.title = translations[lang][key];
-      } else {
-        el.textContent = translations[lang][key];
-      }
+      el.textContent = translations[lang][key];
     }
   });
-  localStorage.setItem("selectedLanguage", lang);
+  localStorage.setItem('selectedLanguage', lang);
 }
 
-// Load saved language on page load
-window.addEventListener('DOMContentLoaded', () => {
-  const selector = document.getElementById('language-selector');
-  const savedLang = localStorage.getItem("selectedLanguage") || "en";
-  selector.value = savedLang;
-  translatePage(savedLang);
-
-  selector.addEventListener('change', (e) => {
-    const selectedLang = e.target.value;
-    translatePage(selectedLang);
+// Restore previously selected language
+document.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+  document.getElementById('language-selector').value = savedLang;
+  applyLanguage(savedLang);
+  document.getElementById('language-selector').addEventListener('change', (e) => {
+    applyLanguage(e.target.value);
   });
 });
