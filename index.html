@@ -3,21 +3,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
-<div class="container">
-  <div class="top-buttons">
-    <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
-  </div>
-    <br/>
+  <div class="container">
+    <!-- Help Button in top right corner -->
+    <div class="top-buttons">
+      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+    </div>
+
+    <!-- Title -->
     <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
-  </div>
-    <!-- Language Dropdown -->
+
+    <!-- Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -25,14 +27,19 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- Intro -->
-    <p data-lang="intro">Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.</p>
+    <!-- Intro Text -->
+    <p data-lang="intro">
+      Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.
+    </p>
 
-    <!-- Navigation Buttons -->
-    <button onclick="window.location.href='add-names.html'" data-lang="createList">Create List</button>
-    <button onclick="window.location.href='draw.html'" data-lang="goToDraw">Draw Name</button>
-    <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
+    <!-- Button Group -->
+    <div class="button-group">
+      <button onclick="window.location.href='add-names.html'" data-lang="createList">Create New List</button>
+      <button onclick="window.location.href='draw.html'" data-lang="goToDraw">Go to Draw Page</button>
+      <button onclick="window.location.href='my-lists.html'" data-lang="myLists">My Lists</button>
+    </div>
 
+    <!-- Footer -->
     <footer>
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>&copy; 2025 All rights reserved</p>
