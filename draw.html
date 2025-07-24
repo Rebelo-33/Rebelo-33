@@ -12,8 +12,13 @@
 </head>
 <body>
   <div class="container">
-    <h1 data-lang="drawTitle">🎁 Draw a Name</h1>
+    <div class="top-buttons">
+      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+    </div>
 
+    <h1>🎁 <span data-lang="drawTitle">Draw a Name</span></h1>
+
+    <!-- Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -21,21 +26,30 @@
       <option value="pt">Português</option>
     </select>
 
+    <!-- PIN Prompt -->
     <div id="pinModal">
-      <p data-lang="enterPin">Enter the 4-digit PIN and List Name to access:</p>
+      <p data-lang="enterPin">Enter list name and PIN to continue:</p>
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
       <button onclick="submitPin()" data-lang="submit">Submit</button>
-      <p id="pinError" style="color: red;"></p>
+      <p id="pinError" style="color:red;"></p>
     </div>
 
+    <!-- List Content -->
     <div id="listContent" style="display:none;">
-      <h2 id="listNameDisplay"></h2>
-      <button id="drawBtn" onclick="drawName()" data-lang="drawBtn">Draw a Name</button>
-      <p id="drawnName" class="drawn-name"></p>
+      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
+      
+      <div id="participantList" class="columns"></div>
+
+      <div style="margin-top: 20px;">
+        <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw a Name</button>
+        <h3 id="drawnName" style="margin-top: 15px;"></h3>
+      </div>
+
+      <button onclick="window.location.href='index.html'" data-lang="backHome">Back to Home</button>
     </div>
 
-    <footer>
+    <footer style="margin-top: 40px;">
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>&copy; 2025 All rights reserved</p>
     </footer>
