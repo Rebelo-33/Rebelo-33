@@ -1,22 +1,22 @@
 // ✅ my-lists.js
+
 import { db } from './firebase-config.js';
 import {
-  doc,
   getDoc,
+  doc,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 let currentListId = null;
 let currentData = null;
-let originalParticipants = [];
+let originalData = null;
 
-// 🔓 Access list with list name, pin, and secret code
+// 🔑 Authenticate and load the list
 window.accessList = async function () {
   const listName = document.getElementById('listName').value.trim();
   const pin = document.getElementById('pin').value.trim();
   const secret = document.getElementById('secretCode').value.trim();
   const errorMsg = document.getElementById('errorMsg');
-
   errorMsg.textContent = '';
 
   if (!listName || !pin || !secret) {
@@ -39,100 +39,103 @@ window.accessList = async function () {
     return;
   }
 
-  // 🎉 Valid credentials
   currentListId = listId;
-  currentData = data;
-  originalParticipants = [...data.participants];
+  currentData = { ...data };
+  originalData = JSON.stringify(data); // 🧾 Save for cancel/undo
+
   document.getElementById("accessForm").style.display = "none";
   document.getElementById("listContent").style.display = "block";
   document.getElementById("loadedListName").textContent = data.name;
-
-  renderParticipantColumns(data.participants);
+  renderParticipants();
 };
 
-// 👥 Render names in columns of 10 with delete button
-function renderParticipantColumns(participants) {
+// 👥 Display participants in columns
+function renderParticipants() {
   const container = document.getElementById("participantList");
   container.innerHTML = '';
 
-  const columns = Math.ceil(participants.length / 10);
-  for (let i = 0; i < columns; i++) {
-    const col = document.createElement("div");
-    col.classList.add("column");
-    for (let j = i * 10; j < Math.min((i + 1) * 10, participants.length); j++) {
-      const name = participants[j];
-      const item = document.createElement("div");
-      item.className = "name-item";
-      item.textContent = name;
+  const columns = [];
+  const maxPerColumn = 10;
 
-      const removeBtn = document.createElement("button");
-      removeBtn.className = "remove-btn";
-      removeBtn.textContent = "✖";
-      removeBtn.onclick = () => removeName(name);
-
-      item.appendChild(removeBtn);
-      col.appendChild(item);
+  currentData.participants.forEach((name, index) => {
+    const colIndex = Math.floor(index / maxPerColumn);
+    if (!columns[colIndex]) {
+      const colDiv = document.createElement("div");
+      colDiv.className = "column";
+      columns[colIndex] = colDiv;
+      container.appendChild(colDiv);
     }
-    container.appendChild(col);
-  }
+
+    const item = document.createElement("div");
+    item.className = "name-item";
+    item.textContent = name;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "✕";
+    removeBtn.className = "remove-btn";
+    removeBtn.onclick = () => {
+      currentData.participants = currentData.participants.filter(n => n !== name);
+      renderParticipants();
+    };
+
+    item.appendChild(removeBtn);
+    columns[colIndex].appendChild(item);
+  });
 }
 
 // ➕ Add new name
-window.addNewName = function () {
+window.addNewName = () => {
   const input = document.getElementById("newNameInput");
   const name = input.value.trim();
-  if (!name || currentData.participants.includes(name)) {
-    alert("Invalid or duplicate name.");
+
+  if (!name) {
+    alert("Please enter a name.");
     return;
   }
-
+  if (currentData.participants.includes(name)) {
+    alert("Name already exists.");
+    return;
+  }
   if (name.length > 30) {
-    alert("Name must be 30 characters or fewer.");
+    alert("Name too long.");
     return;
   }
 
   currentData.participants.push(name);
   input.value = '';
-  renderParticipantColumns(currentData.participants);
+  renderParticipants();
 };
 
-// ❌ Remove name (only from currentData, not Firebase until save)
-function removeName(name) {
-  currentData.participants = currentData.participants.filter(n => n !== name);
-  renderParticipantColumns(currentData.participants);
-}
-
-// ✅ Save updates to Firestore
-window.confirmSaveChanges = async function () {
-  const confirmed = confirm("Do you want to save the changes to the list?");
-  if (!confirmed) return;
+// 💾 Save changes to Firestore
+window.confirmSaveChanges = async () => {
+  const confirmSave = confirm("Do you want to save the changes?");
+  if (!confirmSave) return;
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
       participants: currentData.participants
     });
-    alert("List updated successfully!");
-    originalParticipants = [...currentData.participants];
+    alert("List updated successfully.");
+    originalData = JSON.stringify(currentData);
   } catch (err) {
-    console.error(err);
-    alert("Failed to update list.");
+    console.error("Error saving list:", err);
+    alert("Error updating list.");
   }
 };
 
-// 🔄 Cancel changes and reset view
-window.confirmCancelChanges = function () {
-  const confirmed = confirm("Cancel all changes?");
-  if (!confirmed) return;
+// ❌ Undo unsaved changes
+window.confirmCancelChanges = () => {
+  const confirmCancel = confirm("Undo all unsaved changes?");
+  if (!confirmCancel) return;
 
-  currentData.participants = [...originalParticipants];
-  renderParticipantColumns(currentData.participants);
-  document.getElementById("newNameInput").value = '';
+  currentData = JSON.parse(originalData);
+  renderParticipants();
 };
 
-// 🔙 Go back to home
-window.confirmGoBack = function () {
-  const confirmed = confirm("Go back to home? Changes won’t be saved.");
-  if (confirmed) {
+// ⬅️ Return to home warning
+window.confirmGoBack = () => {
+  const confirmBack = confirm("Changes not saved will be lost. Go back?");
+  if (confirmBack) {
     window.location.href = 'index.html';
   }
 };
