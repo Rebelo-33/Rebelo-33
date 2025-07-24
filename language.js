@@ -1,131 +1,110 @@
 // ✅ language.js
-// This file handles full dynamic page translation based on selected language.
 
+// All translatable text is stored in this object.
+// Each key represents an element's data-lang value.
 const translations = {
-  en: {
-    title: "Secret Gift Exchange",
-    intro: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.",
-    createList: "Create a New List",
-    goToDraw: "Go to Draw Page",
-    myLists: "My Lists",
-    help: "Help",
-    addIntro: "Add participants to your list. Each name must be unique and no longer than 30 characters.",
-    addName: "Add Name",
-    removeName: "Remove Name",
-    saveList: "Save List",
-    backHome: "Back to Home",
-    drawInstructions: "Enter the 4-digit PIN to access your list and draw a name.",
-    access: "Access",
-    cancel: "Cancel",
-    accessForm: "Enter list name, 4-digit PIN, and your secret code to manage the list.",
-    listNameLabel: "List:",
-    drawName: "Draw Name",
-    yourDraw: "You drew:",
-    pinPlaceholder: "Enter 4-digit PIN",
-    secretCode: "Secret Code"
+  title: {
+    en: "Secret Gift Exchange",
+    es: "Intercambio de Regalos Secreto",
+    fr: "Échange de Cadeaux Secret",
+    pt: "Amigo Secreto"
   },
-  es: {
-    title: "Intercambio de Regalos Secreto",
-    intro: "¡Bienvenido! El propósito del Intercambio de Regalos Secreto es facilitar el sorteo de nombres entre un grupo de participantes.",
-    createList: "Crear una Nueva Lista",
-    goToDraw: "Ir a la Página de Sorteo",
-    myLists: "Mis Listas",
-    help: "Ayuda",
-    addIntro: "Agrega participantes a tu lista. Cada nombre debe ser único y tener un máximo de 30 caracteres.",
-    addName: "Agregar Nombre",
-    removeName: "Eliminar Nombre",
-    saveList: "Guardar Lista",
-    backHome: "Volver al Inicio",
-    drawInstructions: "Ingrese el PIN de 4 dígitos para acceder a su lista y sacar un nombre.",
-    access: "Acceder",
-    cancel: "Cancelar",
-    accessForm: "Ingrese el nombre de la lista, el PIN de 4 dígitos y su código secreto para gestionar la lista.",
-    listNameLabel: "Lista:",
-    drawName: "Sacar Nombre",
-    yourDraw: "Has sacado:",
-    pinPlaceholder: "Ingrese PIN de 4 dígitos",
-    secretCode: "Código Secreto"
+  addIntro: {
+    en: "Add participants to your list. Each name must be unique and no longer than 30 characters.",
+    es: "Agrega participantes a tu lista. Cada nombre debe ser único y tener un máximo de 30 caracteres.",
+    fr: "Ajoutez des participants à votre liste. Chaque nom doit être unique et ne pas dépasser 30 caractères.",
+    pt: "Adicione participantes à sua lista. Cada nome deve ser único e ter no máximo 30 caracteres."
   },
-  fr: {
-    title: "Échange de Cadeaux Secret",
-    intro: "Bienvenue ! L'objectif de l'Échange de Cadeaux Secret est de faciliter le tirage au sort entre participants.",
-    createList: "Créer une Nouvelle Liste",
-    goToDraw: "Aller à la Page de Tirage",
-    myLists: "Mes Listes",
-    help: "Aide",
-    addIntro: "Ajoutez des participants à votre liste. Chaque nom doit être unique et ne pas dépasser 30 caractères.",
-    addName: "Ajouter un Nom",
-    removeName: "Supprimer le Nom",
-    saveList: "Enregistrer la Liste",
-    backHome: "Retour à l'accueil",
-    drawInstructions: "Entrez le code PIN à 4 chiffres pour accéder à votre liste et tirer un nom.",
-    access: "Accéder",
-    cancel: "Annuler",
-    accessForm: "Entrez le nom de la liste, le code PIN à 4 chiffres et votre code secret pour gérer la liste.",
-    listNameLabel: "Liste :",
-    drawName: "Tirer un Nom",
-    yourDraw: "Vous avez tiré :",
-    pinPlaceholder: "Entrez le PIN à 4 chiffres",
-    secretCode: "Code Secret"
+  addName: {
+    en: "Add Name", es: "Agregar Nombre", fr: "Ajouter un Nom", pt: "Adicionar Nome"
   },
-  pt: {
-    title: "Amigo Secreto",
-    intro: "Bem-vindo! O objetivo do Amigo Secreto é facilitar o sorteio de nomes entre os participantes.",
-    createList: "Criar Nova Lista",
-    goToDraw: "Ir para Página de Sorteio",
-    myLists: "Minhas Listas",
-    help: "Ajuda",
-    addIntro: "Adicione participantes à sua lista. Cada nome deve ser único e ter no máximo 30 caracteres.",
-    addName: "Adicionar Nome",
-    removeName: "Remover Nome",
-    saveList: "Salvar Lista",
-    backHome: "Voltar ao Início",
-    drawInstructions: "Digite o PIN de 4 dígitos para acessar sua lista e sortear um nome.",
-    access: "Acessar",
-    cancel: "Cancelar",
-    accessForm: "Digite o nome da lista, PIN de 4 dígitos e seu código secreto para gerenciar a lista.",
-    listNameLabel: "Lista:",
-    drawName: "Sortear Nome",
-    yourDraw: "Você tirou:",
-    pinPlaceholder: "Digite o PIN de 4 dígitos",
-    secretCode: "Código Secreto"
+  removeName: {
+    en: "Remove Name", es: "Eliminar Nombre", fr: "Supprimer le Nom", pt: "Remover Nome"
+  },
+  saveList: {
+    en: "Save List", es: "Guardar Lista", fr: "Enregistrer la Liste", pt: "Salvar Lista"
+  },
+  backHome: {
+    en: "Back to Home", es: "Volver al Inicio", fr: "Retour à l'Accueil", pt: "Voltar ao Início"
+  },
+  help: {
+    en: "Help", es: "Ayuda", fr: "Aide", pt: "Ajuda"
+  },
+  createList: {
+    en: "Create New List", es: "Crear Nueva Lista", fr: "Créer une Nouvelle Liste", pt: "Criar Nova Lista"
+  },
+  myLists: {
+    en: "My Lists", es: "Mis Listas", fr: "Mes Listes", pt: "Minhas Listas"
+  },
+  goToDraw: {
+    en: "Go to Draw Page", es: "Ir a la Página de Sorteo", fr: "Aller à la Page de Tirage", pt: "Ir para Página de Sorteio"
+  },
+  intro: {
+    en: "Welcome! The purpose of the Secret Gift Exchange is to facilitate the drawing of names among a group of participants.",
+    es: "¡Bienvenido! El propósito del Intercambio de Regalos Secreto es facilitar el sorteo de nombres entre un grupo de participantes.",
+    fr: "Bienvenue ! L'objectif de l'Échange de Cadeaux Secret est de faciliter le tirage au sort entre les participants.",
+    pt: "Bem-vindo! O objetivo do Amigo Secreto é facilitar o sorteio de nomes entre os participantes."
+  },
+  accessForm: {
+    en: "Enter list name, 4-digit PIN, and your secret code to manage the list.",
+    es: "Ingrese el nombre de la lista, PIN de 4 dígitos y su código secreto para administrar la lista.",
+    fr: "Entrez le nom de la liste, le code PIN à 4 chiffres et votre code secret pour gérer la liste.",
+    pt: "Insira o nome da lista, o PIN de 4 dígitos e seu código secreto para gerenciar a lista."
+  },
+  access: {
+    en: "Access", es: "Acceder", fr: "Accéder", pt: "Acessar"
+  },
+  cancel: {
+    en: "Cancel", es: "Cancelar", fr: "Annuler", pt: "Cancelar"
+  },
+  listNameLabel: {
+    en: "List:", es: "Lista:", fr: "Liste :", pt: "Lista:"
+  },
+  drawNow: {
+    en: "Draw Name", es: "Sortea un Nombre", fr: "Tirer au Sort", pt: "Sortear Nome"
+  },
+  footerContact: {
+    en: "Need help? Contact <a href='mailto:aniziacarvalino19@gmail.com'>aniziacarvalino19@gmail.com</a>",
+    es: "¿Necesitas ayuda? Contacta con <a href='mailto:aniziacarvalino19@gmail.com'>aniziacarvalino19@gmail.com</a>",
+    fr: "Besoin d’aide ? Contactez <a href='mailto:aniziacarvalino19@gmail.com'>aniziacarvalino19@gmail.com</a>",
+    pt: "Precisa de ajuda? Contate <a href='mailto:aniziacarvalino19@gmail.com'>aniziacarvalino19@gmail.com</a>"
+  },
+  footerCopyright: {
+    en: "&copy; 2025 All rights reserved",
+    es: "&copy; 2025 Todos los derechos reservados",
+    fr: "&copy; 2025 Tous droits réservés",
+    pt: "&copy; 2025 Todos os direitos reservados"
   }
 };
 
-// 🌐 Translate page based on selected language
-function translatePage(lang) {
-  const elements = document.querySelectorAll("[data-lang]");
-  elements.forEach(el => {
+// Function to apply the selected language to the page
+function applyTranslations(lang) {
+  // For all elements with data-lang attribute
+  document.querySelectorAll("[data-lang]").forEach(el => {
     const key = el.getAttribute("data-lang");
-    if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
+    if (translations[key] && translations[key][lang]) {
+      // Set placeholder for input fields
+      if (el.tagName.toLowerCase() === "input" || el.tagName.toLowerCase() === "textarea") {
+        el.placeholder = translations[key][lang];
+      } else {
+        // Set inner text for normal elements
+        el.innerHTML = translations[key][lang];
+      }
     }
   });
-
-  const pinInput = document.querySelector("input#pin");
-  if (pinInput && translations[lang].pinPlaceholder) {
-    pinInput.placeholder = translations[lang].pinPlaceholder;
-  }
-
-  const secretInput = document.querySelector("input#secretCode");
-  if (secretInput && translations[lang].secretCode) {
-    secretInput.placeholder = translations[lang].secretCode;
-  }
 }
 
-// 🌍 Set language on selection change
+// Setup translation on page load and language change
 document.addEventListener("DOMContentLoaded", () => {
   const selector = document.getElementById("language-selector");
-  if (!selector) return;
+  const storedLang = localStorage.getItem("selectedLang") || "en";
+  selector.value = storedLang;
+  applyTranslations(storedLang);
 
-  selector.addEventListener("change", () => {
-    const lang = selector.value;
-    localStorage.setItem("selectedLang", lang);
-    translatePage(lang);
+  // Listen for language change
+  selector.addEventListener("change", (e) => {
+    const newLang = e.target.value;
+    localStorage.setItem("selectedLang", newLang);
+    applyTranslations(newLang);
   });
-
-  // Load saved language
-  const savedLang = localStorage.getItem("selectedLang") || "en";
-  selector.value = savedLang;
-  translatePage(savedLang);
 });
