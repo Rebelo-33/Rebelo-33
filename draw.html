@@ -1,3 +1,4 @@
+<!-- ✅ draw.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,49 +6,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="drawTitle">Draw a Name</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="language.js"></script>
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="scripts.js"></script>
+  <script type="module" src="access-list.js"></script>
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- Top Help Button -->
+    <!-- ✅ Help Button -->
     <div class="top-buttons">
-      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
     <h1 data-lang="drawTitle">Draw a Name</h1>
 
-    <!-- Language Dropdown -->
+    <!-- ✅ Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
-      <option value="pt">Português</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
+      <option value="pt">Português</option>
       <option value="zh">中文</option>
     </select>
 
+    <!-- ✅ PIN Access Form -->
     <div id="pinModal">
       <p data-lang="enterPin">Enter list name and PIN to continue:</p>
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-
       <div class="horizontal-buttons">
         <button onclick="submitPin()" data-lang="submit">Submit</button>
-        <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+      </div>
+      <p id="pinError"></p>
+    </div>
+
+    <!-- ✅ Draw Area -->
+    <div id="listContent" style="display:none;">
+      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
+      <div id="participantList" class="columns"></div>
+
+      <div class="controls">
+        <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw a Name</button>
       </div>
 
-      <p id="pinError" class="error-msg"></p>
+      <h3 id="drawnName"></h3>
+      <div class="controls">
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+      </div>
     </div>
 
-    <div id="drawSection" style="display: none;">
-      <h2 data-lang="drawNameBtn">Draw Name</h2>
-      <button onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
-      <div id="drawnName"></div>
-    </div>
-
+    <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p data-lang="footerContact">
+        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
+      </p>
       <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
     </footer>
   </div>
