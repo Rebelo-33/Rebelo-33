@@ -1,40 +1,52 @@
-<!-- ✅ index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
+    
+    <!-- ✅ Top-right Help Button -->
     <div class="top-buttons">
-      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+    <!-- ✅ Page Title -->
+    <h1 data-lang="title">Secret Gift Exchange</h1>
 
-    <!-- Language Dropdown -->
+    <!-- ✅ Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
-      <option value="pt">Português</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
+      <option value="pt">Português</option>
       <option value="zh">中文</option>
     </select>
 
+    <!-- ✅ Introductory Text -->
+    <p data-lang="intro">
+      Welcome! This site helps groups organize a fun and fair Secret Gift Exchange. Easily create a list, draw names anonymously, and manage your list.
+    </p>
+
+    <!-- ✅ Main Navigation Buttons (Vertically Centered) -->
     <div class="main-buttons">
       <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
       <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
       <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
     </div>
 
+    <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
+      <p data-lang="footerContact">
+        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
+      </p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
+
   </div>
 </body>
 </html>
