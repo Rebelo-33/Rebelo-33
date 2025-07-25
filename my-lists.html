@@ -1,3 +1,4 @@
+<!-- ✅ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,51 +6,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="manageList">Manage List</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="language.js"></script>
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="my-lists.js"></script>
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- 🔹 Top Help Button -->
     <div class="top-buttons">
       <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
     <h1 data-lang="manageList">Manage List</h1>
 
-    <!-- 🔹 Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
-      <option value="pt">Português</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
+      <option value="pt">Português</option>
       <option value="zh">中文</option>
     </select>
 
-    <!-- 🔹 Access form instructions -->
-    <p data-lang="accessForm">
-      Enter list name, 4-digit PIN, and your secret code to manage the list.
-    </p>
+    <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
 
-    <!-- 🔹 Access Form -->
-    <form id="accessForm">
+    <div id="accessForm">
       <input type="text" id="listName" placeholder="List Name" />
-      <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-      <input type="password" id="secretCodeInput" placeholder="Secret Code" />
+      <input type="password" id="pin" maxlength="4" placeholder="PIN" />
+      <input type="text" id="secret" placeholder="Secret Code" />
 
       <div class="horizontal-buttons">
-        <button type="button" onclick="accessList()" data-lang="submit">Submit</button>
-        <button type="button" onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="accessList()" data-lang="submit">Submit</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
       </div>
-    </form>
 
-    <!-- 🔹 Error Message -->
-    <p id="errorMsg" class="error-msg"></p>
+      <p id="errorMsg"></p>
+    </div>
 
-    <!-- 🔹 Footer -->
+    <div id="editSection" style="display:none;">
+      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
+      <div id="nameListContainer" class="columns"></div>
+
+      <input type="text" id="newNameInput" placeholder="Add or remove name" />
+      <div class="horizontal-buttons">
+        <button onclick="addName()" data-lang="addName">Add Name</button>
+        <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+      </div>
+
+      <div class="horizontal-buttons">
+        <button onclick="saveList()" data-lang="saveChanges">Save Changes</button>
+        <button onclick="location.href='index.html'" data-lang="cancel">Cancel</button>
+      </div>
+    </div>
+
     <footer>
-      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p data-lang="footerContact">
+        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
+      </p>
       <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
     </footer>
   </div>
