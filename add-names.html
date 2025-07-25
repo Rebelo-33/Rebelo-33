@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="addNamesTitle">Secret Gift Exchange - Add Names</title>
+  <title data-lang="addNamesTitle">Add Names</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="scripts.js"></script>
@@ -12,38 +12,42 @@
 </head>
 <body>
   <div class="container">
-    <!-- 🔹 Top Right Help Button -->
+    <!-- 🔹 Top Help Button -->
     <div class="top-buttons">
       <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1>🎁 <span data-lang="addNamesTitle">Secret Gift Exchange - Add Names</span></h1>
+    <h1 data-lang="addNamesTitle">Add Names</h1>
 
-    <!-- 🔹 Language Selector -->
+    <!-- 🔹 Language Dropdown -->
     <select id="language-selector">
       <option value="en">English</option>
+      <option value="pt">Português</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
-      <option value="pt">Português</option>
+      <option value="zh">中文</option>
     </select>
 
-    <!-- 🔹 Instruction -->
-    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
+    <!-- 🔹 Instructions -->
+    <p data-lang="addIntro">
+      Add participants to your list. Each name must be unique and no longer than 30 characters.
+    </p>
 
-    <!-- 🔹 Name List Display -->
+    <!-- 🔹 List Display -->
     <div id="nameListContainer" class="columns"></div>
 
-    <!-- 🔹 Input and Buttons -->
+    <!-- 🔹 Input -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
 
-    <div class="button-group">
+    <!-- 🔹 Buttons -->
+    <div class="main-buttons">
       <button onclick="addName()" data-lang="addName">Add Name</button>
       <button onclick="removeName()" data-lang="removeName">Remove Name</button>
       <button onclick="saveList()" data-lang="saveList">Save List</button>
       <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
     </div>
 
-    <!-- 🔹 Sharing Output -->
+    <!-- 🔹 Share Link Display -->
     <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
     <!-- 🔹 Footer -->
