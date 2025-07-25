@@ -31,21 +31,23 @@
       <option value="pt">Português</option>
     </select>
 
-    <!-- PIN Access Form -->
     <div id="pinModal">
       <p data-lang="enterPin">Enter list name and PIN to continue:</p>
+
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-      <button onclick="submitPin()" data-lang="submit">Submit</button>
+
+  <!-- ✅ Group buttons horizontally -->
+      <div class="horizontal-buttons">
+       <button onclick="submitPin()" data-lang="submit">Submit</button>
+       <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
+      </div>
+
       <p id="pinError" style="color:red;"></p>
-      
-      <!-- ✅ Add Back to Home Button -->
-      <button onclick="window.location.href='index.html'" data-lang="Home">Home</button>
-      
-    </div>
+     </div>
 
     <!-- Main Content Display After PIN Entry -->
-    <div id="listContent" style="display:none;">
+   <div id="listContent" style="display:none;">
       <!-- Show list name -->
       <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
       
