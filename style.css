@@ -5,6 +5,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #fdf9f3;
   color: #333;
+  height: 100%;
 }
 
 /* ✅ Page container */
@@ -41,8 +42,8 @@ p {
 }
 
 .top-buttons button {
-  font-size: 11em;           /* Smaller text */
-  padding: 3px 6px;          /* Compact padding */
+  font-size: 0.6em;           /* Smaller text */
+  padding: 4px 7px;          /* Compact padding */
   background-color: #007bff;  /* Blue */
   border: none;
   border-radius: 5px;
@@ -116,9 +117,17 @@ button:hover {
 }
 
 /* ✅ Footer */
+
+
 footer {
-  margin-top: 40px;
-  font-size: 0.9em;
-  color: #777;
-  text-align: center;
+  background-color: #f0f0f0;
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+  color: #333;
+  font-weight: bold;
+}
+footer a {
+  color: red;
+  font-weight: normal;
+  text-decoration: underline;
 }
