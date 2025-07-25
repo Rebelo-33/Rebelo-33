@@ -1,5 +1,4 @@
-/* ✅ General Reset & Body Styling */
-/* ✅ Reset & Page Setup */
+/* ✅ Reset & base styles */
 body {
   margin: 0;
   padding: 0;
@@ -8,40 +7,39 @@ body {
   color: #333;
 }
 
+/* ✅ Page container */
 .container {
   max-width: 800px;
-  margin: 60px auto 40px auto;
+  margin: 60px auto;
   padding: 20px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   position: relative;
+  text-align: center;
 }
 
-/* ✅ Headings */
+/* ✅ Header */
 h1 {
   font-size: 2em;
-  text-align: center;
   margin-bottom: 20px;
 }
 
-/* ✅ Footer */
-footer {
+/* ✅ Intro text or help page text */
+p {
+  line-height: 1.6;
+  margin-bottom: 20px;
   text-align: center;
-  margin-top: 40px;
-  font-size: 0.9em;
-  color: #777;
 }
 
-/* ✅ Help Button */
+/* ✅ Top help button */
 .top-buttons {
   position: absolute;
   top: 15px;
   right: 15px;
-  z-index: 1000;
 }
 
-/* ✅ Language Selector */
+/* ✅ Language dropdown */
 #language-selector {
   display: block;
   margin: 20px auto;
@@ -51,90 +49,60 @@ footer {
   border: 1px solid #ccc;
 }
 
-/* ✅ Paragraphs */
-p {
-  text-align: center;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-
-/* ✅ Inputs */
+/* ✅ Text inputs */
 input[type="text"],
 input[type="password"],
 input[type="number"] {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  font-size: 1em;
   width: 80%;
   max-width: 400px;
+  padding: 10px;
+  margin: 10px auto;
+  font-size: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
+  display: block;
 }
 
-/* ✅ Name List Columns */
-.columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.column {
-  flex: 1;
-  min-width: 150px;
-}
-
-/* ✅ Buttons – Blue Theme */
+/* ✅ Uniform blue buttons */
 button {
   padding: 10px 20px;
-  background-color: #007bff; /* blue */
+  background-color: #007BFF;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
+  min-width: 180px;
+  margin: 5px;
   transition: background-color 0.3s ease;
-  width: 200px;
-  max-width: 90%;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-/* ✅ Vertical Button Group (Index, etc.) */
+/* ✅ Main vertical button layout (Home page) */
 .main-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
-/* ✅ Controls for access-list and draw pages */
-.controls,
+/* ✅ Horizontal button layout for forms */
 .horizontal-buttons {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
   justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
   flex-wrap: wrap;
-  margin-top: 15px;
 }
 
-/* ✅ Error messages */
-#errorMsg,
-#pinError {
-  color: red;
+/* ✅ Footer */
+footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #777;
   text-align: center;
-  margin-top: 10px;
-}
-
-/* ✅ Center drawn name */
-#drawnName {
-  text-align: center;
-  font-size: 1.2em;
-  color: green;
 }
