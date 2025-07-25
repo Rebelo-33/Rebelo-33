@@ -7,6 +7,14 @@ body {
   color: #333;
 }
 
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 40px;  /* Adds space below Help button */
+  margin-bottom: 20px;
+}
+
+
 /* ✅ Page container */
 .container {
   max-width: 800px;
