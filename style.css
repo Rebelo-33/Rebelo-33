@@ -119,14 +119,14 @@ button:hover {
 
 
 footer {
-  background-color: #f0f0f0;
+  background-color: #007BFF;
   padding: 10px 0;
   border-top: 1px solid #ccc;
   color: #333;
   font-weight: bold;
 }
 footer a {
-  color: red;
+  color: blue;
   font-weight: normal;
   text-decoration: underline;
 }
