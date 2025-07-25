@@ -42,14 +42,13 @@ p {
 }
 
 .top-buttons button {
-  font-size: 0.6em;           /* Smaller text */
-  padding: 4px 7px;          /* Compact padding */
-  background-color: #007bff;  /* Blue */
+  font-size: 1em;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 5px;
-  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .top-buttons button:hover {
