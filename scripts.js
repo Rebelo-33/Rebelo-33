@@ -1,152 +1,96 @@
-// ✅ scripts.js
-import { db } from './firebase-config.js';
-import {
-  setDoc,
-  doc,
-  getDocs,
-  collection,
-  query,
-  where,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+// ✅ scripts.js – Handles participant name input & list saving
 
-let participants = [];
+import { db } from "./firebase-config.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 🚀 Add name to list
+// 🟦 Store participant names
+let nameList = [];
+
+// ✅ Add a name
 window.addName = function () {
-  const input = document.getElementById('nameInput');
+  const input = document.getElementById("nameInput");
   const name = input.value.trim();
 
-  if (!name) {
-    alert("Please enter a name.");
+  if (!name || name.length > 30 || nameList.includes(name)) {
+    alert("Name must be unique, not empty, and under 30 characters.");
     return;
   }
 
-  if (participants.includes(name)) {
-    alert("Name already exists.");
-    return;
-  }
-
-  if (name.length > 30) {
-    alert("Name must be 30 characters or fewer.");
-    return;
-  }
-
-  participants.push(name);
-  input.value = '';
-  updateListUI();
+  nameList.push(name);
+  input.value = "";
+  renderNameList();
 };
 
-// 🗑 Remove last or specific name
+// ✅ Remove a name
 window.removeName = function () {
-  const input = document.getElementById('nameInput');
+  const input = document.getElementById("nameInput");
   const name = input.value.trim();
 
-  if (name) {
-    const index = participants.indexOf(name);
-    if (index > -1) {
-      participants.splice(index, 1);
-      alert(`Removed: ${name}`);
-    } else {
-      alert("Name not found.");
-    }
-  } else if (participants.length > 0) {
-    const removed = participants.pop();
-    alert(`Removed: ${removed}`);
+  const index = nameList.indexOf(name);
+  if (index !== -1) {
+    nameList.splice(index, 1);
+    input.value = "";
+    renderNameList();
+  } else {
+    alert("Name not found in the list.");
   }
-
-  input.value = '';
-  updateListUI();
 };
 
-// 🔁 Update the name list on screen in columns of 10
-function updateListUI() {
-  const listEl = document.getElementById('nameList');
-  listEl.innerHTML = '';
+// ✅ Render names in columns
+function renderNameList() {
+  const container = document.getElementById("nameListContainer");
+  container.innerHTML = "";
 
-  const columns = Math.ceil(participants.length / 10);
+  const columns = Math.ceil(nameList.length / 10);
   for (let i = 0; i < columns; i++) {
-    const ul = document.createElement('ul');
-    ul.classList.add('column');
-    for (let j = i * 10; j < (i + 1) * 10 && j < participants.length; j++) {
-      const li = document.createElement('li');
-      li.textContent = participants[j];
-      ul.appendChild(li);
+    const column = document.createElement("div");
+    column.className = "column";
+
+    const start = i * 10;
+    const end = Math.min(start + 10, nameList.length);
+    for (let j = start; j < end; j++) {
+      const name = nameList[j];
+      const p = document.createElement("p");
+      p.textContent = name;
+      column.appendChild(p);
     }
-    listEl.appendChild(ul);
+
+    container.appendChild(column);
   }
 }
 
-// 💾 Save list to Firestore
+// ✅ Save list to Firebase
 window.saveList = async function () {
-  if (participants.length < 2) {
-    alert("Add at least two participants.");
+  if (nameList.length < 2) {
+    alert("Please add at least two names to save the list.");
     return;
   }
 
-  const listName = prompt("Enter a name for your list:");
-  if (!listName) {
-    alert("List name is required.");
+  const listName = prompt("Enter a unique name for your list:");
+  const pin = prompt("Set a 4-digit PIN:");
+  const secret = prompt("Set a secret code (for organiser access):");
+
+  if (!listName || !pin || pin.length !== 4 || !secret) {
+    alert("All fields are required. PIN must be 4 digits.");
     return;
   }
-
-  // 🔁 Check if list name already exists
-  const nameQuery = query(collection(db, "lists"), where("name", "==", listName));
-  const nameSnapshot = await getDocs(nameQuery);
-  if (!nameSnapshot.empty) {
-    alert("List name already exists. Please choose a different name.");
-    return;
-  }
-
-  const pin = prompt("Enter a 4-digit PIN to protect your list:");
-  if (!pin || !/^\d{4}$/.test(pin)) {
-    alert("PIN must be exactly 4 digits.");
-    return;
-  }
-
-  const secretCode = prompt("Enter a secret code to manage the list later:");
-  if (!secretCode || secretCode.length < 3) {
-    alert("Secret code must be at least 3 characters.");
-    return;
-  }
-
-  const listId = `${listName.replace(/\s+/g, '_')}_${pin}`;
-
-  const data = {
-    name: listName,
-    participants: [...participants],
-    pin: pin,
-    secret: secretCode,
-    timestamp: serverTimestamp()
-  };
 
   try {
-    await setDoc(doc(db, "lists", listId), data);
-    alert("List saved successfully!");
+    const docRef = await addDoc(collection(db, "lists"), {
+      name: listName,
+      pin,
+      secret,
+      participants: nameList,
+      createdAt: new Date().toISOString(),
+    });
 
-    // ✅ Clear input and show sharing link
-    participants = [];
-    updateListUI();
-
-    const accessURL = `${window.location.origin}/access-list.html?listId=${encodeURIComponent(listId)}&pin=${encodeURIComponent(pin)}`;
-    const linkBox = document.getElementById('shareLinkBox');
-    linkBox.innerHTML = `
-      <p><strong>Share this link with participants:</strong></p>
-      <input type="text" value="${accessURL}" readonly id="shareURL" style="width:100%;" />
-      <button onclick="copyLink()">Copy Link</button>
+    const shareLink = `${location.origin}/draw.html?list=${encodeURIComponent(listName)}`;
+    document.getElementById("shareLinkBox").innerHTML = `
+      <p>List saved! Share this link with participants:</p>
+      <input type="text" readonly value="${shareLink}" style="width:100%; padding:10px;" />
     `;
-  } catch (err) {
-    console.error("Error saving list:", err);
-    alert("Failed to save list.");
-  }
-};
-
-// 📋 Copy sharable link to clipboard
-window.copyLink = function () {
-  const input = document.getElementById('shareURL');
-  if (input) {
-    input.select();
-    document.execCommand('copy');
-    alert("Link copied to clipboard!");
+  } catch (e) {
+    console.error("Error saving list:", e);
+    alert("There was an error saving your list. Try again.");
   }
 };
