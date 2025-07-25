@@ -1,71 +1,52 @@
-<!-- ✅ draw.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta setup -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="drawTitle">Draw a Name</title>
-
-  <!-- Stylesheet and Firebase config -->
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="access-list.js"></script>
   <script defer src="language.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="scripts.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- Top Right Help Button -->
+    <!-- Top Help Button -->
     <div class="top-buttons">
       <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <!-- Page Title -->
-    <h1 style="margin-top: 60px;">🎁 <span data-lang="drawTitle">Draw a Name</span></h1>
+    <h1 data-lang="drawTitle">Draw a Name</h1>
 
     <!-- Language Dropdown -->
     <select id="language-selector">
       <option value="en">English</option>
+      <option value="pt">Português</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
-      <option value="pt">Português</option>
+      <option value="zh">中文</option>
     </select>
 
     <div id="pinModal">
       <p data-lang="enterPin">Enter list name and PIN to continue:</p>
-
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
 
-  <!-- ✅ Group buttons horizontally -->
       <div class="horizontal-buttons">
-       <button onclick="submitPin()" data-lang="submit">Submit</button>
-       <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="submitPin()" data-lang="submit">Submit</button>
+        <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
       </div>
 
-      <p id="pinError" style="color:red;"></p>
-     </div>
-
-    <!-- Main Content Display After PIN Entry -->
-   <div id="listContent" style="display:none;">
-      <!-- Show list name -->
-      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
-      
-      <!-- Participant names listed in columns -->
-      <div id="participantList" class="columns"></div>
-
-      <!-- Draw a name button + result -->
-      <div style="margin-top: 20px;">
-        <button id="drawBtn" onclick="drawName()" data-lang="drawName">Draw a Name</button>
-        <h3 id="drawnName" style="margin-top: 15px;"></h3>
-      </div>
-
-      <!-- Back to Home -->
-      <button onclick="window.location.href='index.html'" data-lang="Home">Home</button>
+      <p id="pinError" class="error-msg"></p>
     </div>
 
-    <!-- 🔹 Footer -->
-    <footer style="margin-top: 40px;">
+    <div id="drawSection" style="display: none;">
+      <h2 data-lang="drawNameBtn">Draw Name</h2>
+      <button onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
+      <div id="drawnName"></div>
+    </div>
+
+    <footer>
       <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
     </footer>
