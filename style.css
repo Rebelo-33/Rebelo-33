@@ -79,6 +79,14 @@ input[type="number"] {
   display: block;
 }
 
+/* ✅ Error messages */
+#errorMsg,
+#pinError {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
 /* ✅ Uniform blue buttons */
 button {
   padding: 10px 20px;
