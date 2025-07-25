@@ -1,4 +1,5 @@
 /* ✅ General Reset & Body Styling */
+/* ✅ Reset & Page Setup */
 body {
   margin: 0;
   padding: 0;
@@ -7,7 +8,6 @@ body {
   color: #333;
 }
 
-/* ✅ Container that wraps all content */
 .container {
   max-width: 800px;
   margin: 60px auto 40px auto;
@@ -18,14 +18,14 @@ body {
   position: relative;
 }
 
-/* ✅ Title and main header */
+/* ✅ Headings */
 h1 {
   font-size: 2em;
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* ✅ Footer styling */
+/* ✅ Footer */
 footer {
   text-align: center;
   margin-top: 40px;
@@ -33,7 +33,7 @@ footer {
   color: #777;
 }
 
-/* ✅ Top-right Help Button */
+/* ✅ Help Button */
 .top-buttons {
   position: absolute;
   top: 15px;
@@ -41,7 +41,7 @@ footer {
   z-index: 1000;
 }
 
-/* ✅ Dropdown language selector */
+/* ✅ Language Selector */
 #language-selector {
   display: block;
   margin: 20px auto;
@@ -51,40 +51,14 @@ footer {
   border: 1px solid #ccc;
 }
 
-/* ✅ Paragraph spacing */
+/* ✅ Paragraphs */
 p {
   text-align: center;
   line-height: 1.5;
   margin-bottom: 20px;
 }
 
-/* ✅ Buttons styling */
-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #ff914d;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #ff6b1a;
-}
-
-/* ✅ Align main navigation buttons vertically */
-.main-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  margin-top: 20px;
-}
-
-/* ✅ Input fields */
+/* ✅ Inputs */
 input[type="text"],
 input[type="password"],
 input[type="number"] {
@@ -98,62 +72,56 @@ input[type="number"] {
   border-radius: 5px;
 }
 
-/* ✅ Column structure for participant lists */
+/* ✅ Name List Columns */
 .columns {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
   margin: 20px 0;
 }
 
-/* ✅ Each column of up to 10 names */
 .column {
   flex: 1;
   min-width: 150px;
 }
 
-/* ✅ Name list items in edit mode (My Lists) */
-.name-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-/* ✅ Remove button next to each name */
-.remove-btn {
-  background: red;
+/* ✅ Buttons – Blue Theme */
+button {
+  padding: 10px 20px;
+  background-color: #007bff; /* blue */
   color: white;
   border: none;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.8em;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  width: 200px;
+  max-width: 90%;
 }
 
-/* ✅ Drawn name display */
-#drawnName {
-  text-align: center;
-  font-size: 1.2em;
-  color: green;
+button:hover {
+  background-color: #0056b3;
 }
 
-/* ✅ Small spacing for grouped controls */
-.controls {
-  margin-top: 10px;
+/* ✅ Vertical Button Group (Index, etc.) */
+.main-buttons {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* ✅ Controls for access-list and draw pages */
+.controls,
+.horizontal-buttons {
+  display: flex;
+  flex-direction: row;
   gap: 10px;
   justify-content: center;
-}
-
-/* ✅ Input and button rows for "My Lists" page */
-#newNameInput,
-#removeInput {
-  margin-top: 10px;
-}
-
-#accessForm input {
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
 }
 
 /* ✅ Error messages */
@@ -164,17 +132,9 @@ input[type="number"] {
   margin-top: 10px;
 }
 
-.controls {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.horizontal-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 15px;
+/* ✅ Center drawn name */
+#drawnName {
+  text-align: center;
+  font-size: 1.2em;
+  color: green;
 }
