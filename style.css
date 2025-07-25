@@ -41,8 +41,8 @@ p {
 }
 
 .top-buttons button {
-  font-size: 0.8em;           /* Smaller text */
-  padding: 6px 12px;          /* Compact padding */
+  font-size: 11em;           /* Smaller text */
+  padding: 3px 6px;          /* Compact padding */
   background-color: #007bff;  /* Blue */
   border: none;
   border-radius: 5px;
