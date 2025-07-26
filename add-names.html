@@ -1,47 +1,42 @@
 <!-- ✅ add-names.html -->
 <!DOCTYPE html>
-<html lang="en"> <!-- Enables browser translation -->
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Names</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secret Gift Exchange - Add Names</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="add-names.js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- ✅ Help Button -->
+
+    <!-- Top Help Button -->
     <div class="top-buttons">
       <button onclick="location.href='help.html'">Help</button>
     </div>
 
-    <h1>Add Names</h1>
+    <h1>Secret Gift Exchange</h1>
 
-    <!-- ✅ Form Inputs -->
-    <input type="text" id="listNameInput" placeholder="List Name" />
-    <input type="password" id="pinInput" maxlength="4" placeholder="PIN (4 digits)" />
+    <p>Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <p id="errorMessage" class="error-message"></p>
+    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+    <button onclick="addName()">Add Name</button>
 
-    <input type="text" id="nameInput" placeholder="Enter name" />
-    <div class="controls">
-      <button onclick="addName()">Add Name</button>
-    </div>
+    <!-- Name List Display -->
+    <div id="nameContainer" class="columns"></div>
 
-    <!-- ✅ Name list will show dynamically in columns -->
-    <div id="nameListContainer"></div>
-
-    <!-- ✅ Save/Share Controls -->
+    <!-- Save and Cancel Buttons -->
     <div class="controls">
       <button onclick="saveList()">Save List</button>
-      <button onclick="generateShareLink()">Generate Share Link</button>
+      <button onclick="location.href='index.html'">Home</button>
     </div>
 
-    <!-- ✅ Share Link Output -->
+    <!-- Share Link Section -->
     <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
-    <!-- ✅ Footer -->
+    <!-- Footer -->
     <footer>
       <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p>© 2025 All rights reserved</p>
