@@ -16,7 +16,7 @@
       <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1 data-lang="access">Access List</h1>
+    <h1><span data-lang="access">Access Your List</span></h1>
 
     <select id="language-selector">
       <option value="en">English</option>
@@ -26,23 +26,21 @@
       <option value="zh">中文</option>
     </select>
 
-    <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
+    <p data-lang="enterPin">Enter list name and PIN to continue:</p>
 
-    <div id="accessForm">
+    <form id="accessForm">
       <input type="text" id="listName" placeholder="List Name" />
-      <input type="password" id="pin" placeholder="PIN" maxlength="4" />
-      <input type="text" id="secret" placeholder="Secret Code" />
+      <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
       <div class="horizontal-buttons">
-        <button onclick="accessList()" data-lang="submit">Submit</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button type="submit" data-lang="submit">Submit</button>
+        <button onclick="location.href='index.html'" type="button" data-lang="backHome">Home</button>
       </div>
-      <p id="errorMsg"></p>
-    </div>
+    </form>
+
+    <p id="pinError"></p>
 
     <footer>
-      <p>
-        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
-      </p>
+      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
