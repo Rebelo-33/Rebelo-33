@@ -145,6 +145,7 @@ input[type="number"] {
 }
 
 /* ✅ Footer */
+/* Note: Footer email will now be injected via JS using innerHTML to preserve link */
 footer {
   text-align: center;
   margin-top: 40px;
