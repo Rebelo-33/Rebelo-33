@@ -12,8 +12,7 @@ body {
 .container {
   max-width: 800px;
   margin: 60px auto 40px auto;
-  padding: 20px;
-  padding-top: 80px; /* ← pushes the content below the absolute Help button */
+  padding: 50px 20px 20px; /* Increased top padding from 20px to 50px */
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
