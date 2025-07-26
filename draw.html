@@ -31,13 +31,20 @@
     <!-- ✅ PIN Access Form -->
     <div id="pinModal">
       <p data-lang="enterPin">Enter list name and PIN to continue:</p>
-      <input type="text" id="listName" placeholder="List Name" />
-      <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-      <div class="horizontal-buttons">
-        <button onclick="submitPin()" data-lang="submit">Submit</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+
+      <!-- ✅ Form block groups inputs and buttons vertically -->
+      <div class="form-block">
+        <input type="text" id="listName" placeholder="List Name" />
+        <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
+
+        <!-- ✅ Aligned button group -->
+        <div class="form-buttons">
+          <button onclick="submitPin()" data-lang="submit">Submit</button>
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        </div>
       </div>
-      <p id="pinError"></p>     <!-- For PIN entry -->
+
+      <p id="pinError"></p> <!-- For PIN entry errors -->
     </div>
 
     <!-- ✅ Draw Area -->
@@ -57,7 +64,7 @@
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
+      <p data-lang="footerContact"></p> <!-- Content injected via JS -->
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
