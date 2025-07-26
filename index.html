@@ -3,20 +3,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="homeTitle">🎁 Secret Gift Exchange</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-
-    <!-- ✅ Help Button Top Right -->
+    
+    <!-- ✅ Top-Right Help Button -->
     <div class="top-buttons">
-      <button class="small-button" onclick="location.href='help.html'" data-lang="help">Help</button>
+      <button class="small-btn" onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <!-- ✅ Language Dropdown -->
+    <!-- ✅ Main Title -->
+    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+
+    <!-- ✅ Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -25,13 +28,16 @@
       <option value="zh">中文</option>
     </select>
 
-    <!-- ✅ Main Title and Intro -->
-    <h1 data-lang="homeTitle">🎁 Secret Gift Exchange</h1>
-    <p data-lang="homeIntro1" style="text-align:center;">Create, share, draw name and enjoy!</p>
-    <p data-lang="homeIntro2" style="text-align:center;"><strong>Keep the surprise alive!</strong></p>
+    <!-- ✅ Intro Text -->
+    <p data-lang="introText">
+      Start your own secret gift exchange list in minutes! Protect your list with a PIN, draw names fairly, and keep the surprise alive.
+    </p>
 
-    <!-- ✅ Main Navigation Buttons -->
-    <div class="main-buttons vertical-buttons">
+    <!-- ✅ Create, Share, Enjoy -->
+    <p data-lang="introEnjoy">Create, Share, and Enjoy!</p>
+
+    <!-- ✅ Navigation Buttons -->
+    <div class="main-buttons">
       <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
       <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
       <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
@@ -39,7 +45,7 @@
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
+      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
 
