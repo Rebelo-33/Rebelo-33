@@ -1,58 +1,49 @@
-<!-- ✅ help.html – Translatable and Well-Structured -->
+<!-- ✅ help.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="helpPageTitle">Help - Secret Gift Exchange</title>
+  <title>Help - Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- Help Header and Navigation -->
+
+    <!-- Top Button -->
     <div class="top-buttons">
-      <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
+      <button onclick="location.href='index.html'">Home</button>
     </div>
 
-    <h1 data-lang="helpPageTitle">Help - Secret Gift Exchange</h1>
+    <h1>Help - Secret Gift Exchange</h1>
 
-    <!-- Language Dropdown -->
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-    </select>
-
-    <!-- How it works section -->
-    <h2 data-lang="howItWorksTitle">How It Works</h2>
-    <ul>
-      <li data-lang="how1">Create a new list and add participant names.</li>
-      <li data-lang="how2">Protect your list with a 4-digit PIN and a secret code (for organiser access).</li>
-      <li data-lang="how3">Share the access link with participants.</li>
-      <li data-lang="how4">Participants enter the list name and PIN to view and draw names.</li>
-      <li data-lang="how5">The organiser uses the secret code to manage or edit the list.</li>
-    </ul>
+    <!-- How It Works Section -->
+    <h2>How It Works</h2>
+    <ol>
+      <li>Create a new list and add participant names.</li>
+      <li>Protect your list with a 4-digit PIN and a secret code.</li>
+      <li>Share the list name and PIN with participants.</li>
+      <li>Participants draw names by entering the list name and PIN.</li>
+      <li>Organisers manage lists using the secret code.</li>
+    </ol>
 
     <!-- FAQ Section -->
-    <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq">
+      <p><strong>Can I participate and organise?</strong></p>
+      <p>Yes! You can draw a name just like any participant.</p>
 
-    <div class="faq-content">
-      <p data-lang="faqQ1"></p>
-      <p data-lang="faqA1"></p>
+      <p><strong>Can I draw twice?</strong></p>
+      <p>No. Each participant can only draw once. The result is saved on your browser.</p>
 
-      <p data-lang="faqQ2"></p>
-      <p data-lang="faqA2"></p>
-
-      <p data-lang="faqQ3"></p>
-      <p data-lang="faqA3"></p>
+      <p><strong>I forgot my PIN or Secret Code. What should I do?</strong></p>
+      <p>Unfortunately, these cannot be recovered. Ask the organiser to resend or create a new list.</p>
     </div>
 
-    <!-- ✅ Footer -->
+    <!-- Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p>© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
