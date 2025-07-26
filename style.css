@@ -190,3 +190,67 @@ footer p {
 .delete-btn:hover {
   color: #900;
 }
+
+
+/* ✅ Name List Layout */
+#nameListContainer {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* ✅ Each column holds up to 10 names */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 250px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  background: #f9f9f9;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+
+/* ✅ Each name row with delete icon */
+.name-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  border-bottom: 1px solid #e2e2e2;
+  font-size: 15px;
+  line-height: 1.4;
+  user-select: none;
+  background: #fff;
+  border-radius: 4px;
+}
+
+/* ✅ Last item removes bottom border */
+.name-item:last-child {
+  border-bottom: none;
+}
+
+/* ✅ Delete button styling (trash can with lid) */
+.delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #d11a2a;
+  padding: 0;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.delete-btn:hover {
+  color: #a00;
+}
+
+/* ✅ SVG icon sizing */
+.delete-btn svg {
+  width: 16px;
+  height: 16px;
+}
