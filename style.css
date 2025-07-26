@@ -95,6 +95,19 @@ button:hover {
   width: 160px; /* Optional: consistent button width */
 }
 
+/* ✅ add-name page Buttons styling*/
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* space between buttons */
+  align-items: center; /* center horizontally, optional */
+  margin-top: 20px; /* optional spacing */
+}
+
+.controls button {
+  width: 160px; /* optional: consistent button width */
+}
+
 /* ✅ Button Grouping */
 .main-buttons,
 .horizontal-buttons,
