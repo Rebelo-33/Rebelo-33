@@ -251,5 +251,5 @@ footer p {
 
 /* ✅ Buttons under PIN form */
 .form-buttons button {
-  widform: 80px;      /* visually aligns with input width */
+  widform: 60px;      /* visually aligns with input width */
 }
