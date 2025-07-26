@@ -1,4 +1,5 @@
 <!-- ✅ add-names.html -->
+<!-- ✅ add-names.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +13,15 @@
 </head>
 <body>
   <div class="container">
+    <!-- ✅ Help Button -->
     <div class="top-buttons">
       <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
+    <!-- ✅ Page Title -->
     <h1><span data-lang="title">Secret Gift Exchange</span></h1>
 
+    <!-- ✅ Language Selector -->
     <select id="language-selector">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -26,24 +30,32 @@
       <option value="zh">中文</option>
     </select>
 
-    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
+    <!-- ✅ Introduction Text -->
+    <p data-lang="addIntro">
+      Add participants to your list. Each name must be unique and no longer than 30 characters.
+    </p>
 
+    <!-- ✅ Dynamic Name List Display -->
     <div id="nameListContainer" class="columns"></div>
 
+    <!-- ✅ Input and Controls -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+
     <div class="controls">
       <button onclick="addName()" data-lang="addName">Add Name</button>
       <button onclick="saveList()" data-lang="saveList">Save List</button>
       <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
     </div>
 
+    <!-- ✅ Share Link Output -->
     <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
-    <p id="errorMsg"></p>
+    <!-- ✅ Error Message -->
+    <p id="errorMsg" class="error-message"></p>
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
+      <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
