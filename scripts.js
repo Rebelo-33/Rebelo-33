@@ -1,5 +1,4 @@
 // ✅ scripts.js – Handles participant name input & list saving
-
 import { db } from "./firebase-config.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
@@ -21,38 +20,45 @@ window.addName = function () {
   renderNameList();
 };
 
-// ✅ Remove a name
-window.removeName = function () {
-  const input = document.getElementById("nameInput");
-  const name = input.value.trim();
-
-  const index = nameList.indexOf(name);
-  if (index !== -1) {
-    nameList.splice(index, 1);
-    input.value = "";
-    renderNameList();
-  } else {
-    alert("Name not found in the list.");
-  }
-};
-
-// ✅ Render names in columns
+// ✅ Render names in columns with delete buttons
 function renderNameList() {
   const container = document.getElementById("nameListContainer");
   container.innerHTML = "";
 
-  const columns = Math.ceil(nameList.length / 10);
+  const maxPerColumn = 10;
+  const columns = Math.ceil(nameList.length / maxPerColumn);
+
   for (let i = 0; i < columns; i++) {
     const column = document.createElement("div");
     column.className = "column";
 
-    const start = i * 10;
-    const end = Math.min(start + 10, nameList.length);
+    const start = i * maxPerColumn;
+    const end = Math.min(start + maxPerColumn, nameList.length);
+
     for (let j = start; j < end; j++) {
       const name = nameList[j];
+
+      const nameDiv = document.createElement("div");
+      nameDiv.className = "name-item";
+
       const p = document.createElement("p");
       p.textContent = name;
-      column.appendChild(p);
+      p.style.margin = "0";
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.innerHTML = "🗑️";
+      deleteBtn.title = "Delete name";
+
+      // Important: capture index at this moment for proper deletion
+      deleteBtn.addEventListener("click", () => {
+        nameList.splice(j, 1);
+        renderNameList();
+      });
+
+      nameDiv.appendChild(p);
+      nameDiv.appendChild(deleteBtn);
+      column.appendChild(nameDiv);
     }
 
     container.appendChild(column);
