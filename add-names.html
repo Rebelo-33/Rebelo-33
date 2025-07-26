@@ -12,48 +12,39 @@
 </head>
 <body>
   <div class="container">
-    <!-- 🔹 Top Help Button -->
     <div class="top-buttons">
-      <button onclick="window.location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1 data-lang="addNamesTitle">Add Names</h1>
+    <h1><span data-lang="title">Secret Gift Exchange</span></h1>
 
-    <!-- 🔹 Language Dropdown -->
     <select id="language-selector">
       <option value="en">English</option>
-      <option value="pt">Português</option>
       <option value="es">Español</option>
       <option value="fr">Français</option>
+      <option value="pt">Português</option>
       <option value="zh">中文</option>
     </select>
 
-    <!-- 🔹 Instructions -->
-    <p data-lang="addIntro">
-      Add participants to your list. Each name must be unique and no longer than 30 characters.
-    </p>
+    <p data-lang="addIntro">Add participants to your list. Each name must be unique and no longer than 30 characters.</p>
 
-    <!-- 🔹 List Display -->
     <div id="nameListContainer" class="columns"></div>
 
-    <!-- 🔹 Input -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
-
-    <!-- 🔹 Buttons -->
-    <div class="main-buttons">
+    <div class="controls">
       <button onclick="addName()" data-lang="addName">Add Name</button>
       <button onclick="removeName()" data-lang="removeName">Remove Name</button>
       <button onclick="saveList()" data-lang="saveList">Save List</button>
-      <button onclick="window.location.href='index.html'" data-lang="backHome">Home</button>
+      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
     </div>
 
-    <!-- 🔹 Share Link Display -->
     <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
-    <!-- 🔹 Footer -->
+    <p id="errorMsg"></p>
+
     <footer>
       <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
