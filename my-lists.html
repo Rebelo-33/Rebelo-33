@@ -1,4 +1,3 @@
-<!-- ✅ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +15,7 @@
       <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1 data-lang="manageList">Manage List</h1>
+    <h1><span data-lang="manageList">Manage Your List</span></h1>
 
     <select id="language-selector">
       <option value="en">English</option>
@@ -28,40 +27,37 @@
 
     <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
 
-    <div id="accessForm">
-      <input type="text" id="listName" placeholder="List Name" />
-      <input type="password" id="pin" maxlength="4" placeholder="PIN" />
-      <input type="text" id="secret" placeholder="Secret Code" />
-
+    <form id="accessForm">
+      <input type="text" id="listName" placeholder="List Name" required />
+      <input type="password" id="pin" maxlength="4" placeholder="PIN" required />
+      <input type="password" id="secretCode" placeholder="Secret Code" required />
       <div class="horizontal-buttons">
-        <button onclick="accessList()" data-lang="submit">Submit</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button type="submit" data-lang="submit">Submit</button>
+        <button onclick="location.href='index.html'" type="button" data-lang="backHome">Home</button>
       </div>
+    </form>
 
-      <p id="errorMsg"></p>
-    </div>
-
-    <div id="editSection" style="display:none;">
+    <div id="listContent" style="display:none;">
       <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
       <div id="nameListContainer" class="columns"></div>
 
-      <input type="text" id="newNameInput" placeholder="Add or remove name" />
-      <div class="horizontal-buttons">
-        <button onclick="addName()" data-lang="addName">Add Name</button>
-        <button onclick="removeName()" data-lang="removeName">Remove Name</button>
-      </div>
+      <input type="text" id="newNameInput" placeholder="Enter name to add" />
+      <button onclick="addName()" data-lang="addName">Add Name</button>
 
-      <div class="horizontal-buttons">
-        <button onclick="saveList()" data-lang="saveChanges">Save Changes</button>
-        <button onclick="location.href='index.html'" data-lang="cancel">Cancel</button>
+      <input type="text" id="removeInput" placeholder="Enter name to remove" />
+      <button onclick="removeName()" data-lang="removeName">Remove Name</button>
+
+      <div class="controls">
+        <button onclick="saveChanges()" data-lang="saveChanges">Save Changes</button>
+        <button onclick="cancelChanges()" data-lang="cancel">Cancel</button>
       </div>
     </div>
 
+    <p id="errorMsg"></p>
+
     <footer>
-      <p data-lang="footerContact">
-        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
-      </p>
-      <p data-lang="footerCopyright">&copy; 2025 All rights reserved</p>
+      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
