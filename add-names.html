@@ -7,37 +7,56 @@
   <title data-lang="addNamesTitle">Add Names</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="add-names.js"></script>
+  <script type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-
-    <!-- ✅ Help Button Top Right -->
+    <!-- ✅ Help Button -->
     <div class="top-buttons">
-      <button class="small-button" onclick="location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <h1 data-lang="addNamesTitle">Add Names</h1>
+    <!-- ✅ Page Title -->
+    <h1><span data-lang="title">Secret Gift Exchange</span></h1>
 
-    <input type="text" id="listName" placeholder="List Name" />
-    <input type="password" id="pinInput" placeholder="PIN" maxlength="4" />
-    <input type="text" id="nameInput" placeholder="Enter a name" />
-    <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
+    <!-- ✅ Language Selector -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+      <option value="zh">中文</option>
+    </select>
 
+    <!-- ✅ Introduction Text -->
+    <p data-lang="addIntro">
+      Add participants to your list. Each name must be unique and no longer than 30 characters.
+    </p>
+
+    <!-- ✅ Dynamic Name List Display -->
     <div id="nameListContainer" class="columns"></div>
 
+    <!-- ✅ Input and Controls -->
+    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+
     <div class="controls">
+      <button onclick="addName()" data-lang="addName">Add Name</button>
       <button onclick="saveList()" data-lang="saveList">Save List</button>
       <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
     </div>
+
+    <!-- ✅ Share Link Output -->
+    <div id="shareLinkBox" style="margin-top: 20px;"></div>
+
+    <!-- ✅ Error Message -->
+    <p id="errorMsg" class="error-message"></p>
 
     <!-- ✅ Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
-
   </div>
 </body>
 </html>
