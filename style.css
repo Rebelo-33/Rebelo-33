@@ -86,12 +86,13 @@ button:hover {
 .vertical-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* space between buttons */
-  /* optional: set width or max-width if you want */
+  gap: 12px; /* Adjust spacing between buttons */
+  align-items: center; /* Optional: center buttons horizontally */
+  margin-top: 30px; /* Optional: spacing from elements above */
 }
 
 .vertical-buttons button {
-  width: 100%; /* make buttons full width of container, optional */
+  width: 200px; /* Optional: consistent button width */
 }
 
 /* ✅ Button Grouping */
