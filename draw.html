@@ -1,6 +1,6 @@
 <!-- ✅ draw.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Enables browser translation -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,44 +12,39 @@
 </head>
 <body>
   <div class="container">
-    <!-- ✅ Help Button -->
+    <!-- ✅ Help Button Top Right -->
     <div class="top-buttons">
       <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
+    <!-- ✅ Page Title -->
     <h1 data-lang="drawTitle">Draw a Name</h1>
 
-    <!-- ✅ Language Selector -->
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
+    <!-- ❌ REMOVED Language Selector to rely on browser translator -->
 
     <!-- ✅ PIN Access Form -->
     <div id="pinModal">
       <p data-lang="enterPin">Enter list name and PIN to continue:</p>
+      <input type="text" id="listName" placeholder="List Name" />
+      <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
 
-      <!-- ✅ Form block groups inputs and buttons vertically -->
-      <div class="form-block">
-        <input type="text" id="listName" placeholder="List Name" />
-        <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-
-        <!-- ✅ Aligned button group -->
-        <div class="form-buttons">
-          <button onclick="submitPin()" data-lang="submit">Submit</button>
-          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        </div>
+      <!-- ✅ Buttons stacked vertically with spacing -->
+      <div class="controls vertical-buttons">
+        <button onclick="submitPin()" data-lang="submit">Login</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
       </div>
 
-      <p id="pinError"></p> <!-- For PIN entry errors -->
+      <!-- ✅ For PIN errors -->
+      <p id="pinError"></p>
     </div>
 
-    <!-- ✅ Draw Area -->
+    <!-- ✅ Draw Area (Shown after successful login) -->
     <div id="listContent" style="display:none;">
-      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
+      <h2>
+        <span data-lang="listNameLabel">List:</span>
+        <span id="listNameDisplay"></span>
+      </h2>
+
       <div id="participantList" class="columns"></div>
 
       <div class="controls">
@@ -57,6 +52,7 @@
       </div>
 
       <h3 id="drawnName"></h3>
+
       <div class="controls">
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
       </div>
@@ -64,7 +60,10 @@
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content injected via JS -->
+      <p data-lang="footerContact">
+        Need help? Contact
+        <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
+      </p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
