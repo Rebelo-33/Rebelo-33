@@ -82,6 +82,18 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* ✅ Make Buttons Create List manage List Draw Name vertical */
+.vertical-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* space between buttons */
+  /* optional: set width or max-width if you want */
+}
+
+.vertical-buttons button {
+  width: 100%; /* make buttons full width of container, optional */
+}
+
 /* ✅ Button Grouping */
 .main-buttons,
 .horizontal-buttons,
