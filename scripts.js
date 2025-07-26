@@ -5,7 +5,7 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/f
 // 🟦 Store participant names
 let nameList = [];
 
-// ✅ Add a name
+// ✅ Add a name to the list
 window.addName = function () {
   const input = document.getElementById("nameInput");
   const name = input.value.trim();
@@ -17,13 +17,13 @@ window.addName = function () {
 
   nameList.push(name);
   input.value = "";
-  renderNameList();
+  renderNameList(); // Re-render the name list with updated items
 };
 
-// ✅ Render names in columns with delete buttons
+// ✅ Render names in columns (10 per column), each with a delete button (trash icon)
 function renderNameList() {
   const container = document.getElementById("nameListContainer");
-  container.innerHTML = "";
+  container.innerHTML = ""; // Clear previous display
 
   const maxPerColumn = 10;
   const columns = Math.ceil(nameList.length / maxPerColumn);
@@ -47,12 +47,22 @@ function renderNameList() {
 
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "delete-btn";
-      deleteBtn.innerHTML = "🗑️";
+
+      // ✅ Replace 🗑️ emoji with trash can lid SVG
+      deleteBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          viewBox="0 0 16 16">
+          <path d="M5.5 5.5a.5.5 0 011 0v7a.5.5 0 01-1 0v-7zm3 0a.5.5 0 011 0v7a.5.5 0 01-1 0v-7z"/>
+          <path fill-rule="evenodd"
+            d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 010-2h3.09a1 1 0 01.91.59l.26.52h2.48l.26-.52a1 1 0 01.91-.59H14a1 1 0 011 1zM12 4H4v9a1 1 0 001 1h6a1 1 0 001-1V4z"/>
+        </svg>
+      `;
       deleteBtn.title = "Delete name";
 
-      // Important: capture index at this moment for proper deletion
+      // ✅ Use actual index for delete (j might shift due to re-rendering)
+      // Capture the current name in closure, not index
       deleteBtn.addEventListener("click", () => {
-        nameList.splice(j, 1);
+        nameList = nameList.filter(n => n !== name);
         renderNameList();
       });
 
