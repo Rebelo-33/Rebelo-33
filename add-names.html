@@ -1,63 +1,50 @@
 <!-- ✅ add-names.html -->
-<!-- ✅ add-names.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Enables browser translation -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="addNamesTitle">Add Names</title>
+  <title>Add Names</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="scripts.js"></script>
-  <script defer src="language.js"></script>
+  <script type="module" src="add-names.js"></script>
 </head>
 <body>
   <div class="container">
     <!-- ✅ Help Button -->
     <div class="top-buttons">
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="location.href='help.html'">Help</button>
     </div>
 
-    <!-- ✅ Page Title -->
-    <h1><span data-lang="title">Secret Gift Exchange</span></h1>
+    <h1>Add Names</h1>
 
-    <!-- ✅ Language Selector -->
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
+    <!-- ✅ Form Inputs -->
+    <input type="text" id="listNameInput" placeholder="List Name" />
+    <input type="password" id="pinInput" maxlength="4" placeholder="PIN (4 digits)" />
 
-    <!-- ✅ Introduction Text -->
-    <p data-lang="addIntro">
-      Add participants to your list. Each name must be unique and no longer than 30 characters.
-    </p>
+    <p id="errorMessage" class="error-message"></p>
 
-    <!-- ✅ Dynamic Name List Display -->
-    <div id="nameListContainer" class="columns"></div>
-
-    <!-- ✅ Input and Controls -->
-    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
-
+    <input type="text" id="nameInput" placeholder="Enter name" />
     <div class="controls">
-      <button onclick="addName()" data-lang="addName">Add Name</button>
-      <button onclick="saveList()" data-lang="saveList">Save List</button>
-      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+      <button onclick="addName()">Add Name</button>
+    </div>
+
+    <!-- ✅ Name list will show dynamically in columns -->
+    <div id="nameListContainer"></div>
+
+    <!-- ✅ Save/Share Controls -->
+    <div class="controls">
+      <button onclick="saveList()">Save List</button>
+      <button onclick="generateShareLink()">Generate Share Link</button>
     </div>
 
     <!-- ✅ Share Link Output -->
-    <!-- 🔁 This box will be filled dynamically with the share link after saving the list -->
-    <div id="shareLinkBox"></div>
-
-    <!-- ✅ Error Message -->
-    <p id="errorMsg" class="error-message"></p>
+    <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p>
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p>© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
