@@ -160,3 +160,13 @@ footer {
 footer p {
   margin: 10px 0;
 }
+
+/* help page questions paragraphs */
+.faq-content {
+  text-align: left;
+}
+
+.faq-content p {
+  margin-bottom: 1em;
+  line-height: 1.5;
+}
