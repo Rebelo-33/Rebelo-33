@@ -21,7 +21,8 @@ const translations = {
     confirmSave: "Do you want to save the changes?",
     confirmLeave: "Go back to Home? Unsaved changes will be lost.",
     saveChanges: "Save Changes",
-    footerContact: "Need help? Contact",
+    // Update only footerContact entries inside your translations object like this:
+    footerContact: 'Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 All rights reserved",
     helpPageTitle: "Help - Secret Gift Exchange",
     faqTitle: "Frequently Asked Questions",
@@ -60,7 +61,7 @@ const translations = {
     confirmSave: "¿Deseas guardar los cambios?",
     confirmLeave: "¿Regresar al inicio? Cambios no guardados se perderán.",
     saveChanges: "Guardar Cambios",
-    footerContact: "¿Necesitas ayuda? Contacta a",
+    footerContact: '¿Necesitas ayuda? Contacta a <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 Todos los derechos reservados",
     helpPageTitle: "Ayuda - Intercambio Secreto",
     faqTitle: "Preguntas Frecuentes",
@@ -99,7 +100,7 @@ const translations = {
     confirmSave: "Enregistrer les modifications ?",
     confirmLeave: "Retourner à l'accueil ? Changements non sauvegardés seront perdus.",
     saveChanges: "Enregistrer",
-    footerContact: "Besoin d'aide ? Contactez",
+    footerContact: 'Besoin d\'aide ? Contactez <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 Tous droits réservés",
     helpPageTitle: "Aide - Échange Secret",
     faqTitle: "Questions Fréquentes",
@@ -138,7 +139,7 @@ const translations = {
     confirmSave: "Deseja salvar as alterações?",
     confirmLeave: "Voltar para início? Alterações não salvas serão perdidas.",
     saveChanges: "Salvar Alterações",
-    footerContact: "Precisa de ajuda? Contate",
+    footerContact: 'Precisa de ajuda? Contate <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 Todos os direitos reservados",
     helpPageTitle: "Ajuda - Amigo Secreto",
     faqTitle: "Perguntas Frequentes",
@@ -177,7 +178,7 @@ const translations = {
     confirmSave: "你要保存更改吗？",
     confirmLeave: "返回首页？未保存更改将丢失。",
     saveChanges: "保存更改",
-    footerContact: "需要帮助？联系",
+    footerContact: '需要帮助？联系 <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 保留所有权利",
     helpPageTitle: "帮助 - 秘密礼物交换",
     faqTitle: "常见问题",
@@ -201,7 +202,12 @@ function updateLanguage(lang) {
   document.querySelectorAll("[data-lang]").forEach((el) => {
     const key = el.getAttribute("data-lang");
     if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
+      // Use innerHTML only for footerContact to allow email link
+      if (key === "footerContact") {
+        el.innerHTML = translations[lang][key];
+      } else {
+        el.textContent = translations[lang][key];
+      }
     }
   });
   document.documentElement.lang = lang;
