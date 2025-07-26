@@ -254,3 +254,13 @@ footer p {
   width: 16px;
   height: 16px;
 }
+
+/* ✅ Center language selector */
+#language-selector {
+  display: block;
+  margin: 20px auto;
+  padding: 8px 12px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
