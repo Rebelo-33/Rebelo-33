@@ -230,3 +230,26 @@ footer p {
   margin-bottom: 1em;
   line-height: 1.5;
 }
+
+
+/* ✅ Form block: groups PIN form inputs and buttons */
+.form-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;         /* space between input fields and buttons */
+  margin-top: 20px;  /* spacing from the label text */
+}
+
+/* ✅ Button container under the PIN form */
+.form-buttons {
+  display: flex;
+  gap: 12px;         /* space between buttons */
+  justify-content: center;
+  width: 100%;
+}
+
+/* ✅ Buttons under PIN form */
+.form-buttons button {
+  width: 120px;      /* visually aligns with input width */
+}
