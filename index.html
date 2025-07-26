@@ -11,8 +11,11 @@
 <body>
   <div class="container">
 
-    <!-- ✅ Language Selector (Top Right) -->
-    <div class="top-right">
+    <!-- ✅ Page Title -->
+    <h1 class="page-title" data-lang="title">Secret Gift Exchange 🎁</h1>
+
+    <!-- ✅ Centered Language Dropdown -->
+    <div class="language-center">
       <select id="language-selector">
         <option value="en">English</option>
         <option value="es">Español</option>
@@ -22,14 +25,11 @@
       </select>
     </div>
 
-    <!-- ✅ Page Title (Left) -->
-    <h1 class="page-title" data-lang="title">Secret Gift Exchange 🎁</h1>
-
-    <!-- ✅ Introduction Paragraphs -->
+    <!-- ✅ Intro Paragraphs -->
     <p>Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.</p>
     <p>Keep the surprise alive!</p>
 
-    <!-- ✅ Action Buttons (Vertical Stack) -->
+    <!-- ✅ Buttons Vertically Stacked (Help at bottom) -->
     <div class="vertical-buttons">
       <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
       <button onclick="location.href='access-list.html'" data-lang="access">Access List</button>
@@ -40,7 +40,7 @@
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- injected via JS -->
+      <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
