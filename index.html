@@ -1,37 +1,28 @@
 <!-- ✅ index.html -->
 <!DOCTYPE html>
-<html lang="en"> <!-- ✅ Enables browser translation -->
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secret Santa App</title>
+  <title>Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <!-- ✅ Help Button -->
-    <div class="top-buttons">
-      <button onclick="location.href='help.html'">Help</button>
-    </div>
+  <header>
+    <h1>Secret Gift Exchange</h1>
+    <p>Create, manage, and draw names for your gift exchange. Simple, secure, and fun!</p>
+  </header>
 
-    <h1>Welcome to the Secret Santa App</h1>
-
-    <!-- ❌ Removed language selector to rely on browser translation -->
-
-    <p>Create a list, manage participants, and draw names for your gift exchange!</p>
-
-    <!-- ✅ Vertical Button Group -->
-    <div class="vertical-buttons">
-      <button onclick="location.href='add-names.html'">Create a List</button>
-      <button onclick="location.href='manage.html'">Manage Lists</button>
-      <button onclick="location.href='draw.html'">Draw a Name</button>
-    </div>
-
-    <!-- ✅ Footer -->
-    <footer>
-      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p>© 2025 All rights reserved</p>
-    </footer>
+  <!-- ✅ Main Navigation Buttons -->
+  <div class="main-buttons">
+    <button onclick="location.href='add-names.html'">Create List</button>
+    <button onclick="location.href='my-lists.html'">Manage List</button>
+    <button onclick="location.href='draw.html'">Draw Name</button>
   </div>
+
+  <footer>
+    <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+    <p>© 2025 All rights reserved</p>
+  </footer>
 </body>
 </html>
