@@ -92,7 +92,7 @@ button:hover {
 }
 
 .vertical-buttons button {
-  width: 100px; /* Optional: consistent button width */
+  width: 160px; /* Optional: consistent button width */
 }
 
 /* ✅ Button Grouping */
