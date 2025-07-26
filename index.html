@@ -4,25 +4,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secret Gift Exchange</title>
+  <title data-lang="homeTitle">🎁 Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="language.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Secret Gift Exchange</h1>
-    <p>Create, manage, and draw names for your gift exchange. Simple, secure, and fun!</p>
-  </header>
+  <div class="container">
+    <!-- ✅ Help Button (Top Right) -->
+    <div class="top-buttons">
+      <button class="small-button" onclick="location.href='help.html'" data-lang="help">Help</button>
+    </div>
 
-  <!-- ✅ Main Navigation Buttons -->
-  <div class="main-buttons">
-    <button onclick="location.href='add-names.html'">Create List</button>
-    <button onclick="location.href='my-lists.html'">Manage List</button>
-    <button onclick="location.href='draw.html'">Draw Name</button>
+    <!-- ✅ Language Dropdown -->
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+      <option value="zh">中文</option>
+    </select>
+
+    <!-- ✅ Intro Text -->
+    <h1>🎁 Welcome! Start your Secret Gift Exchange.</h1>
+    <p>Create, share, draw name and enjoy.</p>
+    <p><strong>Keep the surprise alive!</strong></p>
+
+    <!-- ✅ Main Buttons (Vertical) -->
+    <div class="main-buttons vertical-buttons">
+      <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
+      <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
+      <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
+    </div>
+
+    <!-- ✅ Footer -->
+    <footer>
+      <p data-lang="footerContact">
+        Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
+      </p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+    </footer>
   </div>
-
-  <footer>
-    <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-    <p>© 2025 All rights reserved</p>
-  </footer>
 </body>
 </html>
