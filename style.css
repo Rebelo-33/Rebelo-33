@@ -268,3 +268,28 @@ footer p {
 .left-title {
   text-align: left;
 }
+/* ✅ Center the language dropdown */
+.language-center {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px;
+}
+
+/* ✅ Left-align page title with some margin */
+.page-title {
+  text-align: left;
+  margin: 20px 0 10px 0;
+  font-size: 2em;
+}
+
+/* ✅ Vertical button layout with spacing */
+.vertical-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 30px;
+}
+.vertical-buttons button {
+  width: 200px;
+}
