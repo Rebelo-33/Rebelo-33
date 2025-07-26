@@ -1,71 +1,54 @@
-<!-- ✅ draw.html -->
 <!DOCTYPE html>
-<html lang="en"> <!-- Enables browser translation -->
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Draw a Name</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="drawTitle">Draw a Name</title>
+  <link rel="stylesheet" href="style.css"/>
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="access-list.js"></script>
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
+
     <!-- ✅ Help Button Top Right -->
     <div class="top-buttons">
-      <button class="small-button" onclick="location.href='help.html'">Help</button>
+      <button class="small-button" onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <!-- ✅ Page Title -->
-    <h1>Draw a Name</h1>
+    <h1 data-lang="drawTitle">Draw a Name</h1>
 
-    <!-- ✅ PIN Access Form -->
+    <!-- ✅ PIN Form -->
     <div id="pinModal">
-      <p>Enter list name and PIN to continue:</p>
-
-      <!-- ✅ Inputs stacked -->
+      <p data-lang="enterPin">Enter list name and PIN to continue:</p>
       <input type="text" id="listName" placeholder="List Name" />
       <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
 
-      <!-- ✅ Vertically stacked buttons -->
-      <div class="controls vertical-buttons">
-        <button onclick="submitPin()">Login</button>
-        <button onclick="location.href='index.html'">Home</button>
+      <div class="vertical-buttons">
+        <button onclick="submitPin()" data-lang="submit">Login</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
       </div>
 
-      <!-- ✅ PIN error message -->
       <p id="pinError" class="error-message"></p>
     </div>
 
-    <!-- ✅ Content after successful PIN entry -->
     <div id="listContent" style="display:none;">
-      <h2>List: <span id="listNameDisplay"></span></h2>
-
-      <!-- ✅ Participant names listed -->
+      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
       <div id="participantList" class="columns"></div>
-
-      <!-- ✅ Draw button -->
-      <div class="controls">
-        <button id="drawBtn" onclick="drawName()">Draw a Name</button>
-      </div>
-
-      <!-- ✅ Result -->
+      <button onclick="drawName()" data-lang="drawName">Draw a Name</button>
       <h3 id="drawnName"></h3>
-
-      <!-- ✅ Return button -->
       <div class="controls">
-        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
       </div>
     </div>
 
     <!-- ✅ Footer -->
     <footer>
-      <p>
-        Need help? Contact
-        <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>
-      </p>
-      <p>© 2025 All rights reserved</p>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
+
   </div>
 </body>
 </html>
