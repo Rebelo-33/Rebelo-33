@@ -264,3 +264,7 @@ footer p {
   border-radius: 6px;
   border: 1px solid #ccc;
 }
+/* ✅ Align main title to the left */
+.left-title {
+  text-align: left;
+}
