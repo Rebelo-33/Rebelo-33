@@ -1,53 +1,49 @@
 <!-- ✅ index.html -->
-<!DOCTYPE html>
-<html lang="en">
+<!-- ✅ index.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    
-    <!-- ✅ Top-Right Help Button -->
+    <!-- ✅ Top Buttons -->
     <div class="top-buttons">
-      <button class="small-btn" onclick="location.href='help.html'" data-lang="help">Help</button>
-    </div>
+      <button onclick="location.href='help.html'" class="small-button" data-lang="help">Help</button>
+    </div><!-- ✅ Language Dropdown -->
+<div class="language-center">
+  <select id="language-selector">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="pt">Português</option>
+    <option value="zh">中文</option>
+  </select>
+</div>
 
-    <!-- ✅ Main Title -->
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+<!-- ✅ Intro Paragraph Below Selector -->
+<p class="intro">Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.</p>
+<p class="sub-intro">Keep the surprise alive!</p>
 
-    <!-- ✅ Language Selector -->
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
+<!-- ✅ Title -->
+<h1><span data-lang="title">Secret Gift Exchange</span> 🎁</h1>
 
-    <!-- ✅ Intro Text -->
-    <p data-lang="introText">
-      Start your own secret gift exchange list in minutes! Protect your list with a PIN, draw names fairly, and keep the surprise alive.
-    </p>
+<!-- ✅ Buttons -->
+<div class="vertical-buttons">
+  <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
+  <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
+  <button onclick="location.href='access-list.html'" data-lang="access">Access</button>
+  <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
+</div>
 
-    <!-- ✅ Create, Share, Enjoy -->
-    <p data-lang="introEnjoy">Create, Share, and Enjoy!</p>
-
-    <!-- ✅ Navigation Buttons -->
-    <div class="main-buttons">
-      <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
-      <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
-      <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
-    </div>
-
-    <!-- ✅ Footer -->
-    <footer>
-      <p data-lang="footerContact">Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-    </footer>
+<!-- ✅ Footer -->
+<footer>
+  <p data-lang="footerContact"></p>
+  <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+</footer>
 
   </div>
 </body>
