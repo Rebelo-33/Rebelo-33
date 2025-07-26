@@ -1,53 +1,36 @@
 <!-- ✅ index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- ✅ Enables browser translation -->
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="title">Secret Gift Exchange</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Santa App</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-
-    <!-- ✅ Top-Right Help Button -->
+    <!-- ✅ Help Button -->
     <div class="top-buttons">
-      <button class="small-btn" onclick="location.href='help.html'" data-lang="help">Help</button>
+      <button onclick="location.href='help.html'">Help</button>
     </div>
 
-    <!-- ✅ Page Title -->
-    <h1>🎁 <span data-lang="title">Secret Gift Exchange</span></h1>
+    <h1>Welcome to the Secret Santa App</h1>
 
-    <!-- ✅ Language Dropdown -->
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
+    <!-- ❌ Removed language selector to rely on browser translation -->
 
-    <!-- ✅ Introductory Paragraphs -->
-    <p data-lang="introWelcome">
-      Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.
-    </p>
-    <p data-lang="introSurprise">
-      Keep the surprise alive!
-      <br><br>
-    </p>
+    <p>Create a list, manage participants, and draw names for your gift exchange!</p>
 
-    <!-- ✅ Main Navigation Buttons (Vertical Layout) -->
-      <div class="vertical-buttons">
-       <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
-       <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
-       <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
-      </div>
+    <!-- ✅ Vertical Button Group -->
+    <div class="vertical-buttons">
+      <button onclick="location.href='add-names.html'">Create a List</button>
+      <button onclick="location.href='manage.html'">Manage Lists</button>
+      <button onclick="location.href='draw.html'">Draw a Name</button>
+    </div>
 
     <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+      <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
+      <p>© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
