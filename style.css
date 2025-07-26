@@ -95,6 +95,11 @@ button:hover {
   width: 160px;
 }
 
+/* ✅ Spacing above the share link box after saving the list */
+#shareLinkBox {
+  margin-top: 20px;
+}
+
 /* ✅ add-name page Buttons styling*/
 .controls {
   display: flex;
