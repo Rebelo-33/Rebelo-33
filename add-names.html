@@ -12,13 +12,14 @@
 </head>
 <body>
   <div class="container">
-    <!-- ✅ Help Button -->
+
+    <!-- ✅ Help Button (Top Right) -->
     <div class="top-buttons">
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      <button class="small-button" onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <!-- ✅ Page Title -->
-    <h1><span data-lang="title">Secret Gift Exchange</span></h1>
+    <!-- ✅ Page Title with Gift Icon -->
+    <h1><span data-lang="title">🎁 Secret Gift Exchange</span></h1>
 
     <!-- ✅ Language Selector -->
     <select id="language-selector">
@@ -29,27 +30,28 @@
       <option value="zh">中文</option>
     </select>
 
-    <!-- ✅ Introduction Text -->
+    <!-- ✅ Introduction -->
     <p data-lang="addIntro">
       Add participants to your list. Each name must be unique and no longer than 30 characters.
     </p>
 
-    <!-- ✅ Dynamic Name List Display -->
+    <!-- ✅ Name Display Area -->
     <div id="nameListContainer" class="columns"></div>
 
-    <!-- ✅ Input and Controls -->
+    <!-- ✅ Name Input -->
     <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
 
-    <div class="controls">
+    <!-- ✅ Vertically Aligned Buttons -->
+    <div class="vertical-buttons">
       <button onclick="addName()" data-lang="addName">Add Name</button>
       <button onclick="saveList()" data-lang="saveList">Save List</button>
       <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
     </div>
 
-    <!-- ✅ Share Link Output -->
+    <!-- ✅ Share Link -->
     <div id="shareLinkBox" style="margin-top: 20px;"></div>
 
-    <!-- ✅ Error Message -->
+    <!-- ✅ Error Display -->
     <p id="errorMsg" class="error-message"></p>
 
     <!-- ✅ Footer -->
