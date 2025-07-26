@@ -180,6 +180,7 @@ h1 {
   position: absolute;
   top: 15px;
   right: 15px;
+  margin-bottom: 20px; /* Adds space below the help button */
 }
 
 .small-button {
