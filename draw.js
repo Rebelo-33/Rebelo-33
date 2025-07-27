@@ -1,128 +1,119 @@
-// ✅ draw.js – Secure Anonymous Drawing with SHA-256 and Firestore
+// ✅ draw.js - Handles participant authentication and anonymous drawing logic
 
-import { db } from './firebase-config.js';
+import { db } from "./firebase-config.js";
 import {
+  getDocs,
+  query,
+  where,
+  collection,
+  updateDoc,
   doc,
-  getDoc,
-  updateDoc
-} from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 🧠 Local session variables
-let listName = '';
-let pin = '';
-let participants = [];
-let drawnHashes = [];
-let currentUser = '';
+// 🔐 Track authentication status in sessionStorage
+let currentList = null;
+let drawnName = null;
+let participantName = null;
 
-// ✅ On load: check for access via sessionStorage or redirect
-window.addEventListener('DOMContentLoaded', async () => {
-  listName = sessionStorage.getItem('listName');
-  pin = sessionStorage.getItem('pin');
+// ✅ Event: Access List button clicked
+window.accessList = async function () {
+  const listName = document.getElementById("listName").value.trim();
+  const pin = document.getElementById("pin").value.trim();
 
-  if (!listName || !pin) {
-    alert('You must access this page from the Access List page.');
-    location.href = 'access-list.html';
+  if (!listName || !pin || pin.length !== 4) {
+    alert("Please enter a valid list name and 4-digit PIN.");
     return;
   }
 
-  document.getElementById('listInfo').style.display = 'block';
-  document.getElementById('listNameDisplay').textContent = `List: ${listName}`;
+  try {
+    const q = query(collection(db, "lists"), where("name", "==", listName), where("pin", "==", pin));
+    const querySnapshot = await getDocs(q);
 
-  // 🔐 Load list from Firestore
-  const docRef = doc(db, 'lists', `${listName}_${pin}`);
-  const docSnap = await getDoc(docRef);
+    if (querySnapshot.empty) {
+      alert("List not found. Check name and PIN.");
+      return;
+    }
 
-  if (!docSnap.exists()) {
-    alert('List not found or incorrect PIN.');
-    location.href = 'access-list.html';
-    return;
+    currentList = querySnapshot.docs[0];
+    sessionStorage.setItem("authenticated", "true");
+    sessionStorage.setItem("listName", listName);
+    sessionStorage.setItem("pin", pin);
+
+    document.getElementById("authSection").style.display = "none";
+    document.getElementById("drawSection").style.display = "block";
+    renderParticipantList();
+
+  } catch (e) {
+    console.error("Error accessing list:", e);
+    alert("An error occurred. Try again.");
   }
-
-  const data = docSnap.data();
-  participants = data.participants || [];
-  drawnHashes = data.drawnHashes || [];
-
-  // 🔁 Check if user already drew a name
-  const userKey = `drawn_${listName}_${pin}`;
-  const existingDraw = localStorage.getItem(userKey);
-  if (existingDraw) {
-    document.getElementById('resultBox').innerHTML = `<strong>You already drew:</strong> ${existingDraw}`;
-  }
-});
-
-// ✅ Confirm identity (check name exists)
-window.confirmIdentity = async function () {
-  const input = document.getElementById('participantName');
-  const name = input.value.trim();
-
-  if (!name || !participants.includes(name)) {
-    alert('Please enter your name exactly as it appears on the list.');
-    return;
-  }
-
-  currentUser = name;
-  document.getElementById('drawBtn').style.display = 'inline-block';
-  alert(`Name confirmed: ${currentUser}`);
 };
 
-// ✅ Draw name securely
-window.drawName = async function () {
-  if (!currentUser) {
-    alert('Please confirm your name first.');
-    return;
+// ✅ Show participants in columns
+function renderParticipantList() {
+  const data = currentList.data();
+  const names = data.participants || [];
+
+  const container = document.getElementById("listContainer");
+  container.innerHTML = "";
+
+  const maxPerColumn = 10;
+  const columns = Math.ceil(names.length / maxPerColumn);
+
+  for (let i = 0; i < columns; i++) {
+    const col = document.createElement("div");
+    col.className = "column";
+
+    const start = i * maxPerColumn;
+    const end = Math.min(start + maxPerColumn, names.length);
+
+    for (let j = start; j < end; j++) {
+      const p = document.createElement("p");
+      p.textContent = names[j];
+      col.appendChild(p);
+    }
+
+    container.appendChild(col);
   }
-
-  const docRef = doc(db, 'lists', `${listName}_${pin}`);
-  const docSnap = await getDoc(docRef);
-  if (!docSnap.exists()) {
-    alert('List not found.');
-    return;
-  }
-
-  const data = docSnap.data();
-  const allParticipants = data.participants || [];
-  const alreadyDrawn = data.drawnHashes || [];
-
-  // 🧮 Filter names to exclude self + already drawn
-  const availableNames = allParticipants.filter(
-    n => n !== currentUser && !alreadyDrawn.includes(sha256(n))
-  );
-
-  if (availableNames.length === 0) {
-    alert('No names left to draw!');
-    return;
-  }
-
-  // 🎯 Random selection
-  const randomIndex = Math.floor(Math.random() * availableNames.length);
-  const drawnName = availableNames[randomIndex];
-  const drawnHash = sha256(drawnName);
-
-  // 🔐 Save hash (only) to Firestore
-  await updateDoc(docRef, {
-    drawnHashes: [...alreadyDrawn, drawnHash]
-  });
-
-  // 💾 Store result locally so user can see later
-  const userKey = `drawn_${listName}_${pin}`;
-  localStorage.setItem(userKey, drawnName);
-
-  // ✅ Display result
-  document.getElementById('resultBox').innerHTML = `
-    <strong>You are:</strong> ${currentUser}<br>
-    <strong>Your drawn name is:</strong> ${drawnName}
-  `;
-
-  // 🔒 Hide draw button to prevent repeat
-  document.getElementById('drawBtn').style.display = 'none';
-};
-
-// ✅ Hashing function (SHA-256)
-function sha256(str) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(str);
-  return crypto.subtle.digest('SHA-256', data).then((hashBuffer) => {
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  });
 }
+
+// ✅ Draw name - excluding your own
+window.drawName = async function () {
+  participantName = document.getElementById("yourName").value.trim();
+
+  if (!participantName) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  const listData = currentList.data();
+  const names = listData.participants;
+  if (!names.includes(participantName)) {
+    alert("Name not found in list. Please type your name as it appears.");
+    return;
+  }
+
+  // Simulate previously drawn name (via local storage)
+  const localKey = `drawn_${currentList.id}_${participantName}`;
+  const existing = localStorage.getItem(localKey);
+
+  if (existing) {
+    document.getElementById("result").textContent = `You are: ${participantName}\nYour drawn name is: ${existing}`;
+    return;
+  }
+
+  // Filter out user's own name
+  const available = names.filter(n => n !== participantName);
+  if (available.length === 0) {
+    alert("No available names to draw.");
+    return;
+  }
+
+  // Random draw
+  const randomIndex = Math.floor(Math.random() * available.length);
+  drawnName = available[randomIndex];
+
+  // Store only locally (not in Firestore)
+  localStorage.setItem(localKey, drawnName);
+  document.getElementById("result").textContent = `You are: ${participantName}\nYour drawn name is: ${drawnName}`;
+};
