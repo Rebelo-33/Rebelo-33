@@ -293,3 +293,61 @@ footer p {
 .vertical-buttons button {
   width: 200px;
 }
+<style>
+    /* 🎁 Gift icon top-left */
+    .gift-icon {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      font-size: 1.8rem;
+    }
+
+    /* 🌐 Language dropdown top-right */
+    .language-top-right {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    /* 🏷️ Title centered */
+    .page-title {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+
+    /* 📄 Intro paragraphs centered */
+    .intro-text {
+      text-align: center;
+      margin: 10px auto 30px auto;
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+
+    /* 🔘 Vertical button stack */
+    .vertical-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .vertical-buttons button {
+      width: 200px;
+    }
+
+    /* 📌 Footer spacing */
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    footer p {
+      margin: 10px 0;
+    }
+  </style>
