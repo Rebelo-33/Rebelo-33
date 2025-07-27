@@ -3,15 +3,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="title">Secret Gift Exchange 🎁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="title">Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="gift-icon">🎁</div>
-
-  <!-- ✅ Language Dropdown -->
   <div class="language-top-right">
     <select id="language-selector">
       <option value="en">English</option>
@@ -22,28 +20,22 @@
     </select>
   </div>
 
-  <!-- ✅ Main Title -->
-  <h1 data-lang="title" class="page-title">Secret Gift Exchange 🎁</h1>
+  <div class="container">
+    <h1 class="page-title" data-lang="title">Secret Gift Exchange</h1>
+    <p class="intro-text">Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.</p>
+    <p class="intro-text">Keep the surprise alive!</p>
 
-  <!-- ✅ Intro Text -->
-  <p class="intro-text">
-    Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.<br>
-    Keep the surprise alive!
-  </p>
+    <div class="vertical-buttons">
+      <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
+      <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
+      <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
+    </div>
 
-  <!-- ✅ Vertical Buttons -->
-  <div class="vertical-buttons">
-    <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
-    <button onclick="location.href='access-list.html'" data-lang="access">Access List</button>
-    <button onclick="location.href='draw.html'" data-lang="drawNameBtn">Draw Name</button>
-    <button onclick="location.href='my-lists.html'" data-lang="manageList">Manage List</button>
-    <button onclick="location.href='help.html'" data-lang="help">Help</button>
+    <footer>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+    </footer>
   </div>
-
-  <!-- ✅ Footer -->
-  <footer>
-    <p data-lang="footerContact"></p>
-    <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-  </footer>
 </body>
 </html>
