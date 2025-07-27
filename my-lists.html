@@ -1,63 +1,63 @@
-<!-- ✅ my-lists.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="myListTitle">My List</title>
-  <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="my-lists.js"></script>
-  <script defer src="language.js"></script>
-</head>
-<body>
-  <div class="container">
+<!-- ✅ my-lists.html --><!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My List</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="firebase-config.js" defer></script>
+    <script src="my-lists.js" defer></script>
+    <script src="language.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 🌐 Language + Logo Header -->
+      <div class="top-header">
+        <img src="gift-icon.png" alt="Gift Icon" class="logo" />
+        <select id="language-selector">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="zh">中文</option>
+        </select>
+      </div><!-- 📄 Page Title -->
+  <h1 class="page-title" data-lang="manageList">Manage List</h1>
 
-    <!-- 🎁 Gift Icon -->
-    <div class="gift-icon">🎁</div>
-
-    <!-- 🌐 Language Dropdown -->
-    <div class="language-top-right">
-      <select id="language-selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
-
-    <!-- 🏷️ Title + Subtitle -->
-    <h1 class="page-title" data-lang="myListTitle">My List</h1>
-    <p class="intro-text" data-lang="myListSubtitle">See list and drawn name! Surprise, Surprise!</p>
-
-    <!-- 🔐 Auth Fields -->
+  <!-- 🔐 Auth Fields -->
+  <div id="auth-section">
     <input type="text" id="listName" placeholder="Enter List Name" />
     <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" />
     <input type="text" id="secretCode" placeholder="Enter Secret Code" />
-
-    <div class="vertical-buttons">
-      <button onclick="manageList()" data-lang="manageList">Manage</button>
-      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
-    </div>
-
-    <!-- 👥 List Display -->
-    <div id="nameListContainer" class="columns"></div>
-
-    <!-- 💾 Save Button -->
-    <div class="vertical-buttons" style="margin-top: 30px;">
-      <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
-    </div>
-
-    <!-- ⚠️ Error Message -->
-    <p id="errorMsg" class="error-message"></p>
-
-    <!-- 📌 Footer -->
-    <footer>
-      <p data-lang="footerContact"></p>
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-    </footer>
+    <button onclick="authenticate()" class="primary-button">Manage List</button>
   </div>
-</body>
+
+  <!-- ✅ Manage List Section -->
+  <div id="manage-section" class="hidden">
+    <div class="manage-layout">
+      <!-- 📋 Name Table -->
+      <div id="nameTable" class="name-table"></div>
+
+      <!-- ➕ Add Name Form -->
+      <div class="add-name-section">
+        <input type="text" id="newName" placeholder="Enter name to add" />
+        <button onclick="addName()" class="primary-button" data-lang="addName">Add Name</button>
+      </div>
+    </div>
+
+    <!-- 💾 Save & Navigation Buttons -->
+    <div class="button-group">
+      <button onclick="saveList()" class="primary-button" data-lang="saveChanges">Save Changes</button>
+      <button onclick="goHome()" class="secondary-button" data-lang="backHome">Home</button>
+      <button onclick="location.href='help.html'" class="secondary-button" data-lang="help">Help</button>
+    </div>
+  </div>
+
+  <!-- ⬇️ Footer -->
+  <footer>
+    <p data-lang="footerContact"></p>
+    <p data-lang="footerCopyright"></p>
+  </footer>
+</div>
+
+  </body>
 </html>
