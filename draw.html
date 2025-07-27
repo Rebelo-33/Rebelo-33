@@ -1,50 +1,68 @@
 <!-- ✅ draw.html - Draw Names Anonymously -->
+<!-- ✅ draw.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Draw Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="drawNameBtn">Draw Name</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="draw.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
-  <div class="gift-icon">🎁</div>
-  <div class="language-top-right">
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
-  </div>
-
   <div class="container">
-    <h1 class="page-title">Draw</h1>
-    <p class="intro-text">See list and a drawn name. Surprise, Surprise!</p>
 
-    <!-- 🔐 Auth Form -->
-    <div id="authSection">
-      <input type="text" id="listName" placeholder="Enter list name" />
-      <input type="password" id="pin" placeholder="Enter 4-digit PIN" maxlength="4" />
-      <button onclick="accessList()" data-lang="access">Access List</button>
+    <!-- 🎁 Gift Icon -->
+    <div class="gift-icon">🎁</div>
+
+    <!-- 🌐 Language Dropdown -->
+    <div class="language-top-right">
+      <select id="language-selector">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="pt">Português</option>
+        <option value="zh">中文</option>
+      </select>
     </div>
 
-    <!-- 🎯 Draw Section -->
+    <!-- 🏷️ Page Title -->
+    <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
+    <p class="page-subtitle" data-lang="drawSubtitle">See list and your drawn name. Surprise, surprise!</p>
+
+    <!-- 🔐 Authentication Form -->
+    <div class="auth-form">
+      <input type="text" id="listNameInput" placeholder="List Name" maxlength="50" />
+      <input type="password" id="pinInput" placeholder="4-digit PIN" maxlength="4" />
+      <button id="authBtn" data-lang="access">Access</button>
+    </div>
+
+    <!-- 👤 Name Entry + Draw Area -->
     <div id="drawSection" style="display:none;">
-      <div id="listContainer" class="columns"></div>
-      <input type="text" id="yourName" placeholder="Type your name exactly as shown" />
-      <button onclick="drawName()">Draw Name</button>
-      <p id="result" class="intro-text"></p>
+      <h3 data-lang="confirmYourName">Confirm your name from the list below</h3>
+      <div id="participantList"></div>
+
+      <input type="text" id="yourNameInput" placeholder="Enter your name exactly as listed" />
+      <button id="drawBtn" data-lang="drawNameBtn">Draw</button>
     </div>
 
+    <!-- 🎉 Result -->
+    <div id="resultBox" style="display:none;">
+      <p><strong data-lang="youAre">You are:</strong> <span id="yourName"></span></p>
+      <p><strong data-lang="youDrew">You drew:</strong> <span id="drawnName"></span></p>
+    </div>
+
+    <!-- ⚠️ Error Message -->
+    <p class="error-message" id="errorMsg"></p>
+
+    <!-- 📌 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
+
   </div>
 </body>
 </html>
