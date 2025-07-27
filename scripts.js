@@ -1,11 +1,10 @@
-// ✅ scripts.js – Handles participant name input & list saving
+// ✅ scripts.js – For add-names.html & my-lists.html
 import { db } from "./firebase-config.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { collection, addDoc, getDocs, query, where, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 🟦 Store participant names
 let nameList = [];
 
-// ✅ Add a name to the list
+// ✅ Add name to list
 window.addName = function () {
   const input = document.getElementById("nameInput");
   const name = input.value.trim();
@@ -17,13 +16,13 @@ window.addName = function () {
 
   nameList.push(name);
   input.value = "";
-  renderNameList(); // Re-render the name list with updated items
+  renderNameList();
 };
 
-// ✅ Render names in columns (10 per column), each with a delete button (trash icon)
+// ✅ Render names into columns
 function renderNameList() {
   const container = document.getElementById("nameListContainer");
-  container.innerHTML = ""; // Clear previous display
+  container.innerHTML = "";
 
   const maxPerColumn = 10;
   const columns = Math.ceil(nameList.length / maxPerColumn);
@@ -43,12 +42,9 @@ function renderNameList() {
 
       const p = document.createElement("p");
       p.textContent = name;
-      p.style.margin = "0";
 
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "delete-btn";
-
-      // ✅ Replace 🗑️ emoji with trash can lid SVG
       deleteBtn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
           viewBox="0 0 16 16">
@@ -59,11 +55,12 @@ function renderNameList() {
       `;
       deleteBtn.title = "Delete name";
 
-      // ✅ Use actual index for delete (j might shift due to re-rendering)
-      // Capture the current name in closure, not index
       deleteBtn.addEventListener("click", () => {
-        nameList = nameList.filter(n => n !== name);
-        renderNameList();
+        const confirmDelete = confirm(`Delete ${name}?`);
+        if (confirmDelete) {
+          nameList = nameList.filter(n => n !== name);
+          renderNameList();
+        }
       });
 
       nameDiv.appendChild(p);
@@ -75,7 +72,7 @@ function renderNameList() {
   }
 }
 
-// ✅ Save list to Firebase
+// ✅ Save the list to Firestore
 window.saveList = async function () {
   if (nameList.length < 2) {
     alert("Please add at least two names to save the list.");
@@ -92,12 +89,19 @@ window.saveList = async function () {
   }
 
   try {
-    const docRef = await addDoc(collection(db, "lists"), {
+    const existingQuery = query(collection(db, "lists"), where("name", "==", listName));
+    const snapshot = await getDocs(existingQuery);
+    if (!snapshot.empty) {
+      alert("List name already exists. Please use another.");
+      return;
+    }
+
+    await addDoc(collection(db, "lists"), {
       name: listName,
       pin,
       secret,
       participants: nameList,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
     });
 
     const shareLink = `${location.origin}/draw.html?list=${encodeURIComponent(listName)}`;
@@ -105,8 +109,8 @@ window.saveList = async function () {
       <p>List saved! Share this link with participants:</p>
       <input type="text" readonly value="${shareLink}" style="width:100%; padding:10px;" />
     `;
-  } catch (e) {
-    console.error("Error saving list:", e);
+  } catch (err) {
+    console.error("Error saving list:", err);
     alert("There was an error saving your list. Try again.");
   }
 };
