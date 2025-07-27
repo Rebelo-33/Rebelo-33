@@ -3,16 +3,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Lists</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang="myListTitle">My List</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="my-lists.js" defer></script>
+  <script type="module" src="my-lists.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
+
+    <!-- 🎁 Gift Icon -->
     <div class="gift-icon">🎁</div>
+
+    <!-- 🌐 Language Dropdown -->
     <div class="language-top-right">
       <select id="language-selector">
         <option value="en">English</option>
@@ -23,24 +27,36 @@
       </select>
     </div>
 
-    <h1 class="page-title">My List</h1>
-    <p class="intro-text">See list and drawn name! Surprise, Surprise!</p>
+    <!-- 🏷️ Title + Subtitle -->
+    <h1 class="page-title" data-lang="myListTitle">My List</h1>
+    <p class="intro-text" data-lang="myListSubtitle">See list and drawn name! Surprise, Surprise!</p>
 
-    <input type="text" id="listName" placeholder="List Name" />
-    <input type="password" id="pin" placeholder="4-digit PIN" maxlength="4" />
-    <input type="text" id="secret" placeholder="Secret Code" />
+    <!-- 🔐 Auth Fields -->
+    <input type="text" id="listName" placeholder="Enter List Name" />
+    <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" />
+    <input type="text" id="secretCode" placeholder="Enter Secret Code" />
 
     <div class="vertical-buttons">
-      <button onclick="manageList()">Manage</button>
-      <button onclick="location.href='index.html'">Home</button>
-      <button onclick="location.href='help.html'">Help</button>
+      <button onclick="manageList()" data-lang="manageList">Manage</button>
+      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <div id="manageContainer" style="margin-top: 30px;"></div>
+    <!-- 👥 List Display -->
+    <div id="nameListContainer" class="columns"></div>
 
+    <!-- 💾 Save Button -->
+    <div class="vertical-buttons" style="margin-top: 30px;">
+      <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
+    </div>
+
+    <!-- ⚠️ Error Message -->
+    <p id="errorMsg" class="error-message"></p>
+
+    <!-- 📌 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
-      <p data-lang="footerCopyright"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
