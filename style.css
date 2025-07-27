@@ -1,191 +1,355 @@
 /* ✅ style.css */
 /* ✅ Base Reset and Page Styling */
+/* ✅ Base Reset and Page Styling */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #fdf9f3;
-  color: #333;
+margin: 0;
+padding: 0;
+font-family: Arial, sans-serif;
+background-color: #fdf9f3;
+color: #333;
 }
 
 /* ✅ Responsive Container */
 .container {
-  max-width: 800px;
-  margin: 60px auto 40px auto;
-  padding: 50px 20px 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative;
+max-width: 800px;
+margin: 60px auto 40px auto;
+padding: 50px 20px 20px;
+background: #fff;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+position: relative;
 }
 
 /* ✅ Page Titles */
 h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  text-align: left; /* Adjust title alignment */
+font-size: 2em;
+text-align: center;
+margin-bottom: 20px;
 }
 
 /* ✅ Help Button in Top Right */
 .top-buttons {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+position: absolute;
+top: 15px;
+right: 15px;
 }
 
 /* ✅ Small Button Styling */
 .small-button {
-  padding: 6px 12px;
-  font-size: 0.85em;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+padding: 6px 12px;
+font-size: 0.85em;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
 }
-
 .small-button:hover {
-  background-color: #0056b3;
+background-color: #0056b3;
 }
 
 /* ✅ Input Fields */
 input[type="text"],
 input[type="password"],
 input[type="number"] {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  font-size: 1em;
-  width: 80%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+display: block;
+margin: 10px auto;
+padding: 10px;
+font-size: 1em;
+width: 80%;
+max-width: 400px;
+border: 1px solid #ccc;
+border-radius: 5px;
 }
 
 /* ✅ Buttons */
 button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
+padding: 10px 20px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-size: 1em;
+transition: background-color 0.3s ease;
+white-space: nowrap;
 }
-
 button:hover {
-  background-color: #0056b3;
+background-color: #0056b3;
 }
 
 /* ✅ Vertical Button Grouping */
 .vertical-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  margin-top: 30px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+align-items: center;
+margin-top: 30px;
 }
-
 .vertical-buttons button {
-  width: 160px;
+width: 160px;
 }
 
-/* ✅ Language Dropdown */
-.language-center {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0 20px;
+/* ✅ Horizontal Buttons (if needed elsewhere) */
+.horizontal-buttons {
+display: flex;
+gap: 15px;
+justify-content: center;
+flex-wrap: wrap;
+margin: 20px 0;
 }
 
-#language-selector {
-  display: block;
-  margin: 20px auto;
-  padding: 8px 12px;
-  font-size: 1em;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* ✅ Title Positioning */
-.page-title {
-  margin-top: 80px;
-  text-align: center;
-  font-size: 2.2rem;
-  font-weight: bold;
-}
-
-/* ✅ Intro Text */
-.intro-text {
-  text-align: center;
-  margin: 10px auto 30px auto;
-  font-size: 1.1rem;
-  max-width: 600px;
-}
-
-/* ✅ Footer */
-footer {
-  margin-top: 40px;
-  padding-top: 20px;
-  text-align: center;
-  font-size: 0.9em;
-  color: #555;
-}
-
-footer p {
-  margin: 10px 0;
-}
-
-/* ✅ Gift Icon */
-.gift-icon {
-  position: absolute;
-  top: 15px;
-  left: 20px;
-  font-size: 1.8rem;
-}
-
-/* ✅ Vertical Buttons */
-.vertical-buttons button {
-  width: 200px;
-  margin: 10px 0;
-}
-
-/* ✅ General List Layout */
+/* ✅ Name Columns */
 .columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 20px 0;
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+margin: 20px 0;
 }
-
 .column {
-  flex: 1;
-  min-width: 150px;
+flex: 1;
+min-width: 150px;
 }
 
-/* ✅ Name Item Layout in List */
+/* ✅ Name Item in List */
 .name-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 5px;
 }
 
 /* ✅ Red Delete Button */
 .remove-btn {
-  background: red;
-  color: white;
-  border: none;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  cursor: pointer;
+background: red;
+color: white;
+border: none;
+padding: 2px 6px;
+border-radius: 4px;
+font-size: 0.8em;
+cursor: pointer;
 }
 
 /* ✅ Error Messages */
 .error-message {
-  color: red;
-  text-align: center;
-  margin-top: 10px;
+color: red;
+text-align: center;
+margin-top: 10px;
 }
+
+/* ✅ Footer */
+footer {
+margin-top: 40px;
+padding-top: 20px;
+text-align: center;
+font-size: 0.9em;
+color: #555;
+}
+footer p {
+margin: 10px 0;
+}
+
+/* ✅ List Container Styling (Add-Names) */
+#nameListContainer {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+}
+.column {
+display: flex;
+flex-direction: column;
+gap: 6px;
+max-width: 250px;
+border: 1px solid #ccc;
+padding: 8px;
+border-radius: 4px;
+background: #fafafa;
+}
+.name-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 2px 4px;
+border-bottom: 1px solid #ddd;
+font-size: 14px;
+user-select: none;
+height: 28px;
+line-height: 1;
+}
+.name-item:last-child {
+border-bottom: none;
+}
+.delete-btn {
+background: transparent;
+border: none;
+cursor: pointer;
+font-size: 18px;
+padding: 0 4px;
+color: #c00;
+user-select: none;
+transition: color 0.2s ease;
+}
+.delete-btn:hover {
+color: #900;
+}
+
+/* ✅ Name List Layout */
+#nameListContainer {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+flex-wrap: wrap;
+}
+
+/* ✅ Each column holds up to 10 names */
+.column {
+display: flex;
+flex-direction: column;
+gap: 6px;
+max-width: 250px;
+border: 1px solid #ccc;
+padding: 8px;
+border-radius: 6px;
+background: #f9f9f9;
+box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+
+/* ✅ Each name row with delete icon */
+.name-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 4px 6px;
+border-bottom: 1px solid #e2e2e2;
+font-size: 15px;
+line-height: 1.4;
+user-select: none;
+background: #fff;
+border-radius: 4px;
+}
+
+/* ✅ Last item removes bottom border */
+.name-item:last-child {
+border-bottom: none;
+}
+
+/* ✅ Delete button styling (trash can with lid) */
+.delete-btn {
+background: transparent;
+border: none;
+cursor: pointer;
+color: #d11a2a;
+padding: 0;
+margin-left: 8px;
+display: flex;
+align-items: center;
+transition: color 0.2s ease;
+}
+
+.delete-btn:hover {
+color: #a00;
+}
+
+/* ✅ SVG icon sizing */
+.delete-btn svg {
+width: 16px;
+height: 16px;
+}
+
+/* ✅ Center language selector /
+#language-selector {
+display: block;
+margin: 20px auto;
+padding: 8px 12px;
+font-size: 1em;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+/ ✅ Align main title to the left /
+.left-title {
+text-align: left;
+}
+/ ✅ Center the language dropdown */
+.language-center {
+display: flex;
+justify-content: center;
+margin: 10px 0 20px;
+}
+
+/* ✅ Left-align page title with some margin */
+.page-title {
+text-align: left;
+margin: 20px 0 10px 0;
+font-size: 2em;
+}
+
+/* ✅ Vertical button layout with spacing */
+.vertical-buttons {
+display: flex;
+flex-direction: column;
+gap: 12px;
+align-items: center;
+margin-top: 30px;
+}
+.vertical-buttons button {
+width: 200px;
+}
+
+<style>  
+    /* 🎁 Gift icon top-left */  
+    .gift-icon {  
+      position: absolute;  
+      top: 15px;  
+      left: 20px;  
+      font-size: 1.8rem;  
+    }  
+  
+    /* 🌐 Language dropdown top-right */  
+    .language-top-right {  
+      position: absolute;  
+      top: 15px;  
+      right: 20px;  
+    }  
+  
+    /* 🏷️ Title centered */  
+    .page-title {  
+      margin-top: 80px;  
+      text-align: center;  
+      font-size: 2.2rem;  
+      font-weight: bold;  
+    }  
+  
+    /* 📄 Intro paragraphs centered */  
+    .intro-text {  
+      text-align: center;  
+      margin: 10px auto 30px auto;  
+      font-size: 1.1rem;  
+      max-width: 600px;  
+    }  
+  
+    /* 🔘 Vertical button stack */  
+    .vertical-buttons {  
+      display: flex;  
+      flex-direction: column;  
+      align-items: center;  
+      gap: 14px;  
+      margin-top: 20px;  
+    }  
+  
+    .vertical-buttons button {  
+      width: 200px;  
+    }  
+  
+    /* 📌 Footer spacing */  
+    footer {  
+      margin-top: 40px;  
+      padding-top: 20px;  
+      text-align: center;  
+      font-size: 0.9em;  
+      color: #555;  
+    }  
+  
+    footer p {  
+      margin: 10px 0;  
+    }  
+  </style>  
