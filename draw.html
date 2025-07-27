@@ -1,4 +1,4 @@
-<!-- ✅ draw.html -->
+<!-- ✅ draw.html - Draw Names Anonymously -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,40 +7,43 @@
   <title>Draw Name</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="draw.js" defer></script>
+  <script type="module" src="draw.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="gift-icon">🎁</div>
-    <div class="language-top-right">
-      <select id="language-selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
+  <div class="gift-icon">🎁</div>
+  <div class="language-top-right">
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
 
+  <div class="container">
     <h1 class="page-title">Draw</h1>
     <p class="intro-text">See list and your drawn name. Surprise, Surprise!</p>
 
-    <div id="listInfo" style="display:none; text-align:center">
-      <p id="listNameDisplay"></p>
+    <!-- 🔐 Auth Form -->
+    <div id="authSection">
+      <input type="text" id="listName" placeholder="Enter list name" />
+      <input type="password" id="pin" placeholder="Enter 4-digit PIN" maxlength="4" />
+      <button onclick="accessList()" data-lang="access">Access List</button>
     </div>
 
-    <input type="text" id="participantName" placeholder="Enter your name exactly" />
-    <div class="vertical-buttons">
-      <button onclick="confirmIdentity()">Confirm Name</button>
-      <button id="drawBtn" onclick="drawName()" style="display:none">Draw Name</button>
+    <!-- 🎯 Draw Section -->
+    <div id="drawSection" style="display:none;">
+      <div id="listContainer" class="columns"></div>
+      <input type="text" id="yourName" placeholder="Type your name exactly as shown" />
+      <button onclick="drawName()">Draw Name</button>
+      <p id="result" class="intro-text"></p>
     </div>
-
-    <div id="resultBox" style="margin-top:20px; text-align:center;"></div>
 
     <footer>
       <p data-lang="footerContact"></p>
-      <p data-lang="footerCopyright"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
 </body>
