@@ -1,64 +1,46 @@
+<!-- ✅ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="manageList">Manage List</title>
+  <title>My Lists</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="my-lists.js"></script>
+  <script type="module" src="my-lists.js" defer></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <div class="top-buttons">
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
+    <div class="gift-icon">🎁</div>
+    <div class="language-top-right">
+      <select id="language-selector">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="pt">Português</option>
+        <option value="zh">中文</option>
+      </select>
     </div>
 
-    <h1><span data-lang="manageList">Manage Your List</span></h1>
+    <h1 class="page-title">My List</h1>
+    <p class="intro-text">See list and drawn name! Surprise, Surprise!</p>
 
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
+    <input type="text" id="listName" placeholder="List Name" />
+    <input type="password" id="pin" placeholder="4-digit PIN" maxlength="4" />
+    <input type="text" id="secret" placeholder="Secret Code" />
 
-    <p data-lang="accessForm">Enter list name, 4-digit PIN, and your secret code to manage the list.</p>
-
-    <form id="accessForm">
-      <input type="text" id="listName" placeholder="List Name" required />
-      <input type="password" id="pin" maxlength="4" placeholder="PIN" required />
-      <input type="password" id="secretCode" placeholder="Secret Code" required />
-      <div class="horizontal-buttons">
-        <button type="submit" data-lang="submit">Submit</button>
-        <button onclick="location.href='index.html'" type="button" data-lang="backHome">Home</button>
-      </div>
-    </form>
-
-    <div id="listContent" style="display:none;">
-      <h2><span data-lang="listNameLabel">List:</span> <span id="listNameDisplay"></span></h2>
-      <div id="nameListContainer" class="columns"></div>
-
-      <input type="text" id="newNameInput" placeholder="Enter name to add" />
-      <button onclick="addName()" data-lang="addName">Add Name</button>
-
-      <input type="text" id="removeInput" placeholder="Enter name to remove" />
-      <button onclick="removeName()" data-lang="removeName">Remove Name</button>
-
-      <div class="controls">
-        <button onclick="saveChanges()" data-lang="saveChanges">Save Changes</button>
-        <button onclick="cancelChanges()" data-lang="cancel">Cancel</button>
-      </div>
+    <div class="vertical-buttons">
+      <button onclick="manageList()">Manage</button>
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='help.html'">Help</button>
     </div>
 
-    <p id="errorMsg"></p>
+    <div id="manageContainer" style="margin-top: 30px;"></div>
 
-    <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright"></p>
     </footer>
   </div>
 </body>
