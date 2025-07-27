@@ -10,12 +10,12 @@
 </head>
 <body>
   <div class="container">
+    
+    <!-- 🎁 Gift icon -->
+    <div class="gift-icon" aria-hidden="true">🎁</div>
 
-    <!-- ✅ Page Title -->
-    <h1 class="page-title" data-lang="title">Secret Gift Exchange 🎁</h1>
-
-    <!-- ✅ Centered Language Dropdown -->
-    <div class="language-center">
+    <!-- 🌐 Language Dropdown -->
+    <div class="language-top-right">
       <select id="language-selector">
         <option value="en">English</option>
         <option value="es">Español</option>
@@ -25,11 +25,16 @@
       </select>
     </div>
 
-    <!-- ✅ Intro Paragraphs -->
-    <p>Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.</p>
-    <p>Keep the surprise alive!</p>
+    <!-- 🏷️ Title -->
+    <h1 class="page-title" data-lang="title">Secret Gift Exchange</h1>
 
-    <!-- ✅ Buttons Vertically Stacked (Help at bottom) -->
+    <!-- 📄 Intro Paragraphs -->
+    <div class="intro-text">
+      <p>Welcome! Start your Secret Gift Exchange. Create, share, draw name and enjoy.</p>
+      <p>Keep the surprise alive!</p>
+    </div>
+
+    <!-- 🔘 Navigation Buttons -->
     <div class="vertical-buttons">
       <button onclick="location.href='add-names.html'" data-lang="createList">Create List</button>
       <button onclick="location.href='access-list.html'" data-lang="access">Access List</button>
@@ -38,7 +43,7 @@
       <button onclick="location.href='help.html'" data-lang="help">Help</button>
     </div>
 
-    <!-- ✅ Footer -->
+    <!-- 📌 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
