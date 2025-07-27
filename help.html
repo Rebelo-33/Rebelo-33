@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Help - Secret Gift Exchange</title>
+  <title data-lang="helpPageTitle">Help - Secret Gift Exchange</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="gift-icon">🎁</div>
-
-  <!-- ✅ Language Selector -->
   <div class="language-top-right">
     <select id="language-selector">
       <option value="en">English</option>
@@ -21,38 +20,35 @@
     </select>
   </div>
 
-  <!-- ✅ Title and Subtitle -->
-  <h1 class="page-title">Help</h1>
-  <p class="intro-text">
-    Check how Secret Gift Exchange works. If you need help, contact us!
-  </p>
-
-  <!-- ✅ Content -->
-  <div class="container">
-    <h2>How It Works</h2>
-    <ol>
-      <li>Create a new list and add participant names.</li>
-      <li>Protect your list with a 4-digit PIN and a secret code.</li>
-      <li>Share the list name and PIN with participants.</li>
-      <li>Participants draw names by entering the list name and PIN.</li>
-      <li>Organisers manage lists using the secret code.</li>
-    </ol>
-
-    <h2>Frequently Asked Questions</h2>
-    <p><strong>Can I participate and organise?</strong></p>
-    <p>Yes! You can draw a name just like any participant.</p>
-
-    <p><strong>Can I draw twice?</strong></p>
-    <p>No. Each participant can only draw once. The result is saved on your browser.</p>
-
-    <p><strong>I forgot my PIN or Secret Code. What should I do?</strong></p>
-    <p>Unfortunately, these cannot be recovered. Ask the organiser to resend or create a new list.</p>
+  <div class="top-buttons">
+    <button onclick="location.href='index.html'" class="small-button">Home</button>
   </div>
 
-  <!-- ✅ Footer -->
-  <footer>
-    <p>Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a></p>
-    <p>© 2025 All rights reserved</p>
-  </footer>
+  <div class="container">
+    <h1 class="page-title" data-lang="help">Help</h1>
+    <p class="intro-text">Check out how Secret Gift Exchange works. If additional help is needed, please contact us!</p>
+
+    <h2 data-lang="howItWorksTitle">How It Works</h2>
+    <ol>
+      <li data-lang="how1"></li>
+      <li data-lang="how2"></li>
+      <li data-lang="how3"></li>
+      <li data-lang="how4"></li>
+      <li data-lang="how5"></li>
+    </ol>
+
+    <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
+    <p><strong data-lang="faqQ1"></strong></p>
+    <p data-lang="faqA1"></p>
+    <p><strong data-lang="faqQ2"></strong></p>
+    <p data-lang="faqA2"></p>
+    <p><strong data-lang="faqQ3"></strong></p>
+    <p data-lang="faqA3"></p>
+
+    <footer>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+    </footer>
+  </div>
 </body>
 </html>
