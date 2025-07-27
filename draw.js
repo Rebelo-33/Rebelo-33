@@ -1,119 +1,127 @@
 // ✅ draw.js - Handles participant authentication and anonymous drawing logic
-
+// ✅ draw.js - Secure Anonymous Drawing with Hashing
 import { db } from "./firebase-config.js";
 import {
+  collection,
   getDocs,
   query,
   where,
-  collection,
-  updateDoc,
   doc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 🔐 Track authentication status in sessionStorage
-let currentList = null;
-let drawnName = null;
-let participantName = null;
+// ✅ Simple SHA-256 hashing function
+async function hash(text) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
-// ✅ Event: Access List button clicked
-window.accessList = async function () {
-  const listName = document.getElementById("listName").value.trim();
-  const pin = document.getElementById("pin").value.trim();
+let participants = [];
+let drawn = false;
 
-  if (!listName || !pin || pin.length !== 4) {
-    alert("Please enter a valid list name and 4-digit PIN.");
+// ✅ Authenticate user
+document.getElementById("authBtn").addEventListener("click", async () => {
+  const listName = document.getElementById("listNameInput").value.trim();
+  const pin = document.getElementById("pinInput").value.trim();
+  const errorBox = document.getElementById("errorMsg");
+  errorBox.textContent = "";
+
+  if (!listName || pin.length !== 4) {
+    errorBox.textContent = "List name and 4-digit PIN required.";
     return;
   }
 
   try {
     const q = query(collection(db, "lists"), where("name", "==", listName), where("pin", "==", pin));
-    const querySnapshot = await getDocs(q);
+    const snapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
-      alert("List not found. Check name and PIN.");
+    if (snapshot.empty) {
+      errorBox.textContent = "Incorrect list name or PIN.";
       return;
     }
 
-    currentList = querySnapshot.docs[0];
-    sessionStorage.setItem("authenticated", "true");
-    sessionStorage.setItem("listName", listName);
-    sessionStorage.setItem("pin", pin);
+    const docData = snapshot.docs[0].data();
+    participants = docData.participants;
+    sessionStorage.setItem("authList", listName);
+    sessionStorage.setItem("authPin", pin);
 
-    document.getElementById("authSection").style.display = "none";
-    document.getElementById("drawSection").style.display = "block";
+    showDrawSection();
     renderParticipantList();
 
-  } catch (e) {
-    console.error("Error accessing list:", e);
-    alert("An error occurred. Try again.");
+  } catch (err) {
+    console.error("Auth error:", err);
+    errorBox.textContent = "Something went wrong.";
   }
-};
+});
 
-// ✅ Show participants in columns
-function renderParticipantList() {
-  const data = currentList.data();
-  const names = data.participants || [];
-
-  const container = document.getElementById("listContainer");
-  container.innerHTML = "";
-
-  const maxPerColumn = 10;
-  const columns = Math.ceil(names.length / maxPerColumn);
-
-  for (let i = 0; i < columns; i++) {
-    const col = document.createElement("div");
-    col.className = "column";
-
-    const start = i * maxPerColumn;
-    const end = Math.min(start + maxPerColumn, names.length);
-
-    for (let j = start; j < end; j++) {
-      const p = document.createElement("p");
-      p.textContent = names[j];
-      col.appendChild(p);
-    }
-
-    container.appendChild(col);
-  }
+function showDrawSection() {
+  document.querySelector(".auth-form").style.display = "none";
+  document.getElementById("drawSection").style.display = "block";
 }
 
-// ✅ Draw name - excluding your own
-window.drawName = async function () {
-  participantName = document.getElementById("yourName").value.trim();
+// ✅ Show names in list
+function renderParticipantList() {
+  const container = document.getElementById("participantList");
+  container.innerHTML = "";
+  participants.forEach(name => {
+    const div = document.createElement("div");
+    div.textContent = name;
+    div.className = "name-item";
+    container.appendChild(div);
+  });
+}
 
-  if (!participantName) {
-    alert("Please enter your name.");
+// ✅ Handle Draw
+document.getElementById("drawBtn").addEventListener("click", async () => {
+  const yourName = document.getElementById("yourNameInput").value.trim();
+  const errorBox = document.getElementById("errorMsg");
+  errorBox.textContent = "";
+
+  if (!participants.includes(yourName)) {
+    errorBox.textContent = "Name not found in list.";
     return;
   }
 
-  const listData = currentList.data();
-  const names = listData.participants;
-  if (!names.includes(participantName)) {
-    alert("Name not found in list. Please type your name as it appears.");
+  const confirm = window.confirm(`Confirm your name is "${yourName}"?`);
+  if (!confirm) return;
+
+  // Prevent drawing own name
+  const possible = participants.filter(name => name !== yourName);
+  if (possible.length === 0) {
+    errorBox.textContent = "No names available to draw.";
     return;
   }
 
-  // Simulate previously drawn name (via local storage)
-  const localKey = `drawn_${currentList.id}_${participantName}`;
-  const existing = localStorage.getItem(localKey);
+  const drawnName = possible[Math.floor(Math.random() * possible.length)];
 
-  if (existing) {
-    document.getElementById("result").textContent = `You are: ${participantName}\nYour drawn name is: ${existing}`;
-    return;
+  // Hash drawn result
+  const hashedDraw = await hash(`${yourName}-${drawnName}`);
+
+  // Store in session to prevent re-draw
+  sessionStorage.setItem("yourName", yourName);
+  sessionStorage.setItem("drawnName", drawnName);
+  sessionStorage.setItem("drawHash", hashedDraw);
+  drawn = true;
+
+  displayResult(yourName, drawnName);
+});
+
+function displayResult(name, drawn) {
+  document.getElementById("drawSection").style.display = "none";
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("yourName").textContent = name;
+  document.getElementById("drawnName").textContent = drawn;
+}
+
+// ✅ Restore if session exists
+window.addEventListener("DOMContentLoaded", () => {
+  const name = sessionStorage.getItem("yourName");
+  const drawn = sessionStorage.getItem("drawnName");
+
+  if (name && drawn) {
+    document.querySelector(".auth-form").style.display = "none";
+    displayResult(name, drawn);
   }
-
-  // Filter out user's own name
-  const available = names.filter(n => n !== participantName);
-  if (available.length === 0) {
-    alert("No available names to draw.");
-    return;
-  }
-
-  // Random draw
-  const randomIndex = Math.floor(Math.random() * available.length);
-  drawnName = available[randomIndex];
-
-  // Store only locally (not in Firestore)
-  localStorage.setItem(localKey, drawnName);
-  document.getElementById("result").textContent = `You are: ${participantName}\nYour drawn name is: ${drawnName}`;
-};
+});
