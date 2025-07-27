@@ -4,45 +4,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang="access">Access List</title>
+  <title>Access List</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="access-list.js"></script>
+  <script type="module" src="access-list.js" defer></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <div class="top-buttons">
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
+    <div class="gift-icon">🎁</div>
+    <div class="language-top-right">
+      <select id="language-selector">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="pt">Português</option>
+        <option value="zh">中文</option>
+      </select>
     </div>
 
-    <h1><span data-lang="access">Access Your List</span></h1>
+    <h1 class="page-title">Access List</h1>
+    <p class="intro-text">Access your list, see your name, and start the fun!</p>
 
-    <select id="language-selector">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
+    <input type="text" id="listName" placeholder="List Name" />
+    <input type="password" id="pin" placeholder="4-digit PIN" maxlength="4" />
 
-    <p data-lang="enterPin">Enter list name and PIN to continue:</p>
+    <div class="vertical-buttons">
+      <button onclick="accessList()">See List</button>
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='help.html'">Help</button>
+    </div>
 
-    <form id="accessForm">
-      <input type="text" id="listName" placeholder="List Name" />
-      <input type="password" id="pinInput" maxlength="4" placeholder="PIN" />
-      <div class="horizontal-buttons">
-        <button type="submit" data-lang="submit">Submit</button>
-        <button onclick="location.href='index.html'" type="button" data-lang="backHome">Home</button>
-      </div>
-    </form>
-
-    <p id="pinError"></p>
-
-    <!-- ✅ Footer -->
     <footer>
-      <p data-lang="footerContact"></p> <!-- Content will be injected via JS -->
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright"></p>
     </footer>
   </div>
 </body>
