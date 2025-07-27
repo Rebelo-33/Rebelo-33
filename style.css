@@ -90,3 +90,26 @@ footer {
 footer p {
   margin: 10px 0;
 }
+
+/* 🎯 Styles the container that holds the "Home" button at the bottom of the help.html page */
+.bottom-home-button {
+  text-align: center;         /* Centers the button horizontally */
+  margin: 40px 0 20px;        /* Adds space above and below the button */
+}
+
+/* 🎨 Styles the "Home" button itself */
+.bottom-home-button button {
+  background-color: #007BFF;  /* Blue background color */
+  color: white;               /* White text color */
+  font-size: 1.2rem;          /* Increases font size */
+  padding: 12px 24px;         /* Adds padding (top/bottom and left/right) */
+  border: none;               /* Removes default border */
+  border-radius: 8px;         /* Rounded corners */
+  cursor: pointer;            /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+}
+
+/* ✨ Hover effect for the button */
+.bottom-home-button button:hover {
+  background-color: #0056b3;  /* Darker blue when hovered */
+}
