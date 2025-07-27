@@ -1,105 +1,127 @@
-// ✅ my-lists.js
-
-import { db } from './firebase-config.js';
-import { collection, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+// ✅ my-lists.js – Manage List Logic (View, Add, Delete, Save)
+import { db } from "./firebase-config.js";
+import {
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js";
 
 let currentListId = "";
-let currentListData = {};
+let participants = [];
 
-// 🔐 Authenticate and load list for managing
-window.manageList = async function () {
-  const listName = document.getElementById("listName").value.trim();
-  const pin = document.getElementById("listPin").value.trim();
-  const secret = document.getElementById("secretCode").value.trim();
+const authSection = document.getElementById("auth-section");
+const listSection = document.getElementById("list-section");
+const tableBody = document.getElementById("table-body");
+const listNameDisplay = document.getElementById("list-name-display");
 
-  if (!listName || !pin || !secret) {
-    return showError("Please enter list name, PIN and secret code.");
+const listNameInput = document.getElementById("listName");
+const pinInput = document.getElementById("listPin");
+const codeInput = document.getElementById("secretCode");
+
+const manageBtn = document.getElementById("manage-btn");
+const saveBtn = document.getElementById("save-changes-btn");
+const addNameBtn = document.getElementById("add-name-btn");
+const newNameInput = document.getElementById("new-name");
+
+manageBtn.addEventListener("click", async () => {
+  const listName = listNameInput.value.trim();
+  const pin = pinInput.value.trim();
+  const secretCode = codeInput.value.trim();
+
+  if (!listName || !pin || !secretCode) {
+    alert("Please enter all fields.");
+    return;
   }
 
-  const listRef = doc(db, "lists", listName);
-  const docSnap = await getDoc(listRef);
+  const docRef = doc(db, "lists", listName);
+  const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
-    return showError("List not found.");
+    alert("List not found.");
+    return;
   }
 
   const data = docSnap.data();
 
-  if (data.pin !== pin || data.secret !== secret) {
-    return showError("Invalid credentials.");
+  if (data.pin !== pin || data.secretCode !== secretCode) {
+    alert("Invalid credentials.");
+    return;
   }
 
   currentListId = listName;
-  currentListData = data;
-  renderNames(data.participants);
-  clearError();
-};
+  participants = data.participants || [];
+  showList();
+});
 
-// ✅ Show the participant names in columns
-function renderNames(names) {
-  const container = document.getElementById("nameListContainer");
-  container.innerHTML = "";
+function showList() {
+  authSection.style.display = "none";
+  listSection.style.display = "block";
 
-  const column = document.createElement("div");
-  column.className = "column";
+  listNameDisplay.textContent = `List: ${currentListId}`;
+  renderTable();
+}
 
-  names.forEach((name, i) => {
-    const row = document.createElement("div");
-    row.className = "name-item";
+function renderTable() {
+  tableBody.innerHTML = "";
+  participants.forEach((name, index) => {
+    const row = document.createElement("tr");
 
-    const span = document.createElement("span");
-    span.textContent = name;
+    const nameCell = document.createElement("td");
+    nameCell.textContent = name;
+    nameCell.className = "name-cell";
 
-    const removeBtn = document.createElement("button");
-    removeBtn.className = "delete-btn";
-    removeBtn.innerHTML = "🗑️";
-    removeBtn.onclick = () => confirmDelete(name, i);
+    const deleteCell = document.createElement("td");
+    const deleteIcon = document.createElement("span");
+    deleteIcon.innerHTML = "🗑️";
+    deleteIcon.className = "delete-icon";
+    deleteIcon.style.cursor = "pointer";
+    deleteIcon.title = `Delete ${name}`;
 
-    row.appendChild(span);
-    row.appendChild(removeBtn);
-    column.appendChild(row);
+    deleteIcon.addEventListener("click", () => {
+      if (confirm(`Delete ${name}?`)) {
+        participants.splice(index, 1);
+        renderTable();
+      }
+    });
+
+    deleteCell.appendChild(deleteIcon);
+    row.appendChild(nameCell);
+    row.appendChild(deleteCell);
+
+    tableBody.appendChild(row);
   });
-
-  container.appendChild(column);
 }
 
-// ❌ Confirm before deleting name
-function confirmDelete(name, index) {
-  const confirmDelete = confirm(`Delete ${name}?`);
-  if (confirmDelete) {
-    currentListData.participants.splice(index, 1);
-    renderNames(currentListData.participants);
+addNameBtn.addEventListener("click", () => {
+  const newName = newNameInput.value.trim();
+  if (!newName) {
+    alert("Please enter a name.");
+    return;
   }
-}
-
-// 💾 Save the updated list to Firestore
-window.saveUpdatedList = async function () {
-  if (!currentListId || !currentListData.secret) {
-    return showError("You must authenticate first.");
+  if (newName.length > 30) {
+    alert("Name must be less than 30 characters.");
+    return;
+  }
+  if (participants.includes(newName)) {
+    alert("Name already exists in the list.");
+    return;
   }
 
-  const confirmSave = confirm("Save Changes?");
-  if (!confirmSave) return;
+  participants.push(newName);
+  newNameInput.value = "";
+  renderTable();
+});
 
-  const ref = doc(db, "lists", currentListId);
-  await updateDoc(ref, {
-    participants: currentListData.participants,
-    secret: currentListData.secret,
-    shuffled: currentListData.shuffled || false,
-    drawn: currentListData.drawn || {},
-    created: currentListData.created || new Date().toISOString()
-  });
+saveBtn.addEventListener("click", async () => {
+  if (!confirm("Do you want to save the changes?")) return;
 
-  alert("List updated successfully.");
-};
-
-// 📛 Show error message
-function showError(msg) {
-  const el = document.getElementById("errorMsg");
-  if (el) el.textContent = msg;
-}
-
-function clearError() {
-  const el = document.getElementById("errorMsg");
-  if (el) el.textContent = "";
-}
+  try {
+    const docRef = doc(db, "lists", currentListId);
+    await updateDoc(docRef, { participants });
+    alert("List updated successfully.");
+  } catch (err) {
+    console.error("Error updating list:", err);
+    alert("Failed to update the list.");
+  }
+});
