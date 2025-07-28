@@ -1,127 +1,135 @@
-// ✅ my-lists.js – Manage List Logic (View, Add, Delete, Save)
+// ✅ my-lists.js - Secure access and list update
+
 import { db } from "./firebase-config.js";
 import {
-  collection,
   doc,
   getDoc,
   updateDoc,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js";
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-let currentListId = "";
-let participants = [];
+// 🔐 Global variable to hold current list reference
+let currentListRef = null;
+let currentListData = null;
 
-const authSection = document.getElementById("auth-section");
-const listSection = document.getElementById("list-section");
-const tableBody = document.getElementById("table-body");
-const listNameDisplay = document.getElementById("list-name-display");
+// ✅ Handle List Access Verification
+window.verifyListAccess = async function () {
+  const listName = document.getElementById("listName").value.trim();
+  const listPin = document.getElementById("listPin").value.trim();
+  const secretCode = document.getElementById("secretCode").value.trim();
+  const errorMsg = document.getElementById("errorMsg");
 
-const listNameInput = document.getElementById("listName");
-const pinInput = document.getElementById("listPin");
-const codeInput = document.getElementById("secretCode");
-
-const manageBtn = document.getElementById("manage-btn");
-const saveBtn = document.getElementById("save-changes-btn");
-const addNameBtn = document.getElementById("add-name-btn");
-const newNameInput = document.getElementById("new-name");
-
-manageBtn.addEventListener("click", async () => {
-  const listName = listNameInput.value.trim();
-  const pin = pinInput.value.trim();
-  const secretCode = codeInput.value.trim();
-
-  if (!listName || !pin || !secretCode) {
-    alert("Please enter all fields.");
+  // Basic validation
+  if (!listName || !listPin || !secretCode) {
+    errorMsg.textContent = "Please enter list name, PIN and secret code.";
     return;
   }
-
-  const docRef = doc(db, "lists", listName);
-  const docSnap = await getDoc(docRef);
-
-  if (!docSnap.exists()) {
-    alert("List not found.");
-    return;
-  }
-
-  const data = docSnap.data();
-
-  if (data.pin !== pin || data.secretCode !== secretCode) {
-    alert("Invalid credentials.");
-    return;
-  }
-
-  currentListId = listName;
-  participants = data.participants || [];
-  showList();
-});
-
-function showList() {
-  authSection.style.display = "none";
-  listSection.style.display = "block";
-
-  listNameDisplay.textContent = `List: ${currentListId}`;
-  renderTable();
-}
-
-function renderTable() {
-  tableBody.innerHTML = "";
-  participants.forEach((name, index) => {
-    const row = document.createElement("tr");
-
-    const nameCell = document.createElement("td");
-    nameCell.textContent = name;
-    nameCell.className = "name-cell";
-
-    const deleteCell = document.createElement("td");
-    const deleteIcon = document.createElement("span");
-    deleteIcon.innerHTML = "🗑️";
-    deleteIcon.className = "delete-icon";
-    deleteIcon.style.cursor = "pointer";
-    deleteIcon.title = `Delete ${name}`;
-
-    deleteIcon.addEventListener("click", () => {
-      if (confirm(`Delete ${name}?`)) {
-        participants.splice(index, 1);
-        renderTable();
-      }
-    });
-
-    deleteCell.appendChild(deleteIcon);
-    row.appendChild(nameCell);
-    row.appendChild(deleteCell);
-
-    tableBody.appendChild(row);
-  });
-}
-
-addNameBtn.addEventListener("click", () => {
-  const newName = newNameInput.value.trim();
-  if (!newName) {
-    alert("Please enter a name.");
-    return;
-  }
-  if (newName.length > 30) {
-    alert("Name must be less than 30 characters.");
-    return;
-  }
-  if (participants.includes(newName)) {
-    alert("Name already exists in the list.");
-    return;
-  }
-
-  participants.push(newName);
-  newNameInput.value = "";
-  renderTable();
-});
-
-saveBtn.addEventListener("click", async () => {
-  if (!confirm("Do you want to save the changes?")) return;
 
   try {
-    const docRef = doc(db, "lists", currentListId);
-    await updateDoc(docRef, { participants });
-    alert("List updated successfully.");
+    const docRef = doc(db, "giftLists", listName);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      errorMsg.textContent = "List not found.";
+      return;
+    }
+
+    const data = docSnap.data();
+    if (data.pin === listPin && data.secretCode === secretCode) {
+      // ✅ Access granted
+      errorMsg.textContent = "";
+      currentListRef = docRef;
+      currentListData = data;
+
+      // Hide login and show list
+      document.getElementById("authSection").style.display = "none";
+      document.getElementById("listSection").style.display = "block";
+
+      displayCurrentNames(data.participants || []);
+    } else {
+      errorMsg.textContent = "Incorrect PIN or secret code.";
+    }
   } catch (err) {
-    console.error("Error updating list:", err);
-    alert("Failed to update the list.");
+    console.error("Access error:", err);
+    errorMsg.textContent = "An error occurred while verifying access.";
   }
-});
+};
+
+// ✅ Display Names in Columns
+function displayCurrentNames(names) {
+  const container = document.getElementById("currentNames");
+  container.innerHTML = "";
+
+  if (names.length === 0) {
+    container.textContent = "No names in the list.";
+    return;
+  }
+
+  // Sort and break into columns of 10
+  const columns = Math.ceil(names.length / 10);
+  for (let i = 0; i < columns; i++) {
+    const colDiv = document.createElement("div");
+    colDiv.className = "column";
+    const start = i * 10;
+    const end = start + 10;
+    names.slice(start, end).forEach((name) => {
+      const row = document.createElement("div");
+      row.className = "name-row";
+      row.textContent = name;
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "❌";
+      delBtn.className = "delete-button";
+      delBtn.onclick = () => removeName(name);
+
+      row.appendChild(delBtn);
+      colDiv.appendChild(row);
+    });
+    container.appendChild(colDiv);
+  }
+}
+
+// ✅ Add Name to List (in memory)
+window.addNameToList = function () {
+  const input = document.getElementById("newNameInput");
+  const newName = input.value.trim();
+  const errorMsg = document.getElementById("errorMsg");
+
+  if (!newName || newName.length > 30) {
+    errorMsg.textContent = "Name must be 1–30 characters.";
+    return;
+  }
+
+  if (!currentListData.participants.includes(newName)) {
+    currentListData.participants.push(newName);
+    displayCurrentNames(currentListData.participants);
+    input.value = "";
+    errorMsg.textContent = "";
+  } else {
+    errorMsg.textContent = "Name already exists in the list.";
+  }
+};
+
+// ✅ Remove name (in memory only)
+function removeName(name) {
+  currentListData.participants = currentListData.participants.filter(
+    (n) => n !== name
+  );
+  displayCurrentNames(currentListData.participants);
+}
+
+// ✅ Save Changes to Firebase
+window.saveUpdatedList = async function () {
+  if (!currentListRef || !currentListData) return;
+
+  try {
+    await updateDoc(currentListRef, {
+      participants: currentListData.participants,
+    });
+
+    document.getElementById("errorMsg").textContent = "List updated successfully.";
+  } catch (err) {
+    console.error("Save error:", err);
+    document.getElementById("errorMsg").textContent =
+      "Failed to save changes. Try again.";
+  }
+};
