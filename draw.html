@@ -1,5 +1,4 @@
 <!-- ✅ draw.html - Draw Names Anonymously -->
-<!-- ✅ draw.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +12,8 @@
 </head>
 <body>
   <div class="container">
-
-    <!-- 🎁 Gift Icon -->
+    <!-- 🎁 Gift Icon and Language Selector -->
     <div class="gift-icon">🎁</div>
-
-    <!-- 🌐 Language Dropdown -->
     <div class="language-top-right">
       <select id="language-selector">
         <option value="en">English</option>
@@ -28,41 +24,45 @@
       </select>
     </div>
 
-    <!-- 🏷️ Page Title -->
     <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
-    <p class="page-subtitle" data-lang="drawSubtitle">See list and your drawn name. Surprise, surprise!</p>
+    <p class="intro-text" data-lang="seeDrawn">See list and drawn name. Surprise, surprise!</p>
 
-    <!-- 🔐 Authentication Form -->
-    <div class="auth-form">
-      <input type="text" id="listNameInput" placeholder="List Name" maxlength="50" />
-      <input type="password" id="pinInput" placeholder="4-digit PIN" maxlength="4" />
-      <button id="authBtn" data-lang="access">Access</button>
+    <!-- 🔐 Login Section -->
+    <div id="authSection">
+      <input type="text" id="listName" placeholder="Enter List Name" />
+      <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
+      <div class="vertical-buttons">
+        <button onclick="verifyDrawAccess()" data-lang="drawNameBtn">Draw Name</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      </div>
     </div>
 
-    <!-- 👤 Name Entry + Draw Area -->
+    <!-- 🎯 Drawing Interface (hidden until authenticated) -->
     <div id="drawSection" style="display:none;">
-      <h3 data-lang="confirmYourName">Confirm your name from the list below</h3>
-      <div id="participantList"></div>
+      <div id="namesList" class="columns"></div>
 
-      <input type="text" id="yourNameInput" placeholder="Enter your name exactly as listed" />
-      <button id="drawBtn" data-lang="drawNameBtn">Draw</button>
+      <div class="vertical-buttons">
+        <input type="text" id="yourName" placeholder="Enter your name to confirm" />
+        <button onclick="handleDraw()" id="drawBtn" data-lang="drawNameBtn">Draw Name</button>
+      </div>
+
+      <div id="result" class="intro-text"></div>
+
+      <div class="vertical-buttons">
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      </div>
     </div>
 
-    <!-- 🎉 Result -->
-    <div id="resultBox" style="display:none;">
-      <p><strong data-lang="youAre">You are:</strong> <span id="yourName"></span></p>
-      <p><strong data-lang="youDrew">You drew:</strong> <span id="drawnName"></span></p>
-    </div>
+    <!-- ❗ Error Display -->
+    <p id="errorMsg" class="error-message"></p>
 
-    <!-- ⚠️ Error Message -->
-    <p class="error-message" id="errorMsg"></p>
-
-    <!-- 📌 Footer -->
+    <!-- ✅ Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
-
   </div>
 </body>
 </html>
