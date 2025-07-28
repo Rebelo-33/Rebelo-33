@@ -21,51 +21,53 @@
         <option value="pt">Português</option>
         <option value="zh">中文</option>
       </select>
-    </div>
+    </div><!-- 🔠 Page Title -->
+<h1 class="page-title" data-lang="manageList">Manage List</h1>
+<p class="intro-text" data-lang="addIntro">
+  Update your list. Each name must be unique and no longer than 30 characters.
+</p>
 
-    <!-- 🔠 Page Title -->
-    <h1 class="page-title" data-lang="manageList">Manage List</h1>
-    <p class="intro-text" data-lang="addIntro">
-      Update your list. Each name must be unique and no longer than 30 characters.
-    </p>
+<!-- 🔐 Access Form -->
+<div id="authSection">
+  <input type="text" id="listName" placeholder="Enter List Name" />
+  <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
+  <input type="text" id="secretCode" placeholder="Enter Secret Code" />
 
-    <!-- 🔐 Login Fields -->
-    <div id="authSection">
-      <input type="text" id="listName" placeholder="Enter List Name" />
-      <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
-      <input type="text" id="secretCode" placeholder="Enter Secret Code" />
-      <div class="vertical-buttons">
-        <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-    </div>
+  <div class="vertical-buttons">
+    <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
+    <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+    <button onclick="location.href='help.html'" data-lang="help">Help</button>
+  </div>
+</div>
 
-    <!-- ✅ List Content Section (Hidden until login success) -->
-    <div id="listSection" style="display: none;">
-      <div class="vertical-buttons">
-        <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
-        <button onclick="addNameToList()" data-lang="addName">Add Name</button>
-      </div>
+<!-- 📋 List Display Section -->
+<div id="listSection" style="display: none;">
+  <!-- 🆕 Add Name Input -->
+  <div class="vertical-buttons">
+    <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
+    <button onclick="addNameToList()" data-lang="addName">Add Name</button>
+  </div>
 
-      <!-- 📋 Display Existing Names -->
-      <div id="currentNames" class="columns"></div>
+  <!-- 👥 Current Participants -->
+  <div id="currentNames" class="columns"></div>
 
-      <div class="vertical-buttons">
-        <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-    </div>
+  <!-- 💾 Save Options -->
+  <div class="vertical-buttons">
+    <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
+    <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+    <button onclick="location.href='help.html'" data-lang="help">Help</button>
+  </div>
+</div>
 
-    <!-- 🛠️ Error Message -->
-    <p id="errorMsg" class="error-message"></p>
+<!-- 🛠️ Error Message -->
+<p id="errorMsg" class="error-message"></p>
 
-    <!-- ✅ Footer -->
-    <footer>
-      <p data-lang="footerContact"></p>
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-    </footer>
+<!-- 🔚 Footer -->
+<footer>
+  <p data-lang="footerContact"></p>
+  <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+</footer>
+
   </div>
 </body>
 </html>
