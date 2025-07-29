@@ -257,10 +257,10 @@ table td {
 /* ✅ Enhanced input field for name entry */
 #nameInput {
   width: 80%;
-  max-width: 400px;
+  max-width: 300px;
   padding: 12px;
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
