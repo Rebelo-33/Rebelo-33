@@ -123,7 +123,7 @@ input[type="password"] {
 }
 
 .vertical-buttons button {
-  width: 300px;
+  width: 250px;
   padding: 12px 24px;
   font-size: 1.1rem;
   background-color: #007bff;
@@ -166,11 +166,16 @@ footer {
   }
   
   /* Make input and buttons full width on small screens */
-  #nameInput, 
-  .vertical-buttons {
-    width: 100%;
-  }
-
+  #nameInput {
+  width: 300px;           /* same width as buttons */
+  padding: 12px 24px;     /* same padding as buttons */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;     /* match button's rounded corners */
+  margin: 0 auto 15px auto; /* center and add spacing below */
+  display: block;
+  box-sizing: border-box; /* ensure padding included in width */
+}
   main {
     padding: 20px 10px;
   }
