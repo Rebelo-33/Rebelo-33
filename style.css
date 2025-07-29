@@ -133,6 +133,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  align-items: center;
 }
 table th,
 table td {
@@ -146,7 +147,7 @@ table td {
 .delete-icon {
   color: red;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   transition: transform 0.2s ease;
 }
 .delete-icon:hover {
@@ -269,3 +270,5 @@ table td {
   border: none;
   cursor: pointer;
 }
+
+
