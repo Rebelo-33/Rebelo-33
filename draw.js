@@ -1,15 +1,17 @@
-// ✅ draw.js - Handles participant authentication and anonymous drawing logic
-// ✅ draw.js - Secure Anonymous Drawing with Hashing
-// ✅ draw.js – Handles secure anonymous drawing of names
 // ✅ draw.js – Secure Name Drawing with Login Session
-// ✅ draw.js - Handles secure anonymous drawing
 import { db } from './firebase-config.js';
-import { collection, getDocs, query, where, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  updateDoc
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
 let listData = null;
-let drawnName = null;
 
-// 🔐 Verify list name and pin before showing draw section
+// 🔐 Login & Verify draw access by list name and pin
 window.verifyDrawAccess = async function () {
   const name = document.getElementById("listName").value.trim();
   const pin = document.getElementById("listPin").value.trim();
@@ -20,22 +22,32 @@ window.verifyDrawAccess = async function () {
     return;
   }
 
-  const q = query(collection(db, "lists"), where("name", "==", name), where("pin", "==", pin));
-  const querySnapshot = await getDocs(q);
+  try {
+    const q = query(collection(db, "lists"),
+      where("name", "==", name),
+      where("pin", "==", pin)
+    );
+    const querySnapshot = await getDocs(q);
 
-  if (!querySnapshot.empty) {
-    listData = querySnapshot.docs[0];
-    sessionStorage.setItem("listId", listData.id);
-    document.getElementById("authSection").style.display = "none";
-    document.getElementById("drawSection").style.display = "block";
+    if (!querySnapshot.empty) {
+      listData = querySnapshot.docs[0];
+      sessionStorage.setItem("listId", listData.id);
 
-    renderNameList(listData.data().participants);
-  } else {
-    errorBox.textContent = "Incorrect list name or PIN.";
+      // Switch UI
+      document.getElementById("authSection").style.display = "none";
+      document.getElementById("drawSection").style.display = "block";
+
+      renderNameList(listData.data().participants);
+    } else {
+      errorBox.textContent = "Incorrect list name or PIN.";
+    }
+  } catch (err) {
+    errorBox.textContent = "Error verifying list.";
+    console.error(err);
   }
 };
 
-// 🎯 Display names to confirm user identity
+// 📋 Render list of participants
 function renderNameList(names) {
   const container = document.getElementById("nameListContainer");
   container.innerHTML = "";
@@ -49,15 +61,16 @@ function renderNameList(names) {
   container.appendChild(col);
 }
 
-// 🧠 Utility: Hashing function
+// 🔐 Secure hashing using SHA-256
 async function hashValue(value) {
   const encoder = new TextEncoder();
   const data = encoder.encode(value);
   const hash = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// 🎁 Draw logic
+// 🎁 Draw a name securely and anonymously
 window.drawName = async function () {
   const yourName = document.getElementById("yourName").value.trim();
   const errorBox = document.getElementById("errorMsg");
@@ -87,7 +100,6 @@ window.drawName = async function () {
 
   const drawn = available[Math.floor(Math.random() * available.length)];
 
-  // Update Firestore with new draw
   const updatedDraws = data.drawn || {};
   updatedDraws[hashKey] = drawn;
 
