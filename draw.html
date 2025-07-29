@@ -13,62 +13,70 @@
 <body>
   <div class="container">
 
-    <!-- 🎁 Gift Icon and Language -->
-    <div class="gift-icon">🎁</div>
-    <div class="language-top-right">
-      <select id="language-selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
+    <!-- 🎁 Gift Icon and Language Selector -->
+    <header class="header">
+      <div class="gift-icon">🎁</div>
+      <div class="language-top-right">
+        <select id="language-selector">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
+    </header>
 
     <!-- 🎯 Title and Subtitle -->
-    <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
-    <p class="intro-text" data-lang="drawIntro">See list and your drawn name. Surprise, surprise!</p>
+    <main>
+      <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
+      <p class="intro-text" data-lang="drawIntro">
+        See list and your drawn name. <strong>Surprise, surprise!</strong>
+      </p>
 
-    <!-- 🔐 Login Form -->
-    <div id="authSection">
-      <input type="text" id="listName" placeholder="Enter List Name" />
-      <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" />
-      <div class="vertical-buttons">
-        <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-    </div>
+      <!-- 🔐 Login Form -->
+      <div id="authSection">
+        <input type="text" id="listName" placeholder="Enter List Name" />
+        <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" />
+        <p id="errorMsg" class="error-message"></p>
 
-    <!-- 🎁 Drawing Section -->
-    <div id="drawSection" style="display: none;">
-      <div id="nameListContainer" class="columns"></div>
-
-      <div class="intro-text" id="namePrompt" data-lang="confirmDraw">
-        Confirm your name and draw one from the list.
+        <div class="vertical-buttons">
+          <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
       </div>
 
-      <input type="text" id="yourName" placeholder="Enter your name" maxlength="30" />
+      <!-- 🎁 Drawing Section (hidden until login) -->
+      <div id="drawSection" style="display: none;">
+        <div id="nameListContainer" class="columns"></div>
 
-      <div class="vertical-buttons">
-        <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
+        <div class="intro-text" id="namePrompt" data-lang="confirmDraw">
+          Confirm your name and draw one from the list.
+        </div>
+
+        <input type="text" id="yourName" placeholder="Enter your name" maxlength="30" />
+        <p id="drawErrorMsg" class="error-message"></p>
+
+        <div class="vertical-buttons">
+          <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
+        </div>
+
+        <div id="resultBox" class="intro-text"></div>
+
+        <div class="vertical-buttons">
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
       </div>
-
-      <div id="resultBox" class="intro-text"></div>
-
-      <div class="vertical-buttons">
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-    </div>
-
-    <p id="errorMsg" class="error-message"></p>
+    </main>
 
     <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
+
   </div>
 </body>
 </html>
