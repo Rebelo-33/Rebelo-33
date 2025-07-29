@@ -265,16 +265,15 @@ table td {
   margin-top: 20px;
 }
 
-/* ✅ Enhanced input field for name entry */
+/* ✅ Enhanced input field for name entry add name page*/
 #nameInput {
-  width: 80%;
-  max-width: 300px;
-  padding: 12px;
+  width: 200px;         /* Makes it smaller */
+  padding: 10px;
   font-size: 1rem;
-  text-align: left;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  display: block;       /* Needed so margin auto can take effect */
+  margin: 0 auto 12px;  /* Horizontally centers the input field */
 }
 
 /* ✅ Error message styling */
