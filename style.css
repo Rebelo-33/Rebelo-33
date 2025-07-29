@@ -105,6 +105,13 @@ main {
   margin-bottom: 15px;
 }
 
+.error-message {
+  color: #d93025; /* red */
+  font-size: 0.9rem;
+  margin-top: 5px;
+  min-height: 1.2em; /* reserve space */
+}
+
 /* ===============================
    Vertical Buttons Group
    =============================== */
