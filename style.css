@@ -31,6 +31,10 @@ body {
 .page-subtitle {
   text-align: center;
 }
+/* for add name page*/
+intro-text {
+  text-align: left;
+}
 
 /* ✅ Gift Icon (top left) */
 .gift-icon {
