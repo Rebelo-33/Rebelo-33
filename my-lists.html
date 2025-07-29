@@ -12,70 +12,74 @@
 </head>
 <body>
   <div class="container">
-    
-    <!-- 🎁 Gift Icon and Language Selector -->
-    <div class="gift-icon">🎁</div>
-    <div class="language-top-right">
-      <select id="language-selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
 
-    <!-- 🔠 Page Title -->
-    <h1 class="page-title" data-lang="manageList">Manage List</h1>
-
-    <!-- 📢 Subtitle BEFORE login -->
-    <p id="loginSubtitle" class="intro-text">
-      Enter details below to continue accessing the list.
-    </p>
-
-    <!-- 📢 Subtitle AFTER login (initially hidden) -->
-    <p id="editSubtitle" class="intro-text" style="display: none;">
-      Please delete or add names to your list, then save list for the changes to be applied.
-      Participants have to redraw name if list is updated.
-    </p>
-
-    <!-- 🔐 Login Fields Section -->
-    <div id="authSection">
-      <input type="text" id="listName" placeholder="Enter List Name" />
-      <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
-      <input type="text" id="secretCode" placeholder="Enter Secret Code" />
-
-      <!-- ⚠️ Error Message Below Secret Code Field -->
-      <p id="errorMsg" class="error-message"></p>
-
-      <!-- 🔘 Login and Navigation Buttons -->
-      <div class="vertical-buttons">
-        <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+    <!-- 🔝 Shared Site Header -->
+    <header class="header">
+      <div class="gift-icon">🎁</div>
+      <div class="language-top-right">
+        <select id="language-selector">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="zh">中文</option>
+        </select>
       </div>
-    </div>
+    </header>
 
-    <!-- ✅ Section to Display and Edit List (hidden until login success) -->
-    <div id="listSection" style="display: none;">
-      <!-- 🆕 Add Name Form -->
-      <div class="vertical-buttons">
-        <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
-        <button onclick="addNameToList()" data-lang="addName">Add Name</button>
-      </div>
+    <!-- 📋 Main Content Area -->
+    <main>
+      <!-- 🔠 Page Title -->
+      <h1 class="page-title" data-lang="manageList">Manage List</h1>
 
-      <!-- 👥 Current Participants List (with delete buttons) -->
-      <div id="currentNames" class="columns"></div>
+      <!-- 📢 Subtitles (toggle visibility based on login) -->
+      <p id="loginSubtitle" class="intro-text center">
+        Enter details below to continue accessing the list.
+      </p>
 
-      <!-- 💾 Save, Home, Help Buttons -->
-      <div class="vertical-buttons">
-        <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-    </div>
+      <p id="editSubtitle" class="intro-text center" style="display: none;">
+        Please delete or add names to your list, then save list for the changes to be applied.
+        Participants have to redraw name if list is updated.
+      </p>
 
-    <!-- 🔚 Footer -->
+      <!-- 🔐 Access Fields -->
+      <section id="authSection" class="auth-container">
+        <input type="text" id="listName" placeholder="Enter List Name" />
+        <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
+        <input type="text" id="secretCode" placeholder="Enter Secret Code" />
+
+        <!-- ⚠️ Error message -->
+        <p id="errorMsg" class="error-message"></p>
+
+        <!-- 🔘 Buttons -->
+        <div class="vertical-buttons">
+          <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
+      </section>
+
+      <!-- ✅ Displayed Only After Successful Access -->
+      <section id="listSection" style="display: none;">
+        <!-- 🆕 Add Participant -->
+        <div class="vertical-buttons">
+          <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
+          <button onclick="addNameToList()" data-lang="addName">Add Name</button>
+        </div>
+
+        <!-- 👥 Current List of Names -->
+        <div id="currentNames" class="columns"></div>
+
+        <!-- 💾 Save + Navigation Buttons -->
+        <div class="vertical-buttons">
+          <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- 📌 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
