@@ -1,3 +1,6 @@
+// ===============================
+// 🌍 Multi-language Support
+// ===============================
 const translations = {
   en: {
     title: "Secret Gift Exchange",
@@ -24,8 +27,6 @@ const translations = {
     confirmLeave: "Go back to Home? Unsaved changes will be lost.",
     saveChanges: "Save Changes",
     confirmDraw: "Confirm your name and draw one from the list.",
-
-    // Help Page
     helpPageTitle: "Help - Secret Gift Exchange",
     faqTitle: "Frequently Asked Questions",
     faqQ1: "Can I participate and organise?",
@@ -40,7 +41,6 @@ const translations = {
     how3: "Share the list name and PIN with participants.",
     how4: "Participants draw names by entering the list name and PIN.",
     how5: "Organisers manage lists using the secret code.",
-
     footerContact: 'Need help? Contact <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 All rights reserved"
   },
@@ -70,7 +70,6 @@ const translations = {
     confirmLeave: "¿Regresar al inicio? Cambios no guardados se perderán.",
     saveChanges: "Guardar Cambios",
     confirmDraw: "Confirma tu nombre y saca uno de la lista.",
-
     helpPageTitle: "Ayuda - Intercambio Secreto",
     faqTitle: "Preguntas Frecuentes",
     faqQ1: "¿Puedo participar y organizar?",
@@ -81,11 +80,10 @@ const translations = {
     faqA3: "No se pueden recuperar. Pide un nuevo enlace o crea una lista nueva.",
     howItWorksTitle: "Cómo Funciona",
     how1: "Crea una lista e ingresa los nombres.",
-    how2: "Protéjela con un PIN y código secreto.",
+    how2: "Protégela con un PIN y código secreto.",
     how3: "Comparte el nombre de lista y PIN.",
     how4: "Participantes sacan nombres con el PIN.",
     how5: "Organizadores gestionan con el código.",
-
     footerContact: '¿Necesitas ayuda? Contáctanos <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
     footerCopyright: "© 2025 Todos los derechos reservados"
   },
@@ -93,52 +91,117 @@ const translations = {
   fr: {
     title: "Échange de Cadeaux Secret",
     help: "Aide",
+    helpIntro: "Découvrez comment fonctionne l'échange de cadeaux secret. Contactez-nous si vous avez besoin d'aide !",
+    createList: "Créer une Liste",
+    manageList: "Gérer la Liste",
+    drawNameBtn: "Tirer un Nom",
+    access: "Accéder à la Liste",
+    seeDrawn: "Voir la liste et le nom tiré",
     drawIntro: "Voir la liste et le nom tiré. Surprise !",
+    addIntro: "Ajoutez des participants. Chaque nom doit être unique et ne pas dépasser 30 caractères.",
+    addName: "Ajouter un Nom",
+    removeName: "Supprimer un Nom",
+    saveList: "Enregistrer la Liste",
+    backHome: "Accueil",
     submit: "Connexion",
+    enterPin: "Entrez le nom de la liste et le code PIN pour continuer :",
+    listNameLabel: "Liste :",
+    accessForm: "Entrez le nom de la liste, un code PIN à 4 chiffres et votre code secret.",
+    cancel: "Annuler",
+    confirmCancel: "Voulez-vous annuler les modifications ?",
+    confirmSave: "Voulez-vous enregistrer les modifications ?",
+    confirmLeave: "Retourner à l'accueil ? Les modifications non enregistrées seront perdues.",
+    saveChanges: "Enregistrer les Modifications",
     confirmDraw: "Confirmez votre nom et tirez un nom de la liste.",
-    // ... add other keys as needed based on en/es above
+    helpPageTitle: "Aide - Échange Secret",
+    faqTitle: "Questions Fréquemment Posées",
+    faqQ1: "Puis-je participer et organiser ?",
+    faqA1: "Oui ! Vous pouvez participer comme tout autre participant.",
+    faqQ2: "Puis-je tirer deux fois ?",
+    faqA2: "Non. Un seul tirage est permis. Le résultat est enregistré sur votre navigateur.",
+    faqQ3: "J'ai oublié mon code PIN ou mon code secret. Que faire ?",
+    faqA3: "Ils ne peuvent pas être récupérés. Créez une nouvelle liste si besoin.",
+    howItWorksTitle: "Comment Ça Marche",
+    how1: "Créez une liste et ajoutez les participants.",
+    how2: "Protégez-la avec un code PIN et un code secret.",
+    how3: "Partagez le nom de la liste et le code PIN.",
+    how4: "Les participants tirent des noms avec le code PIN.",
+    how5: "Les organisateurs gèrent la liste avec le code secret.",
+    footerContact: 'Besoin d\'aide ? Contactez <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
+    footerCopyright: "© 2025 Tous droits réservés"
   },
 
   pt: {
     title: "Amigo Secreto",
     help: "Ajuda",
+    helpIntro: "Veja como funciona o Amigo Secreto. Para ajuda adicional, entre em contato!",
+    createList: "Criar Lista",
+    manageList: "Gerenciar Lista",
+    drawNameBtn: "Sortear Nome",
+    access: "Acessar Lista",
+    seeDrawn: "Ver lista e nome sorteado",
     drawIntro: "Veja a lista e o nome sorteado. Surpresa!",
+    addIntro: "Adicione participantes. Cada nome deve ser único e ter no máximo 30 caracteres.",
+    addName: "Adicionar Nome",
+    removeName: "Remover Nome",
+    saveList: "Salvar Lista",
+    backHome: "Início",
     submit: "Entrar",
+    enterPin: "Digite o nome da lista e o PIN para continuar:",
+    listNameLabel: "Lista:",
+    accessForm: "Digite o nome da lista, PIN de 4 dígitos e seu código secreto.",
+    cancel: "Cancelar",
+    confirmCancel: "Deseja cancelar as alterações?",
+    confirmSave: "Deseja salvar as alterações?",
+    confirmLeave: "Voltar para o início? Alterações não salvas serão perdidas.",
+    saveChanges: "Salvar Alterações",
     confirmDraw: "Confirme seu nome e sorteie um da lista.",
-    // ... add other keys as needed
+    helpPageTitle: "Ajuda - Amigo Secreto",
+    faqTitle: "Perguntas Frequentes",
+    faqQ1: "Posso participar e organizar?",
+    faqA1: "Sim! Você pode participar como qualquer outro.",
+    faqQ2: "Posso sortear duas vezes?",
+    faqA2: "Não. Apenas um sorteio por participante. O resultado é salvo no navegador.",
+    faqQ3: "Esqueci meu PIN ou código secreto. O que fazer?",
+    faqA3: "Infelizmente, não podem ser recuperados. Crie uma nova lista.",
+    howItWorksTitle: "Como Funciona",
+    how1: "Crie uma lista e adicione nomes.",
+    how2: "Proteja com PIN e código secreto.",
+    how3: "Compartilhe o nome e o PIN.",
+    how4: "Participantes usam o PIN para sortear.",
+    how5: "Organizadores usam o código para gerenciar.",
+    footerContact: 'Precisa de ajuda? Contate <a href="mailto:aniziacarvalino19@gmail.com">aniziacarvalino19@gmail.com</a>',
+    footerCopyright: "© 2025 Todos os direitos reservados"
   },
 
   zh: {
     title: "秘密礼物交换",
     help: "帮助",
+    helpIntro: "了解秘密礼物交换的方法，如需更多帮助，请联系我们！",
+    createList: "创建列表",
+    manageList: "管理列表",
+    drawNameBtn: "抽取名字",
+    access: "访问列表",
+    seeDrawn: "查看列表和被抽名字",
     drawIntro: "查看列表和你抽到的名字。惊喜！",
+    addIntro: "添加参与者。名字必须唯一，且不超过30个字符。",
+    addName: "添加名字",
+    removeName: "删除名字",
+    saveList: "保存列表",
+    backHome: "主页",
     submit: "登录",
-    confirmDraw: "确认你的名字并从列表中抽取一个。",
-    // ... add other keys as needed
-  }
-};
-
-// ✅ Apply translations
-function updateLanguage(lang) {
-  document.querySelectorAll("[data-lang]").forEach((el) => {
-    const key = el.getAttribute("data-lang");
-    if (translations[lang] && translations[lang][key]) {
-      el.innerHTML = key === "footerContact" ? translations[lang][key] : translations[lang][key];
-    }
-  });
-  document.documentElement.lang = lang;
-}
-
-// ✅ Language selector logic
-window.addEventListener("DOMContentLoaded", () => {
-  const selector = document.getElementById("language-selector");
-  const savedLang = localStorage.getItem("selectedLanguage") || "en";
-  if (selector) selector.value = savedLang;
-  updateLanguage(savedLang);
-
-  selector?.addEventListener("change", (e) => {
-    const selected = e.target.value;
-    localStorage.setItem("selectedLanguage", selected);
-    updateLanguage(selected);
-  });
-});
+    enterPin: "输入列表名称和 PIN 以继续：",
+    listNameLabel: "列表：",
+    accessForm: "输入列表名称、4位 PIN 和你的秘密码条管理列表。",
+    cancel: "取消",
+    confirmCancel: "确定要取消更改吗？",
+    confirmSave: "确定要保存更改吗？",
+    confirmLeave: "返回主页？未保存的更改将丢失。",
+    saveChanges: "保存更改",
+    confirmDraw: "确认你的名字，然后从列表中抽取一个。",
+    helpPageTitle: "帮助 - 秘密礼物交换",
+    faqTitle: "常见问题",
+    faqQ1: "我可以同时参与和经办吗？",
+    faqA1: "可以！你可以像其他参与者一样抽名。",
+    faqQ2: "我可以抽名两次吗？",
+    faqA2: "不可以。每个参与者只能抽一次。结果会保存
