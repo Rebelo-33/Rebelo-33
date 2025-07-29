@@ -154,8 +154,6 @@ table td {
   transform: scale(1.2);
 }
 
-
-
 /* ✅ Save / Home / Help Buttons Below Table */
 .bottom-buttons {
   display: flex;
@@ -246,27 +244,32 @@ table td {
   cursor: pointer;
 }
 
-/* ✅ New wrapper for centered vertical layout add-names.html */
-.vertical-center-group {
+/* ✅ Add-Names Page Enhancements Only */
+
+/* ✅ Wrapper for vertical alignment */
+.add-names-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
 }
 
-/* ✅ Button stack styling */
-.vertical-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  margin-top: 10px;
+/* ✅ Enhanced input field for name entry */
+#nameInput {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 /* ✅ Error message styling */
-.error-message {
+#errorMsg {
   color: red;
   font-weight: bold;
-  margin: 10px 0;
   text-align: center;
+  margin: 8px 0 12px;
 }
