@@ -31,8 +31,18 @@ body {
 .page-subtitle {
   text-align: center;
 }
-/* for add name page*/
+/* for all pages*/
 .intro-text {
+  margin: 20px auto 30px;
+  font-size: 1.1rem;
+  max-width: 600px;
+}
+
+.intro-text.center {
+  text-align: center;
+}
+
+.intro-text.left {
   text-align: left;
 }
 
