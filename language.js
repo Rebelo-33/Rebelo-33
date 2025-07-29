@@ -1,4 +1,4 @@
-// ✅ language.js - Multi-language support with text and placeholder translation
+// ✅ language.js - Multi-language support with auto UI translation including placeholders
 
 const translations = {
   en: {
@@ -10,9 +10,9 @@ const translations = {
     help: "Help",
     footerContact: "Questions? Contact the organizer.",
     footerCopyright: "© 2025 All rights reserved",
-    listNamePlaceholder: "Enter List Name",
-    listPinPlaceholder: "Enter 4-digit PIN",
-    yourNamePlaceholder: "Enter your name"
+    enterListName: "Enter List Name",
+    enterPin: "Enter 4-digit PIN",
+    enterYourName: "Enter your name"
   },
   es: {
     drawNameBtn: "Sacar un nombre",
@@ -23,9 +23,9 @@ const translations = {
     help: "Ayuda",
     footerContact: "¿Preguntas? Contacta al organizador.",
     footerCopyright: "© 2025 Todos los derechos reservados",
-    listNamePlaceholder: "Ingrese el nombre de la lista",
-    listPinPlaceholder: "Ingrese PIN de 4 dígitos",
-    yourNamePlaceholder: "Ingrese su nombre"
+    enterListName: "Ingresa nombre de lista",
+    enterPin: "Ingresa PIN de 4 dígitos",
+    enterYourName: "Ingresa tu nombre"
   },
   fr: {
     drawNameBtn: "Tirer un nom",
@@ -36,9 +36,9 @@ const translations = {
     help: "Aide",
     footerContact: "Des questions ? Contactez l’organisateur.",
     footerCopyright: "© 2025 Tous droits réservés",
-    listNamePlaceholder: "Entrez le nom de la liste",
-    listPinPlaceholder: "Entrez le code PIN à 4 chiffres",
-    yourNamePlaceholder: "Entrez votre nom"
+    enterListName: "Entrez le nom de la liste",
+    enterPin: "Entrez le code PIN à 4 chiffres",
+    enterYourName: "Entrez votre nom"
   },
   pt: {
     drawNameBtn: "Sortear Nome",
@@ -49,9 +49,9 @@ const translations = {
     help: "Ajuda",
     footerContact: "Dúvidas? Contate o organizador.",
     footerCopyright: "© 2025 Todos os direitos reservados",
-    listNamePlaceholder: "Digite o nome da lista",
-    listPinPlaceholder: "Digite o PIN de 4 dígitos",
-    yourNamePlaceholder: "Digite seu nome"
+    enterListName: "Digite o nome da lista",
+    enterPin: "Digite o PIN de 4 dígitos",
+    enterYourName: "Digite seu nome"
   },
   zh: {
     drawNameBtn: "抽取名字",
@@ -62,27 +62,30 @@ const translations = {
     help: "帮助",
     footerContact: "有问题？请联系组织者。",
     footerCopyright: "© 2025 保留所有权利",
-    listNamePlaceholder: "请输入名单名称",
-    listPinPlaceholder: "请输入4位数PIN码",
-    yourNamePlaceholder: "请输入你的名字"
+    enterListName: "输入名单名称",
+    enterPin: "输入4位数字PIN码",
+    enterYourName: "输入你的名字"
   }
 };
 
 function updateLanguage(langCode) {
-  const elements = document.querySelectorAll("[data-lang], [data-lang-placeholder]");
-  elements.forEach((el) => {
+  // Update all elements with data-lang (textContent)
+  document.querySelectorAll("[data-lang]").forEach(el => {
     const key = el.getAttribute("data-lang");
-    if (key) {
-      const translation = translations[langCode][key];
-      if (translation) el.textContent = translation;
-    }
-
-    const placeholderKey = el.getAttribute("data-lang-placeholder");
-    if (placeholderKey) {
-      const translation = translations[langCode][placeholderKey];
-      if (translation) el.placeholder = translation;
+    if (translations[langCode][key]) {
+      el.textContent = translations[langCode][key];
     }
   });
+
+  // Update all inputs/textareas with data-lang-placeholder (placeholder attr)
+  document.querySelectorAll("[data-lang-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-lang-placeholder");
+    if (translations[langCode][key]) {
+      el.placeholder = translations[langCode][key];
+    }
+  });
+
+  // Save selection
   localStorage.setItem("selectedLanguage", langCode);
 }
 
