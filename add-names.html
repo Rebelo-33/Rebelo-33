@@ -1,66 +1,59 @@
+<!-- add-names.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-lang="addNamesTitle">Add Name</title>
-
-  <!-- Styles & Scripts -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Your scripts for Firebase and app logic -->
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="scripts.js"></script>
-  <script defer src="language.js"></script>
+  <script defer src="language.js"></script> <!-- Language switching JS -->
 </head>
 <body>
   <div class="container">
+    <!-- Header remains the same across pages -->
+    <header class="header">
+      <div class="gift-icon">🎁</div>
+      <div class="language-top-right">
+        <select id="language-selector">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
+    </header>
 
-    <!-- 🎁 Gift Icon -->
-    <div class="gift-icon">🎁</div>
-
-    <!-- 🌐 Language Selector -->
-    <div class="language-top-right">
-      <select id="language-selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
-
-    <!-- 🏷️ Page Title -->
-    <h1 class="page-title" data-lang="createList">Add Name</h1>
-
-      <p class="intro-text.center" data-lang="addIntro">
+    <!-- Main content for adding names -->
+    <main>
+      <h1 class="page-title" data-lang="createList">Add Name</h1>
+      <p class="intro-text center" data-lang="addIntro">
         Add participants to create a list and save. Each name must be unique and no longer than 30 characters.
       </p>
 
-    <!-- 📋 Dynamic Name Display -->
-    <div id="nameListContainer"></div>
+      <!-- Centered input field -->
+      <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
 
-    <!-- ✍️ Input Field -->
-    <!-- ✅ Input Field and Buttons Centered -->
-    <div class="vertical-center-group">
-    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+      <!-- Error message area -->
+      <p id="errorMsg" class="error-message"></p>
 
-  <!-- 🔴 Error Message in red, just above Add Name button -->
-    <p id="errorMsg" class="error-message"></p>
+      <!-- Vertical buttons for actions -->
+      <div class="vertical-buttons">
+        <button onclick="addName()" data-lang="addName">Add Name</button>
+        <button onclick="saveList()" data-lang="saveList">Save List</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      </div>
+    </main>
 
-    <div class="vertical-buttons">
-      <button onclick="addName()" data-lang="addName">Add Name</button>
-      <button onclick="saveList()" data-lang="saveList">Save List</button>
-      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
-    </div>
-   </div>
-
-
-    <!-- ✅ Footer -->
+    <!-- Footer is consistent -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
-
   </div>
 </body>
 </html>
