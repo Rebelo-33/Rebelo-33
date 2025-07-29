@@ -27,6 +27,13 @@ body {
   font-weight: bold;
 }
 
+.page-subtitle {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  align-items: center;     /* centers vertically */
+  height: 100px;           /* or any height you want */
+}
+
 /* ✅ Gift Icon (top left) */
 .gift-icon {
   position: absolute;
