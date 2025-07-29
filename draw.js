@@ -1,113 +1,98 @@
-// ✅ draw.js – Secure Name Drawing with Login Session
-import { db } from './firebase-config.js';
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  doc,
-  updateDoc
-} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+// ✅ draw.js - Handle Draw Page Logic
 
-let listData = null;
+import { db } from "./firebase-config.js";
+import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// 🔐 Login & Verify draw access by list name and pin
+let currentListData = null;
+let currentListRef = null;
+
+// ✅ Verify List Access
 window.verifyDrawAccess = async function () {
-  const name = document.getElementById("listName").value.trim();
-  const pin = document.getElementById("listPin").value.trim();
-  const errorBox = document.getElementById("errorMsg");
+  const listName = document.getElementById("listName").value.trim();
+  const listPin = document.getElementById("listPin").value.trim();
+  const errorMsg = document.getElementById("errorMsg");
 
-  if (!name || !pin) {
-    errorBox.textContent = "List name and PIN are required.";
+  errorMsg.textContent = ""; // Clear old error
+
+  if (!listName || !listPin) {
+    errorMsg.textContent = "List name and PIN are required.";
     return;
   }
 
   try {
-    const q = query(collection(db, "lists"),
-      where("name", "==", name),
-      where("pin", "==", pin)
-    );
-    const querySnapshot = await getDocs(q);
+    const ref = doc(db, "giftLists", listName);
+    const snap = await getDoc(ref);
 
-    if (!querySnapshot.empty) {
-      listData = querySnapshot.docs[0];
-      sessionStorage.setItem("listId", listData.id);
+    if (!snap.exists()) {
+      errorMsg.textContent = "List not found. Check name and try again.";
+      return;
+    }
 
-      // Switch UI
+    const data = snap.data();
+    if (data.pin === listPin) {
+      // ✅ Auth successful
+      currentListRef = ref;
+      currentListData = data;
       document.getElementById("authSection").style.display = "none";
       document.getElementById("drawSection").style.display = "block";
-
-      renderNameList(listData.data().participants);
     } else {
-      errorBox.textContent = "Incorrect list name or PIN.";
+      errorMsg.textContent = "Incorrect PIN.";
     }
   } catch (err) {
-    errorBox.textContent = "Error verifying list.";
-    console.error(err);
+    console.error("Login error:", err);
+    errorMsg.textContent = "An error occurred during login.";
   }
 };
 
-// 📋 Render list of participants
-function renderNameList(names) {
-  const container = document.getElementById("nameListContainer");
-  container.innerHTML = "";
-  const col = document.createElement("div");
-  col.className = "column";
-  names.forEach(name => {
-    const p = document.createElement("p");
-    p.textContent = name;
-    col.appendChild(p);
-  });
-  container.appendChild(col);
-}
-
-// 🔐 Secure hashing using SHA-256
-async function hashValue(value) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(value);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-// 🎁 Draw a name securely and anonymously
+// ✅ Draw a name from the list
 window.drawName = async function () {
   const yourName = document.getElementById("yourName").value.trim();
-  const errorBox = document.getElementById("errorMsg");
+  const drawErrorMsg = document.getElementById("drawErrorMsg");
   const resultBox = document.getElementById("resultBox");
 
+  drawErrorMsg.textContent = "";
+  resultBox.textContent = "";
+
   if (!yourName) {
-    errorBox.textContent = "Enter your name first.";
+    drawErrorMsg.textContent = "Please enter your name.";
     return;
   }
 
-  const data = listData.data();
-  const hashKey = await hashValue(yourName);
+  const allNames = currentListData.participants;
+  const drawn = currentListData.drawn || {};
 
-  if (data.drawn && data.drawn[hashKey]) {
-    resultBox.textContent = `🎉 You previously drew: ${data.drawn[hashKey]}`;
-    document.getElementById("drawButton").style.display = "none";
+  if (!allNames.includes(yourName)) {
+    if (!window._nameRetry) {
+      window._nameRetry = true;
+      drawErrorMsg.textContent = "Name not found. Try again.";
+    } else {
+      drawErrorMsg.textContent = "Confirm name is on the list.";
+    }
     return;
   }
 
-  const names = data.participants.filter(n => n !== yourName);
-  const available = names.filter(n => !Object.values(data.drawn || {}).includes(n));
+  if (drawn[yourName]) {
+    resultBox.textContent = `🎉 You already drew: ${drawn[yourName]}`;
+    return;
+  }
+
+  const available = allNames.filter(name => name !== yourName && !Object.values(drawn).includes(name));
 
   if (available.length === 0) {
-    resultBox.textContent = "No available names left to draw.";
+    drawErrorMsg.textContent = "No names left to draw!";
     return;
   }
 
-  const drawn = available[Math.floor(Math.random() * available.length)];
+  const randomIndex = Math.floor(Math.random() * available.length);
+  const assignedName = available[randomIndex];
 
-  const updatedDraws = data.drawn || {};
-  updatedDraws[hashKey] = drawn;
+  drawn[yourName] = assignedName;
 
-  await updateDoc(doc(db, "lists", listData.id), {
-    drawn: updatedDraws,
-    lastDraw: new Date()
-  });
-
-  resultBox.textContent = `🎉 You drew: ${drawn}`;
-  document.getElementById("drawButton").style.display = "none";
+  try {
+    await updateDoc(currentListRef, { drawn });
+    resultBox.textContent = `🎉 You drew: ${assignedName}`;
+  } catch (err) {
+    console.error("Draw error:", err);
+    drawErrorMsg.textContent = "Failed to save draw. Try again.";
+  }
 };
