@@ -1,3 +1,4 @@
+<!-- 🛠️ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
 </head>
 <body>
   <div class="container">
+    
     <!-- 🎁 Gift Icon and Language Selector -->
     <div class="gift-icon">🎁</div>
     <div class="language-top-right">
@@ -21,52 +23,63 @@
         <option value="pt">Português</option>
         <option value="zh">中文</option>
       </select>
-    </div><!-- 🔠 Page Title -->
-<h1 class="page-title" data-lang="manageList">Manage List</h1>
-<p class="intro-text" data-lang="addIntro">
-  Update your list. Each name must be unique and no longer than 30 characters.
-</p>
+    </div>
 
-<!-- 🔐 Access Form -->
-<div id="authSection">
-  <input type="text" id="listName" placeholder="Enter List Name" />
-  <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
-  <input type="text" id="secretCode" placeholder="Enter Secret Code" />
+    <!-- 🔠 Page Title -->
+    <h1 class="page-title" data-lang="manageList">Manage List</h1>
 
-  <div class="vertical-buttons">
-    <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
-    <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-    <button onclick="location.href='help.html'" data-lang="help">Help</button>
-  </div>
-</div>
+    <!-- 📢 Subtitle BEFORE login -->
+    <p id="loginSubtitle" class="intro-text">
+      Enter details below to continue accessing the list.
+    </p>
 
-<!-- 📋 List Display Section -->
-<div id="listSection" style="display: none;">
-  <!-- 🆕 Add Name Input -->
-  <div class="vertical-buttons">
-    <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
-    <button onclick="addNameToList()" data-lang="addName">Add Name</button>
-  </div>
+    <!-- 📢 Subtitle AFTER login (initially hidden) -->
+    <p id="editSubtitle" class="intro-text" style="display: none;">
+      Please delete or add names to your list, then save list for the changes to be applied.
+      Participants have to redraw name if list is updated.
+    </p>
 
-  <!-- 👥 Current Participants -->
-  <div id="currentNames" class="columns"></div>
+    <!-- 🔐 Login Fields Section -->
+    <div id="authSection">
+      <input type="text" id="listName" placeholder="Enter List Name" />
+      <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
+      <input type="text" id="secretCode" placeholder="Enter Secret Code" />
 
-  <!-- 💾 Save Options -->
-  <div class="vertical-buttons">
-    <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
-    <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-    <button onclick="location.href='help.html'" data-lang="help">Help</button>
-  </div>
-</div>
+      <!-- ⚠️ Error Message Below Secret Code Field -->
+      <p id="errorMsg" class="error-message"></p>
 
-<!-- 🛠️ Error Message -->
-<p id="errorMsg" class="error-message"></p>
+      <!-- 🔘 Login and Navigation Buttons -->
+      <div class="vertical-buttons">
+        <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      </div>
+    </div>
 
-<!-- 🔚 Footer -->
-<footer>
-  <p data-lang="footerContact"></p>
-  <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-</footer>
+    <!-- ✅ Section to Display and Edit List (hidden until login success) -->
+    <div id="listSection" style="display: none;">
+      <!-- 🆕 Add Name Form -->
+      <div class="vertical-buttons">
+        <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
+        <button onclick="addNameToList()" data-lang="addName">Add Name</button>
+      </div>
+
+      <!-- 👥 Current Participants List (with delete buttons) -->
+      <div id="currentNames" class="columns"></div>
+
+      <!-- 💾 Save, Home, Help Buttons -->
+      <div class="vertical-buttons">
+        <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      </div>
+    </div>
+
+    <!-- 🔚 Footer -->
+    <footer>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+    </footer>
 
   </div>
 </body>
