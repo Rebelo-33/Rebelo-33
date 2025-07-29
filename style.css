@@ -28,10 +28,7 @@ body {
 }
 
 .page-subtitle {
-  display: flex;
-  justify-content: center; /* centers horizontally */
-  align-items: center;     /* centers vertically */
-  height: 100px;           /* or any height you want */
+  text-align: center;
 }
 
 /* ✅ Gift Icon (top left) */
