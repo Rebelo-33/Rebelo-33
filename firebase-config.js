@@ -1,12 +1,10 @@
 // ✅ firebase-config.js
-// ✅ firebase-config.js
-// This file initializes Firebase and exports the Firestore database instance.
+// This file initializes Firebase and exports the Firestore database instance using Firebase Modular SDK (v12)
 
-// Import necessary Firebase modules from the CDN for modular SDK v12
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// 🔐 Your Firebase project configuration object
+// 🔐 Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA_vBdjuDi059d4-Yz-fg57fdZy_1GbmcA",
   authDomain: "gift-exchange-ab8bd.firebaseapp.com",
@@ -17,8 +15,8 @@ const firebaseConfig = {
   measurementId: "G-J98V9GEKFX"
 };
 
-// 🚀 Initialize Firebase app with your config
+// 🚀 Initialize Firebase App
 const app = initializeApp(firebaseConfig);
 
-// 📦 Initialize and export Firestore database instance
+// 🗂️ Export Firestore database instance
 export const db = getFirestore(app);
