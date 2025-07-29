@@ -42,12 +42,13 @@
     <!-- ✍️ Input Field -->
     <div class="action-row">
       <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+      <br> 
+      <!-- ⚠️ Error Message Placeholder -->
+      <p id="errorMsg" class="error-message"></p>
+      <br>
       <button onclick="addName()" data-lang="addName">Add Name</button>
     </div>
-     <br> 
-    <!-- ⚠️ Error Message Placeholder -->
-    <p id="errorMsg" class="error-message"></p>
-    <br>
+     
     <!-- ✅ Action Buttons -->
     <div class="bottom-buttons">
       <button onclick="saveList()" data-lang="saveList">Save List</button>
