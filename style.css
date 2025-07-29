@@ -118,13 +118,13 @@ main {
 }
 
 .vertical-buttons button {
-  width: 180px;
+  width: 220px;
   padding: 6px 12px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 0.9em;
+  font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
