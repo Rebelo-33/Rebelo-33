@@ -271,4 +271,10 @@ table td {
   cursor: pointer;
 }
 
-
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 10px;
+}
