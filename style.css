@@ -119,12 +119,12 @@ main {
 
 .vertical-buttons button {
   width: 300px;
-  padding: 6px 12px;
+  padding: 12px 24px; /*more space inside button*/
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 1em;
+  border-radius: 8px; /*Roundedcorners*/
+  font-size: 1.1em; /*text size*/
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
