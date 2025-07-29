@@ -1,6 +1,5 @@
 <!-- ✅ help.html -->
-<!DOCTYPE html>
-<html lang="en">
+<!-- ✅ help.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,59 +8,60 @@
   <script defer src="language.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container"><!-- ✅ Header with Gift Icon & Language Selector -->
+<header class="header">
+  <div class="gift-icon">🎁</div>
+  <div class="language-top-right">
+    <select id="language-selector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="pt">Português</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
+</header>
 
-    <!-- 🎁 Gift Icon -->
-    <div class="gift-icon">🎁</div>
+<!-- ✅ Main Help Content -->
+<main>
+  <h1 class="page-title" data-lang="help">Help</h1>
+  <p class="intro-text left" data-lang="helpIntro">
+    Check out how Secret Gift Exchange works. If additional help is needed, feel free to contact us!
+  </p>
 
-    <!-- 🌐 Language Dropdown -->
-    <div class="language-top-right">
-      <select id="language-selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="zh">中文</option>
-      </select>
-    </div>
+  <!-- ℹ️ How It Works Section -->
+  <h2 data-lang="howItWorksTitle">How It Works</h2>
+  <ol>
+    <li data-lang="how1">Create a new list and add participant names.</li>
+    <li data-lang="how2">Protect your list with a 4-digit PIN and a secret code.</li>
+    <li data-lang="how3">Share the list name and PIN with participants.</li>
+    <li data-lang="how4">Participants draw names by entering the list name and PIN.</li>
+    <li data-lang="how5">Organisers manage lists using the secret code.</li>
+  </ol>
 
-    <!-- 🏷️ Help Title -->
-    <h1 class="page-title" data-lang="help">Help</h1>
-    <p class="intro-text.left" data-lang="helpIntro">
-      Check out how Secret Gift Exchange works. If additional help is needed, feel free to contact us!
-    </p>
+  <!-- ❓ FAQ Section -->
+  <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
+  <p><strong data-lang="faqQ1"></strong></p>
+  <p data-lang="faqA1"></p>
 
-    <!-- ℹ️ How It Works -->
-    <h2 data-lang="howItWorksTitle">How It Works</h2>
-    <ol>
-      <li data-lang="how1">Create a new list and add participant names.</li>
-      <li data-lang="how2">Protect your list with a 4-digit PIN and a secret code.</li>
-      <li data-lang="how3">Share the list name and PIN with participants.</li>
-      <li data-lang="how4">Participants draw names by entering the list name and PIN.</li>
-      <li data-lang="how5">Organisers manage lists using the secret code.</li>
-    </ol>
+  <p><strong data-lang="faqQ2"></strong></p>
+  <p data-lang="faqA2"></p>
 
-    <!-- ❓ FAQ -->
-    <h2 data-lang="faqTitle">Frequently Asked Questions</h2>
-    <p><strong data-lang="faqQ1"></strong></p>
-    <p data-lang="faqA1"></p>
+  <p><strong data-lang="faqQ3"></strong></p>
+  <p data-lang="faqA3"></p>
 
-    <p><strong data-lang="faqQ2"></strong></p>
-    <p data-lang="faqA2"></p>
+  <!-- 🔙 Back to Home Button -->
+  <div class="top-buttons">
+    <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+  </div>
+</main>
 
-    <p><strong data-lang="faqQ3"></strong></p>
-    <p data-lang="faqA3"></p>
+<!-- ✅ Footer Section -->
+<footer>
+  <p data-lang="footerContact"></p>
+  <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+</footer>
 
-    <!-- 🔙 Home Button -->
-    <div class="top-buttons">
-      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-    </div>
-    
-    <!-- 📌 Footer -->
-    <footer>
-      <p data-lang="footerContact"></p>
-      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-    </footer>
   </div>
 </body>
 </html>
