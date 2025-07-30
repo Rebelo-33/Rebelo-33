@@ -121,8 +121,16 @@ const translations = {
     footerContact: "需要帮助？请联系 aniziacarvalino19@gmail.com",
     footerCopyright: "© 2025 保留所有权利"
   }
-};
 
+  
+ surpriseLine: {
+  en: "<strong>Surprise, surprise!</strong>",
+  es: "<strong>¡Sorpresa, sorpresa!</strong>",
+  fr: "<strong>Surprise, surprise !</strong>",
+  pt: "<strong>Surpresa, surpresa!</strong>",
+  zh: "<strong>惊喜，惊喜！</strong>"
+}
+};
 // 🌐 Translate text content and placeholders
 function updateLanguage(langCode) {
   const elements = document.querySelectorAll("[data-lang]");
