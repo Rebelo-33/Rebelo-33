@@ -1,9 +1,9 @@
 // ✅ language.js - Full multi-language support
-
 const translations = {
   en: {
     drawNameBtn: "Draw Name",
-    drawIntro: "See list and your drawn name. Surprise, surprise!",
+    drawIntro: "See list and your drawn name.",
+    surpriseLine: "<strong>Surprise, surprise!</strong>",
     confirmDraw: "Confirm your name and draw one from the list.",
     submit: "Login",
     backHome: "Home",
@@ -22,12 +22,28 @@ const translations = {
     faqA2: "Unfortunately, without the code or PIN, you can’t access the list. Keep it safe.",
     faqQ3: "Can I edit the list after drawing starts?",
     faqA3: "No, for fairness, lists can’t be changed once drawing has begun.",
-    footerContact: "Need help? Contact aniziacarvalino19@gmail.com",
+    listName: "List Name",
+    pinCode: "PIN Code",
+    secretCode: "Secret Code",
+    yourName: "Your Name",
+    addName: "Add Name",
+    saveList: "Save List",
+    saveChanges: "Save Changes",
+    delete: "Delete",
+    loginToList: "Login to View List",
+    noListFound: "No matching list found.",
+    listSaved: "List saved successfully!",
+    confirmSave: "Are you sure you want to save this list?",
+    nameRequired: "Name is required.",
+    listNameRequired: "List name is required.",
+    footerContact: "Need help? Contact ",
+    footerEmail: "aniziacarvalino19@gmail.com",
     footerCopyright: "© 2025 All rights reserved"
   },
   es: {
     drawNameBtn: "Sacar un nombre",
-    drawIntro: "Consulta la lista y el nombre que te ha tocado. ¡Sorpresa!",
+    drawIntro: "Consulta la lista y el nombre que te ha tocado.",
+    surpriseLine: "<strong>¡Sorpresa, sorpresa!</strong>",
     confirmDraw: "Confirma tu nombre y saca uno de la lista.",
     submit: "Iniciar sesión",
     backHome: "Inicio",
@@ -46,12 +62,28 @@ const translations = {
     faqA2: "Sin el código o PIN, no puedes acceder a la lista. Guárdalos bien.",
     faqQ3: "¿Puedo editar la lista después de empezar?",
     faqA3: "No, para mantener la equidad, la lista no se puede modificar una vez iniciado el sorteo.",
-    footerContact: "¿Necesitas ayuda? Contacta a aniziacarvalino19@gmail.com",
+    listName: "Nombre de la lista",
+    pinCode: "Código PIN",
+    secretCode: "Código Secreto",
+    yourName: "Tu nombre",
+    addName: "Agregar nombre",
+    saveList: "Guardar lista",
+    saveChanges: "Guardar cambios",
+    delete: "Eliminar",
+    loginToList: "Iniciar sesión en la lista",
+    noListFound: "No se encontró una lista que coincida.",
+    listSaved: "¡Lista guardada exitosamente!",
+    confirmSave: "¿Estás seguro de que quieres guardar esta lista?",
+    nameRequired: "El nombre es obligatorio.",
+    listNameRequired: "El nombre de la lista es obligatorio.",
+    footerContact: "¿Necesitas ayuda? Contacta a ",
+    footerEmail: "aniziacarvalino19@gmail.com",
     footerCopyright: "© 2025 Todos los derechos reservados"
   },
   fr: {
     drawNameBtn: "Tirer un nom",
-    drawIntro: "Voir la liste et le nom tiré. Surprise !",
+    drawIntro: "Voir la liste et le nom tiré.",
+    surpriseLine: "<strong>Surprise, surprise !</strong>",
     confirmDraw: "Confirmez votre nom et tirez-en un de la liste.",
     submit: "Connexion",
     backHome: "Accueil",
@@ -70,12 +102,28 @@ const translations = {
     faqA2: "Sans code ni PIN, vous ne pouvez pas accéder à la liste. Gardez-les en sécurité.",
     faqQ3: "Puis-je modifier la liste après avoir commencé ?",
     faqA3: "Non, pour garantir l'équité, la liste ne peut plus être modifiée après le début du tirage.",
-    footerContact: "Besoin d’aide ? Contactez aniziacarvalino19@gmail.com",
+    listName: "Nom de la liste",
+    pinCode: "Code PIN",
+    secretCode: "Code secret",
+    yourName: "Votre nom",
+    addName: "Ajouter un nom",
+    saveList: "Enregistrer la liste",
+    saveChanges: "Enregistrer les modifications",
+    delete: "Supprimer",
+    loginToList: "Connexion à la liste",
+    noListFound: "Aucune liste correspondante trouvée.",
+    listSaved: "Liste enregistrée avec succès !",
+    confirmSave: "Êtes-vous sûr de vouloir enregistrer cette liste ?",
+    nameRequired: "Le nom est requis.",
+    listNameRequired: "Le nom de la liste est requis.",
+    footerContact: "Besoin d’aide ? Contactez ",
+    footerEmail: "aniziacarvalino19@gmail.com",
     footerCopyright: "© 2025 Tous droits réservés"
   },
   pt: {
     drawNameBtn: "Sortear Nome",
-    drawIntro: "Veja a lista e o nome sorteado. Surpresa!",
+    drawIntro: "Veja a lista e o nome sorteado.",
+    surpriseLine: "<strong>Surpresa, surpresa!</strong>",
     confirmDraw: "Confirme seu nome e sorteie um da lista.",
     submit: "Entrar",
     backHome: "Início",
@@ -94,12 +142,28 @@ const translations = {
     faqA2: "Sem o código ou PIN, você não poderá acessar a lista. Guarde-os com segurança.",
     faqQ3: "Posso editar a lista depois de começar?",
     faqA3: "Não, por justiça, a lista não pode ser alterada após o início do sorteio.",
-    footerContact: "Precisa de ajuda? Contate aniziacarvalino19@gmail.com",
+    listName: "Nome da lista",
+    pinCode: "Código PIN",
+    secretCode: "Código Secreto",
+    yourName: "Seu nome",
+    addName: "Adicionar nome",
+    saveList: "Salvar lista",
+    saveChanges: "Salvar alterações",
+    delete: "Excluir",
+    loginToList: "Entrar na lista",
+    noListFound: "Nenhuma lista correspondente encontrada.",
+    listSaved: "Lista salva com sucesso!",
+    confirmSave: "Tem certeza de que deseja salvar esta lista?",
+    nameRequired: "Nome é obrigatório.",
+    listNameRequired: "Nome da lista é obrigatório.",
+    footerContact: "Precisa de ajuda? Contate ",
+    footerEmail: "aniziacarvalino19@gmail.com",
     footerCopyright: "© 2025 Todos os direitos reservados"
   },
   zh: {
     drawNameBtn: "抽取名字",
-    drawIntro: "查看名单并抽取一个名字。惊喜！",
+    drawIntro: "查看名单并抽取一个名字。",
+    surpriseLine: "<strong>惊喜，惊喜！</strong>",
     confirmDraw: "确认你的名字并从列表中抽取一个。",
     submit: "登录",
     backHome: "主页",
@@ -118,26 +182,33 @@ const translations = {
     faqA2: "没有PIN码或代码，你将无法访问名单。请妥善保管。",
     faqQ3: "抽签开始后可以修改名单吗？",
     faqA3: "为了公平起见，名单一旦开始抽签就无法更改。",
-    footerContact: "需要帮助？请联系 aniziacarvalino19@gmail.com",
+    listName: "名单名称",
+    pinCode: "PIN码",
+    secretCode: "秘密代码",
+    yourName: "你的名字",
+    addName: "添加名字",
+    saveList: "保存名单",
+    saveChanges: "保存更改",
+    delete: "删除",
+    loginToList: "登录查看名单",
+    noListFound: "未找到匹配的名单。",
+    listSaved: "名单保存成功！",
+    confirmSave: "你确定要保存这个名单吗？",
+    nameRequired: "名字是必填项。",
+    listNameRequired: "名单名称是必填项。",
+    footerContact: "需要帮助？请联系 ",
+    footerEmail: "aniziacarvalino19@gmail.com",
     footerCopyright: "© 2025 保留所有权利"
   }
-
-  
- surpriseLine: {
-  en: "<strong>Surprise, surprise!</strong>",
-  es: "<strong>¡Sorpresa, sorpresa!</strong>",
-  fr: "<strong>Surprise, surprise !</strong>",
-  pt: "<strong>Surpresa, surpresa!</strong>",
-  zh: "<strong>惊喜，惊喜！</strong>"
-}
 };
+
 // 🌐 Translate text content and placeholders
 function updateLanguage(langCode) {
   const elements = document.querySelectorAll("[data-lang]");
   elements.forEach((el) => {
     const key = el.getAttribute("data-lang");
     const translation = translations[langCode][key];
-    if (translation) el.textContent = translation;
+    if (translation) el.innerHTML = translation;
   });
 
   const placeholders = document.querySelectorAll("[data-lang-placeholder]");
