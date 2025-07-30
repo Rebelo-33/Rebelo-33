@@ -1,98 +1,103 @@
 // ✅ draw.js - Handle Draw Page Logic
-
-import { db } from "./firebase-config.js";
+// ✅ draw.js
+import { db } from './firebase-config.js';
 import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-let currentListData = null;
-let currentListRef = null;
+let listData = null;
+let currentListId = null;
 
-// ✅ Verify List Access
 window.verifyDrawAccess = async function () {
-  const listName = document.getElementById("listName").value.trim();
-  const listPin = document.getElementById("listPin").value.trim();
-  const errorMsg = document.getElementById("errorMsg");
+  const listName = document.getElementById('listName').value.trim();
+  const listPin = document.getElementById('listPin').value.trim();
+  const errorMsg = document.getElementById('errorMsg');
 
-  errorMsg.textContent = ""; // Clear old error
+  errorMsg.textContent = '';
 
   if (!listName || !listPin) {
-    errorMsg.textContent = "List name and PIN are required.";
+    errorMsg.textContent = "Please enter both list name and PIN.";
     return;
   }
 
   try {
-    const ref = doc(db, "giftLists", listName);
-    const snap = await getDoc(ref);
+    const docRef = doc(db, "lists", listName);
+    const docSnap = await getDoc(docRef);
 
-    if (!snap.exists()) {
-      errorMsg.textContent = "List not found. Check name and try again.";
+    if (!docSnap.exists()) {
+      errorMsg.textContent = "List not found.";
       return;
     }
 
-    const data = snap.data();
-    if (data.pin === listPin) {
-      // ✅ Auth successful
-      currentListRef = ref;
-      currentListData = data;
-      document.getElementById("authSection").style.display = "none";
-      document.getElementById("drawSection").style.display = "block";
-    } else {
+    const data = docSnap.data();
+    if (data.pin !== listPin) {
       errorMsg.textContent = "Incorrect PIN.";
+      return;
     }
+
+    listData = data;
+    currentListId = listName;
+    document.getElementById('authSection').style.display = "none";
+    document.getElementById('drawSection').style.display = "block";
+    populateNameList(data.names);
+
   } catch (err) {
-    console.error("Login error:", err);
-    errorMsg.textContent = "An error occurred during login.";
+    errorMsg.textContent = "Error connecting to database.";
+    console.error(err);
   }
 };
 
-// ✅ Draw a name from the list
-window.drawName = async function () {
-  const yourName = document.getElementById("yourName").value.trim();
-  const drawErrorMsg = document.getElementById("drawErrorMsg");
-  const resultBox = document.getElementById("resultBox");
+function populateNameList(names) {
+  const container = document.getElementById('nameListContainer');
+  container.innerHTML = '';
 
-  drawErrorMsg.textContent = "";
-  resultBox.textContent = "";
+  names.forEach(name => {
+    const div = document.createElement('div');
+    div.textContent = name;
+    container.appendChild(div);
+  });
+}
+
+window.drawName = async function () {
+  const yourName = document.getElementById('yourName').value.trim();
+  const resultBox = document.getElementById('resultBox');
+  const errorMsg = document.getElementById('errorMsg');
+
+  errorMsg.textContent = '';
+  resultBox.textContent = '';
 
   if (!yourName) {
-    drawErrorMsg.textContent = "Please enter your name.";
+    errorMsg.textContent = "Please enter your name.";
     return;
   }
 
-  const allNames = currentListData.participants;
-  const drawn = currentListData.drawn || {};
-
-  if (!allNames.includes(yourName)) {
-    if (!window._nameRetry) {
-      window._nameRetry = true;
-      drawErrorMsg.textContent = "Name not found. Try again.";
-    } else {
-      drawErrorMsg.textContent = "Confirm name is on the list.";
-    }
+  if (!listData || !listData.names.includes(yourName)) {
+    errorMsg.textContent = "Your name is not on the list.";
     return;
   }
 
-  if (drawn[yourName]) {
-    resultBox.textContent = `🎉 You already drew: ${drawn[yourName]}`;
+  if (listData.drawn && listData.drawn[yourName]) {
+    resultBox.textContent = `You already drew: ${listData.drawn[yourName]}`;
     return;
   }
 
-  const available = allNames.filter(name => name !== yourName && !Object.values(drawn).includes(name));
+  const available = listData.names.filter(name =>
+    name !== yourName && !Object.values(listData.drawn || {}).includes(name)
+  );
 
   if (available.length === 0) {
-    drawErrorMsg.textContent = "No names left to draw!";
+    resultBox.textContent = "No available names to draw.";
     return;
   }
 
-  const randomIndex = Math.floor(Math.random() * available.length);
-  const assignedName = available[randomIndex];
-
-  drawn[yourName] = assignedName;
+  const drawnName = available[Math.floor(Math.random() * available.length)];
+  listData.drawn = { ...(listData.drawn || {}), [yourName]: drawnName };
 
   try {
-    await updateDoc(currentListRef, { drawn });
-    resultBox.textContent = `🎉 You drew: ${assignedName}`;
+    await updateDoc(doc(db, "lists", currentListId), {
+      drawn: listData.drawn
+    });
+    resultBox.textContent = `You drew: ${drawnName}`;
   } catch (err) {
-    console.error("Draw error:", err);
-    drawErrorMsg.textContent = "Failed to save draw. Try again.";
+    errorMsg.textContent = "Failed to update draw.";
+    console.error(err);
   }
 };
