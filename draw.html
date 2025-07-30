@@ -28,7 +28,7 @@
     <!-- 🎯 Title and Subtitle -->
     <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
     <p class="intro-text" data-lang="drawIntro" style="text-align: center;">
-      See list and your drawn name. Surprise, surprise!
+      See list and your drawn name. <br>Surprise, surprise!
     </p>
 
     <!-- 🔐 Login Form -->
@@ -46,6 +46,8 @@
         placeholder="Enter 4-digit PIN" 
         maxlength="4" 
       />
+      <p id="errorMsg" class="error-message"></p>
+
       <div class="vertical-buttons">
         <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
@@ -81,8 +83,7 @@
       </div>
     </div>
 
-    <p id="errorMsg" class="error-message"></p>
-
+    
     <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
