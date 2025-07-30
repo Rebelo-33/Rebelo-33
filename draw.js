@@ -1,16 +1,23 @@
-// ✅ draw.js - Handle Draw Page Logic
-// ✅ draw.js
-import { db } from './firebase-config.js';
-import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+// ✅ draw.js — Draw Name Functionality
 
+import { db } from './firebase-config.js';
+import {
+  doc,
+  getDoc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// 🔒 In-memory state for the current list
 let listData = null;
 let currentListId = null;
 
+// 🧪 Verify access before drawing
 window.verifyDrawAccess = async function () {
   const listName = document.getElementById('listName').value.trim();
   const listPin = document.getElementById('listPin').value.trim();
   const errorMsg = document.getElementById('errorMsg');
 
+  // 🧼 Reset message
   errorMsg.textContent = '';
 
   if (!listName || !listPin) {
@@ -19,7 +26,7 @@ window.verifyDrawAccess = async function () {
   }
 
   try {
-    const docRef = doc(db, "lists", listName);
+    const docRef = doc(db, "lists", listName); // 🧾 Assume collection is named "lists"
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -33,21 +40,25 @@ window.verifyDrawAccess = async function () {
       return;
     }
 
+    // 🧠 Save current list data and ID
     listData = data;
     currentListId = listName;
+
+    // 💡 Hide login, show draw
     document.getElementById('authSection').style.display = "none";
     document.getElementById('drawSection').style.display = "block";
-    populateNameList(data.names);
 
+    populateNameList(data.names || []);
   } catch (err) {
     errorMsg.textContent = "Error connecting to database.";
-    console.error(err);
+    console.error("[verifyDrawAccess] DB Error:", err);
   }
 };
 
+// 🧾 Display names in column list
 function populateNameList(names) {
   const container = document.getElementById('nameListContainer');
-  container.innerHTML = '';
+  container.innerHTML = ''; // 🔄 Clear old list
 
   names.forEach(name => {
     const div = document.createElement('div');
@@ -56,48 +67,65 @@ function populateNameList(names) {
   });
 }
 
+// 🎁 Handle drawing name for user
 window.drawName = async function () {
   const yourName = document.getElementById('yourName').value.trim();
   const resultBox = document.getElementById('resultBox');
-  const errorMsg = document.getElementById('errorMsg');
+  const drawErrorMsg = document.getElementById('drawErrorMsg');
 
-  errorMsg.textContent = '';
+  // 🧼 Reset display
+  drawErrorMsg.textContent = '';
   resultBox.textContent = '';
 
   if (!yourName) {
-    errorMsg.textContent = "Please enter your name.";
+    drawErrorMsg.textContent = "Please enter your name.";
     return;
   }
 
-  if (!listData || !listData.names.includes(yourName)) {
-    errorMsg.textContent = "Your name is not on the list.";
+  if (!listData || !Array.isArray(listData.names)) {
+    drawErrorMsg.textContent = "List data is not loaded.";
     return;
   }
 
-  if (listData.drawn && listData.drawn[yourName]) {
-    resultBox.textContent = `You already drew: ${listData.drawn[yourName]}`;
+  if (!listData.names.includes(yourName)) {
+    drawErrorMsg.textContent = "Your name is not on the list.";
     return;
   }
 
+  // ✅ Check if name was already drawn
+  const alreadyDrawn = listData.drawn?.[yourName];
+  if (alreadyDrawn) {
+    resultBox.textContent = `You already drew: ${alreadyDrawn}`;
+    return;
+  }
+
+  const alreadyPicked = new Set(Object.values(listData.drawn || {}));
   const available = listData.names.filter(name =>
-    name !== yourName && !Object.values(listData.drawn || {}).includes(name)
+    name !== yourName && !alreadyPicked.has(name)
   );
 
   if (available.length === 0) {
-    resultBox.textContent = "No available names to draw.";
+    drawErrorMsg.textContent = "No available names to draw.";
     return;
   }
 
+  // 🎯 Random draw
   const drawnName = available[Math.floor(Math.random() * available.length)];
-  listData.drawn = { ...(listData.drawn || {}), [yourName]: drawnName };
+
+  // 💾 Save result locally
+  listData.drawn = {
+    ...(listData.drawn || {}),
+    [yourName]: drawnName
+  };
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
       drawn: listData.drawn
     });
+
     resultBox.textContent = `You drew: ${drawnName}`;
   } catch (err) {
-    errorMsg.textContent = "Failed to update draw.";
-    console.error(err);
+    drawErrorMsg.textContent = "Failed to save draw result.";
+    console.error("[drawName] Update error:", err);
   }
 };
