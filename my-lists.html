@@ -1,10 +1,10 @@
-<!-- 🛠️ my-lists.html -->
+<!-- ✅ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang="manageList">Manage List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-lang="myListsTitle">My Lists</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="my-lists.js"></script>
@@ -12,8 +12,7 @@
 </head>
 <body>
   <div class="container">
-
-    <!-- 🔝 Shared Site Header -->
+    <!-- 🔼 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
       <div class="language-top-right">
@@ -27,64 +26,42 @@
       </div>
     </header>
 
-    <!-- 📋 Main Content Area -->
+    <!-- 📋 Main Section -->
     <main>
-      <!-- 🔠 Page Title -->
-      <h1 class="page-title" data-lang="manageList">Manage List</h1>
+      <h1 class="page-title" data-lang="myListsTitle">My Lists</h1>
 
-      <!-- 📢 Subtitles (toggle visibility based on login) -->
-      <p id="loginSubtitle" class="intro-text center">
-        Enter details below to continue accessing the list.
-      </p>
-
-      <p id="editSubtitle" class="intro-text center" style="display: none;">
-        Please delete or add names to your list, then save list for the changes to be applied.
-        Participants have to redraw name if list is updated.
-      </p>
-
-      <!-- 🔐 Access Fields -->
-      <section id="authSection" class="auth-container">
-        <input type="text" id="listName" placeholder="Enter List Name" />
-        <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" />
-        <input type="text" id="secretCode" placeholder="Enter Secret Code" />
-
-        <!-- ⚠️ Error message -->
+      <!-- 🔐 Login -->
+      <div id="authSection">
+        <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
+        <input type="password" id="listPin" placeholder="Enter 4-digit PIN" data-lang-placeholder="enterPin" maxlength="4" />
+        <input type="password" id="secretCode" placeholder="Enter Secret Code" data-lang-placeholder="enterSecretCode" />
         <p id="errorMsg" class="error-message"></p>
 
-        <!-- 🔘 Buttons -->
         <div class="vertical-buttons">
-          <button onclick="verifyListAccess()" data-lang="manageList">Manage List</button>
+          <button onclick="verifyListAccess()" data-lang="submit">Login</button>
           <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-          <button onclick="location.href='help.html'" data-lang="help">Help</button>
         </div>
-      </section>
+      </div>
 
-      <!-- ✅ Displayed Only After Successful Access -->
-      <section id="listSection" style="display: none;">
-        <!-- 🆕 Add Participant -->
+      <!-- ✏️ Editable List -->
+      <div id="listSection" style="display: none;">
+        <ul id="nameList"></ul>
+
         <div class="vertical-buttons">
-          <input type="text" id="newNameInput" maxlength="30" placeholder="Enter new name" />
-          <button onclick="addNameToList()" data-lang="addName">Add Name</button>
-        </div>
-
-        <!-- 👥 Current List of Names -->
-        <div id="currentNames" class="columns"></div>
-
-        <!-- 💾 Save + Navigation Buttons -->
-        <div class="vertical-buttons">
-          <button onclick="saveUpdatedList()" data-lang="saveChanges">Save Changes</button>
+          <button onclick="saveChanges()" data-lang="saveChanges">Save Changes</button>
           <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-          <button onclick="location.href='help.html'" data-lang="help">Help</button>
         </div>
-      </section>
+
+        <p id="successMsg" class="success-message"></p>
+        <p id="errorMsgList" class="error-message"></p>
+      </div>
     </main>
 
-    <!-- 📌 Footer -->
+    <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
-
   </div>
 </body>
 </html>
