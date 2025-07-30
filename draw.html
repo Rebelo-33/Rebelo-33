@@ -6,15 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-lang="drawNameBtn">Draw Name</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Your scripts for Firebase and app logic -->
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="scripts.js"></script>
   <script type="module" src="draw.js"></script>
-  <script defer src="language.js"></script> <!-- Language switching JS -->
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- Header remains the same across pages -->
+    <!-- 🎁 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
       <div class="language-top-right">
@@ -28,73 +26,74 @@
       </div>
     </header>
 
-    <!-- Main content for adding names -->
-  <main>
-      <!-- 🎯 Title and Subtitle -->
+    <main>
+      <!-- 🎯 Title -->
       <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
-       <p class="intro-text center" data-lang="drawIntro">
-        See list and your drawn name. 
-        <br>Surprise, surprise!
-       </p>
-    <!-- 🔐 Login Form -->
-    <div id="authSection">
-      <input 
-        type="text" 
-        id="listName" 
-        data-lang-placeholder="enterListName" 
-        placeholder="Enter List Name" 
-      />
-      <input 
-        type="password" 
-        id="listPin" 
-        data-lang-placeholder="enterPin" 
-        placeholder="Enter 4-digit PIN" 
-        maxlength="4" 
-      />
-      <p id="errorMsg" class="error-message"></p>
+      <p class="intro-text center" data-lang="drawIntro">
+        See list and your drawn name.
+      </p>
+      <p class="intro-text center" data-lang="surpriseLine">
+       <strong> Surprise, surprise!</strong>
+      </p>
 
-      <div class="vertical-buttons">
-        <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-     </div>
+      <!-- 🔐 Login Form -->
+      <div id="authSection">
+        <input 
+          type="text" 
+          id="listName" 
+          data-lang-placeholder="enterListName" 
+          placeholder="Enter List Name" 
+        />
+        <input 
+          type="password" 
+          id="listPin" 
+          data-lang-placeholder="enterPin" 
+          placeholder="Enter 4-digit PIN" 
+          maxlength="4" 
+        />
+        <p id="errorMsg" class="error-message"></p>
 
-    <!-- 🎁 Drawing Section -->
-    <div id="drawSection" style="display: none;">
-      <div id="nameListContainer" class="columns"></div>
-
-      <div class="intro-text" id="namePrompt" data-lang="confirmDraw">
-        Confirm your name and draw one from the list.
+        <div class="vertical-buttons">
+          <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
       </div>
 
-      <input 
-        type="text" 
-        id="yourName" 
-        maxlength="30" 
-        data-lang-placeholder="enterYourName" 
-        placeholder="Enter your name" 
-      />
+      <!-- 🎁 Drawing Section -->
+      <div id="drawSection" style="display: none;">
+        <div id="nameListContainer" class="columns"></div>
 
-      <div class="vertical-buttons">
-        <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
+        <div class="intro-text" id="namePrompt" data-lang="confirmDraw">
+          Confirm your name and draw one from the list.
+        </div>
+
+        <input 
+          type="text" 
+          id="yourName" 
+          maxlength="30" 
+          data-lang-placeholder="enterYourName" 
+          placeholder="Enter your name" 
+        />
+
+        <div class="vertical-buttons">
+          <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
+        </div>
+
+        <div id="resultBox" class="intro-text"></div>
+
+        <div class="vertical-buttons">
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
       </div>
+    </main>
 
-      <div id="resultBox" class="intro-text"></div>
-
-      <div class="vertical-buttons">
-        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
-      </div>
-    </div>
-  </main>
-    
     <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
   </div>
-
 </body>
 </html>
