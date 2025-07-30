@@ -1,19 +1,18 @@
-<!-- add-names.html -->
+<!-- ✅ add-names.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-lang="addNamesTitle">Add Name</title>
+  <title data-lang="addNamesTitle">Add Names</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Your scripts for Firebase and app logic -->
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="scripts.js"></script>
-  <script defer src="language.js"></script> <!-- Language switching JS -->
+  <script type="module" src="add-names.js"></script>
+  <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-    <!-- Header remains the same across pages -->
+    <!-- 🔼 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
       <div class="language-top-right">
@@ -27,29 +26,34 @@
       </div>
     </header>
 
-    <!-- Main content for adding names -->
+    <!-- ➕ Add Names Main Section -->
     <main>
-      <h1 class="page-title" data-lang="createList">Add Name</h1>
-      <p class="intro-text center" data-lang="addIntro">
-        Add participants to create a list and save. Each name must be unique and no longer than 30 characters.
-      </p>
+      <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- Centered input field -->
-      <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" />
+      <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
+      <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" data-lang-placeholder="enterPin" />
+      <input type="password" id="secretCode" placeholder="Enter Secret Code" data-lang-placeholder="enterSecretCode" />
 
-      <!-- Error message area -->
-      <p id="errorMsg" class="error-message"></p>
+      <!-- Name Input and Add Button -->
+      <div class="name-entry">
+        <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
+        <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
+      </div>
 
-      <!-- Vertical buttons for actions -->
+      <!-- Display list of added names -->
+      <ul id="nameList"></ul>
+
+      <!-- Save Button -->
       <div class="vertical-buttons">
-        <button onclick="addName()" data-lang="addName">Add Name</button>
         <button onclick="saveList()" data-lang="saveList">Save List</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-        <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
+
+      <p id="successMsg" class="success-message"></p>
+      <p id="errorMsg" class="error-message"></p>
     </main>
 
-    <!-- Footer is consistent -->
+    <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
