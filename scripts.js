@@ -1,115 +1,121 @@
-// ✅ scripts.js – For add-names.html & my-lists.html
-// ✅ Firebase imports assumed via firebase-config.js
+// ✅ scripts.js – Unified for add-names.html, my-lists.html
+
 import { db } from './firebase-config.js';
-import { collection, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js';
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+
+// ✅ Shared state for both pages
+let nameList = [];
 
 // ✅ DOM references
 const nameInput = document.getElementById("nameInput");
-const nameListContainer = document.getElementById("nameListContainer");
+const nameListContainer = document.getElementById("nameListContainer") || document.getElementById("nameList");
 const shareLinkBox = document.getElementById("shareLinkBox");
 const errorMsg = document.getElementById("errorMsg");
+const successMsg = document.getElementById("successMsg");
 
 // ✅ Add Name to List
 window.addName = function () {
   const name = nameInput.value.trim();
-  if (!name) return showError("Please enter a name.");
-  if (name.length > 30) return showError("Name too long (max 30 chars).");
-
-  const existingNames = getCurrentNames();
-  if (existingNames.includes(name)) return showError("Name must be unique.");
-
-  const newItem = createNameElement(name);
-  insertNameIntoColumns(newItem);
-  nameInput.value = "";
   errorMsg.textContent = "";
+
+  if (!name) return showError("Name cannot be empty.");
+  if (name.length > 30) return showError("Name too long (max 30 chars).");
+  if (nameList.includes(name)) return showError("Name must be unique.");
+
+  nameList.unshift(name); // Add at top
+  nameInput.value = "";
+  renderNames();
 };
 
-// ✅ Create DOM element for a name with delete icon
-function createNameElement(name) {
-  const div = document.createElement("div");
-  div.className = "name-item";
-  div.textContent = name;
+// ✅ Render name list with delete buttons
+function renderNames() {
+  nameListContainer.innerHTML = '';
 
-  const deleteBtn = document.createElement("button");
-  deleteBtn.className = "delete-btn";
-  deleteBtn.innerHTML = "🗑️";
-  deleteBtn.onclick = () => confirmDelete(name, div);
+  nameList.forEach((name, index) => {
+    const el = document.createElement('div');
+    el.className = 'name-item';
+    el.textContent = name;
 
-  div.appendChild(deleteBtn);
-  return div;
-}
+    const del = document.createElement('button');
+    del.className = 'delete-btn';
+    del.innerHTML = '❌';
+    del.onclick = () => {
+      nameList.splice(index, 1);
+      renderNames();
+    };
 
-// ✅ Prompt delete confirmation
-function confirmDelete(name, element) {
-  const confirmDelete = confirm(`Delete ${name}?`);
-  if (confirmDelete) {
-    element.remove();
-  }
-}
-
-// ✅ Get all current names in DOM
-function getCurrentNames() {
-  return Array.from(document.querySelectorAll(".name-item")).map(el => el.childNodes[0].textContent.trim());
-}
-
-// ✅ Insert name into columns layout
-function insertNameIntoColumns(nameElement) {
-  let lastColumn = nameListContainer.lastElementChild;
-
-  if (!lastColumn || lastColumn.children.length >= 10) {
-    lastColumn = document.createElement("div");
-    lastColumn.className = "column";
-    nameListContainer.appendChild(lastColumn);
-  }
-
-  lastColumn.appendChild(nameElement);
-}
-
-// ✅ Show error message
-function showError(message) {
-  if (errorMsg) errorMsg.textContent = message;
-}
-
-// ✅ Save list to Firebase
-window.saveList = async function () {
-  const names = getCurrentNames();
-  if (names.length < 2) return showError("Add at least 2 names to save.");
-
-  const listName = prompt("Enter a list name:");
-  const pin = prompt("Enter a 4-digit PIN:");
-  const secretCode = prompt("Enter a secret code to manage this list:");
-
-  if (!listName || !pin || !secretCode) return alert("All fields are required.");
-
-  const listId = `${listName}_${pin}`;
-  const listRef = doc(collection(db, "lists"), listId);
-
-  const exists = await getDoc(listRef);
-  if (exists.exists()) {
-    const confirmOverwrite = confirm("List already exists. Overwrite?");
-    if (!confirmOverwrite) return;
-  }
-
-  const shuffled = shuffleArray([...names]);
-
-  // ✅ Store list with hash structure for privacy
-  await setDoc(listRef, {
-    participants: names,
-    drawn: {},
-    shuffled,
-    secret: secretCode,
-    created: new Date().toISOString()
+    el.appendChild(del);
+    nameListContainer.appendChild(el);
   });
-
-  shareLinkBox.innerHTML = `<p>✅ List saved! Share list name: <strong>${listName}</strong> and PIN: <strong>${pin}</strong> with your group.</p>`;
-  nameListContainer.innerHTML = "";
-};
-
-// ✅ Shuffle helper
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
 }
+
+// ✅ Show error
+function showError(msg) {
+  if (errorMsg) errorMsg.textContent = msg;
+}
+
+// ✅ Show success
+function showSuccess(msg) {
+  if (successMsg) successMsg.textContent = msg;
+}
+
+// ✅ Save List to Firebase
+window.saveList = async function () {
+  const listName = document.getElementById("listName")?.value.trim();
+  const listPin = document.getElementById("listPin")?.value.trim();
+  const secretCode = document.getElementById("secretCode")?.value.trim();
+
+  errorMsg.textContent = "";
+  successMsg.textContent = "";
+
+  if (!listName || !listPin || !secretCode) {
+    return showError("List name, PIN and secret code are required.");
+  }
+  if (nameList.length < 2) {
+    return showError("Add at least 2 names.");
+  }
+
+  const confirmSave = confirm("Do you want to save this list?");
+  if (!confirmSave) return;
+
+  const listId = `${listName}_${listPin}`;
+  const listRef = doc(db, "lists", listId);
+
+  try {
+    const exists = await getDoc(listRef);
+    if (exists.exists()) {
+      const overwrite = confirm("List already exists. Overwrite?");
+      if (!overwrite) return;
+    }
+
+    await setDoc(listRef, {
+      name: listName,
+      pin: listPin,
+      secretCode,
+      participants: nameList,
+      drawn: [],
+      lastDraw: null,
+      timestamp: Date.now()
+    });
+
+    showSuccess("✅ List saved successfully!");
+    nameList = [];
+    renderNames();
+    if (shareLinkBox) {
+      shareLinkBox.innerHTML = `<p>Share this list name: <strong>${listName}</strong> and PIN: <strong>${listPin}</strong>.</p>`;
+    }
+    document.getElementById("listName").value = '';
+    document.getElementById("listPin").value = '';
+    document.getElementById("secretCode").value = '';
+  } catch (err) {
+    showError("Failed to save list.");
+    console.error("[saveList] Error:", err);
+  }
+};
