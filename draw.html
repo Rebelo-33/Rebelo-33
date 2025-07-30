@@ -1,4 +1,4 @@
-<!-- ✅ draw.html - Draw Names Anonymously -->
+<!-- draw.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-lang="drawNameBtn">Draw Name</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase and scripts -->
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="draw.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
+
     <!-- 🎁 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
@@ -26,17 +29,19 @@
       </div>
     </header>
 
+    <!-- 🧾 Main Section -->
     <main>
-      <!-- 🎯 Title -->
       <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
+
+      <!-- 📜 Intro Text -->
       <p class="intro-text center" data-lang="drawIntro">
         See list and your drawn name.
       </p>
       <p class="intro-text center" data-lang="surpriseLine">
-       <strong> Surprise, surprise!</strong>
+        <strong>Surprise, surprise!</strong>
       </p>
 
-      <!-- 🔐 Login Form -->
+      <!-- 🔐 Login Area -->
       <div id="authSection">
         <input 
           type="text" 
@@ -47,12 +52,15 @@
         <input 
           type="password" 
           id="listPin" 
+          maxlength="4" 
           data-lang-placeholder="enterPin" 
           placeholder="Enter 4-digit PIN" 
-          maxlength="4" 
         />
+
+        <!-- ⚠️ Error display under login -->
         <p id="errorMsg" class="error-message"></p>
 
+        <!-- 🔘 Login Buttons -->
         <div class="vertical-buttons">
           <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
           <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
@@ -60,7 +68,7 @@
         </div>
       </div>
 
-      <!-- 🎁 Drawing Section -->
+      <!-- 🎯 Drawing Section (hidden until verified) -->
       <div id="drawSection" style="display: none;">
         <div id="nameListContainer" class="columns"></div>
 
@@ -76,10 +84,14 @@
           placeholder="Enter your name" 
         />
 
+        <!-- ⚠️ Error message under draw input -->
+        <p id="drawErrorMsg" class="error-message"></p>
+
         <div class="vertical-buttons">
           <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
         </div>
 
+        <!-- 🎉 Draw Result -->
         <div id="resultBox" class="intro-text"></div>
 
         <div class="vertical-buttons">
@@ -89,11 +101,12 @@
       </div>
     </main>
 
-    <!-- 🔻 Footer -->
+    <!-- 📌 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
+
   </div>
 </body>
 </html>
