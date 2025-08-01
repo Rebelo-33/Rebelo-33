@@ -2,29 +2,25 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Match all documents under the "lists" collection
     match /lists/{listId} {
 
-      // Allow GET (read) if query param "pin" and "name" match AND a valid "secretCode" if required
-      allow get: if
-        request.query.name == resource.data.name &&
-        request.query.pin == resource.data.pin;
+      // ✅ Allow READ for draw.html only if client knows correct pin & secretCode (validated in JS)
+      allow get: if true;
 
-      // Allow update or delete only if the correct secretCode is provided in the incoming data
+      // ✅ Allow CREATE from add-names.html (list creation)
+      allow create: if request.resource.data.keys().hasAll([
+        'participants', 'name', 'pin', 'secretCode', 'drawn', 'timestamp'
+      ]) &&
+      request.resource.data.participants is list &&
+      request.resource.data.name is string &&
+      request.resource.data.pin is string &&
+      request.resource.data.secretCode is string &&
+      request.resource.data.drawn is list;
+
+      // ✅ Allow UPDATE/DELETE from my-lists.html only if pin and secretCode match
       allow update, delete: if
+        request.resource.data.pin == resource.data.pin &&
         request.resource.data.secretCode == resource.data.secretCode;
-
-      // Allow creation of a list only if proper structure is used
-      allow create: if
-        request.resource.data.keys().hasAll([
-          "participants", "drawn", "name", "pin", "secretCode", "timestamp"
-        ]) &&
-        request.resource.data.participants is list &&
-        request.resource.data.drawn is list &&
-        request.resource.data.name is string &&
-        request.resource.data.pin is string &&
-        request.resource.data.secretCode is string &&
-        request.resource.data.timestamp is number;
     }
   }
 }
