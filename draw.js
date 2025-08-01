@@ -1,4 +1,5 @@
 // ✅ draw.js — Draw Name Functionality
+
 import { db } from './firebase-config.js';
 import {
   doc,
@@ -24,7 +25,8 @@ window.verifyDrawAccess = async function () {
   }
 
   try {
-    const docRef = doc(db, "lists", `${listName}_${listPin}`);
+    const listId = `${listName}_${listPin}`;
+    const docRef = doc(db, "lists", listId);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -41,19 +43,23 @@ window.verifyDrawAccess = async function () {
 
     // ✅ Auth success
     listData = data;
-    currentListId = `${listName}_${listPin}`;
+    currentListId = listId;
 
     document.getElementById('authSection').style.display = "none";
     document.getElementById('drawSection').style.display = "block";
 
     populateNameList(data.participants || []);
+
+    // 🧠 Listen to name input change to check if already drawn
+    document.getElementById('yourName').addEventListener('blur', checkIfAlreadyDrawn);
+
   } catch (err) {
     console.error("[verifyDrawAccess] DB Error:", err);
     errorMsg.textContent = "Error connecting to database.";
   }
 };
 
-// ✅ Display all names in columns
+// ✅ Display all names in columns of 10
 function populateNameList(names) {
   const container = document.getElementById('nameListContainer');
   container.innerHTML = '';
@@ -76,11 +82,38 @@ function populateNameList(names) {
   }
 }
 
-// ✅ Draw Name logic
+// ✅ Check if user already drew a name and hide draw section if true
+function checkIfAlreadyDrawn() {
+  const yourName = document.getElementById('yourName')?.value.trim();
+  const resultBox = document.getElementById('resultBox');
+  const drawAction = document.getElementById('drawAction');
+  const namePrompt = document.getElementById('namePrompt');
+  const nameInput = document.getElementById('yourName');
+
+  if (!yourName) return;
+
+  const alreadyDrawn = listData.drawn?.[yourName];
+
+  if (alreadyDrawn) {
+    // Hide draw controls
+    drawAction.style.display = "none";
+    namePrompt.style.display = "none";
+    nameInput.style.display = "none";
+
+    // Show result
+    resultBox.textContent = `You already drew: ${alreadyDrawn}`;
+    return true;
+  }
+  return false;
+}
+
+// ✅ Draw a name anonymously
 window.drawName = async function () {
   const yourName = document.getElementById('yourName').value.trim();
   const drawErrorMsg = document.getElementById('drawErrorMsg');
   const resultBox = document.getElementById('resultBox');
+  const drawAction = document.getElementById('drawAction');
+  const namePrompt = document.getElementById('namePrompt');
 
   drawErrorMsg.textContent = '';
   resultBox.textContent = '';
@@ -117,12 +150,21 @@ window.drawName = async function () {
   }
 
   const drawnName = available[Math.floor(Math.random() * available.length)];
-  listData.drawn = { ...(listData.drawn || {}), [yourName]: drawnName };
+
+  listData.drawn = {
+    ...(listData.drawn || {}),
+    [yourName]: drawnName
+  };
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
       drawn: listData.drawn
     });
+
+    // ✅ Hide draw input and show result
+    document.getElementById('yourName').style.display = 'none';
+    drawAction.style.display = 'none';
+    namePrompt.style.display = 'none';
 
     resultBox.textContent = `You drew: ${drawnName}`;
   } catch (err) {
