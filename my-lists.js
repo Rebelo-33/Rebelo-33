@@ -1,5 +1,4 @@
 // ✅ my-lists.js
-
 import { db } from './firebase-config.js';
 import {
   doc,
@@ -23,8 +22,10 @@ window.verifyListAccess = async function () {
     return;
   }
 
+  const combinedId = `${listName}_${listPin}`; // 🔄 Match document ID convention
+
   try {
-    const docRef = doc(db, "lists", listName);
+    const docRef = doc(db, "lists", combinedId);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -39,12 +40,12 @@ window.verifyListAccess = async function () {
     }
 
     listData = data;
-    currentListId = listName;
+    currentListId = combinedId;
 
     document.getElementById('authSection').style.display = "none";
     document.getElementById('listSection').style.display = "block";
 
-    renderList(data.names || []);
+    renderList(data.participants || []); // ✅ Use correct array field
   } catch (err) {
     errorMsg.textContent = "Error connecting to database.";
     console.error("[verifyListAccess] DB Error:", err);
@@ -88,7 +89,7 @@ window.saveChanges = async function () {
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
-      names: nameList
+      participants: nameList // ✅ Update correct field
     });
 
     successMsg.textContent = "List updated successfully.";
