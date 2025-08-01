@@ -1,21 +1,19 @@
 <!-- draw.html -->
+<!-- ✅ add-names.html - Clean layout using shared styles -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-lang="drawNameBtn">Draw Name</title>
+  <title data-lang="addNamesTitle">Add Names</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase and scripts -->
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="draw.js"></script>
+  <script type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
 <body>
   <div class="container">
-
-    <!-- 🎁 Header -->
+    <!-- 🔼 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
       <div class="language-top-right">
@@ -29,84 +27,36 @@
       </div>
     </header>
 
-    <!-- 🧾 Main Section -->
+    <!-- ➕ Add Names Main Section -->
     <main>
-      <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
+      <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- 📜 Intro Text -->
-      <p class="intro-text center" data-lang="drawIntro">
-        See list and your drawn name.
-      </p>
-      <p class="intro-text center" data-lang="surpriseLine">
-        <strong>Surprise, surprise!</strong>
-      </p>
+      <!-- ✅ Name list appears above input -->
+      <div id="nameList" class="name-list-wrapper"></div>
 
-      <!-- 🔐 Login Area -->
-      <div id="authSection">
-        <input 
-          type="text" 
-          id="listName" 
-          data-lang-placeholder="enterListName" 
-          placeholder="Enter List Name" 
-        />
-        <input 
-          type="password" 
-          id="listPin" 
-          maxlength="4" 
-          data-lang-placeholder="enterPin" 
-          placeholder="Enter 4-digit PIN" 
-        />
+      <!-- ✅ Input field -->
+      <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
 
-        <!-- ⚠️ Error display under login -->
-        <p id="errorMsg" class="error-message"></p>
+      <!-- ✅ Error message below input -->
+      <p id="errorMsg" class="error-message"></p>
 
-        <!-- 🔘 Login Buttons -->
-        <div class="vertical-buttons">
-          <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
-          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-          <button onclick="location.href='help.html'" data-lang="help">Help</button>
-        </div>
+      <!-- ✅ Buttons styled with existing .vertical-buttons -->
+      <div class="vertical-buttons">
+        <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
+        <button onclick="saveList()" data-lang="saveList">Save List</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
 
-      <!-- 🎯 Drawing Section (hidden until verified) -->
-      <div id="drawSection" style="display: none;">
-        <div id="nameListContainer" class="columns"></div>
-
-        <div class="intro-text" id="namePrompt" data-lang="confirmDraw">
-          Confirm your name and draw one from the list.
-        </div>
-
-        <input 
-          type="text" 
-          id="yourName" 
-          maxlength="30" 
-          data-lang-placeholder="enterYourName" 
-          placeholder="Enter your name" 
-        />
-
-        <!-- ⚠️ Error message under draw input -->
-        <p id="drawErrorMsg" class="error-message"></p>
-
-        <div class="vertical-buttons">
-          <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
-        </div>
-
-        <!-- 🎉 Draw Result -->
-        <div id="resultBox" class="intro-text"></div>
-
-        <div class="vertical-buttons">
-          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-          <button onclick="location.href='help.html'" data-lang="help">Help</button>
-        </div>
-      </div>
+      <!-- ✅ Success message -->
+      <p id="successMsg" class="success-message"></p>
     </main>
 
-    <!-- 📌 Footer -->
+    <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
     </footer>
-
   </div>
 </body>
 </html>
