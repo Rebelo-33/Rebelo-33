@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en">
+<!-- ✅ add-names.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,37 +24,53 @@
           <option value="zh">中文</option>
         </select>
       </div>
-    </header><!-- ➕ Add Names Main Section -->
-<main>
-  <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
+    </header>
 
-  <!-- Display list of added names above input -->
-  <div id="nameList" class="name-columns"></div>
+    <!-- ➕ Main Section -->
+    <main>
+      <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-  <!-- Name Input -->
-  <div class="name-entry">
-    <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
-    <p id="errorMsg" class="error-message"></p> <!-- 🔁 Error now placed below name input -->
-    <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
-  </div>
+      <!-- ✅ Added names displayed above the input -->
+      <div id="nameList" class="name-grid"></div>
 
-  <!-- Save and Navigation -->
-  <div class="vertical-buttons">
-    <button onclick="saveList()" data-lang="saveList">Save List</button>
-    <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-    <button onclick="location.href='help.html'" data-lang="help">Help</button>
-  </div>
+      <!-- ✅ Enter Name -->
+      <div class="name-entry">
+        <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
+        <p id="errorMsg" class="error-message"></p> <!-- ✅ Error below input -->
+        <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
+      </div>
 
-  <!-- ✅ Success Message -->
-  <p id="successMsg" class="success-message"></p>
-</main>
+      <!-- ✅ Buttons -->
+      <div class="vertical-buttons">
+        <button onclick="openSavePrompt()" data-lang="saveList">Save List</button>
+        <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
+      </div>
 
-<!-- 🔻 Footer -->
-<footer>
-  <p data-lang="footerContact"></p>
-  <p data-lang="footerCopyright">© 2025 All rights reserved</p>
-</footer>
+      <!-- ✅ Success Message -->
+      <p id="successMsg" class="success-message"></p>
+    </main>
 
+    <!-- ✅ Modal for Save Prompt -->
+    <div id="saveModal" class="modal">
+      <div class="modal-content">
+        <h2 data-lang="saveList">Save List</h2>
+        <input type="text" id="modalListName" placeholder="Enter List Name" />
+        <input type="text" id="modalPin" placeholder="Enter 4-digit PIN" maxlength="4" />
+        <input type="text" id="modalCode" placeholder="Enter Secret Code" />
+        <p id="modalError" class="error-message"></p>
+        <div class="vertical-buttons">
+          <button onclick="submitListDetails()">Confirm Save</button>
+          <button onclick="closeSavePrompt()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔻 Footer -->
+    <footer>
+      <p data-lang="footerContact"></p>
+      <p data-lang="footerCopyright">© 2025 All rights reserved</p>
+    </footer>
   </div>
 </body>
 </html>
