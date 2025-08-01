@@ -38,23 +38,18 @@
         data-lang-placeholder="enterYourName"
       />
 
-      <!-- ❗ Error Message (shown under the name input) -->
+      <!-- ❗ Error Message (below input) -->
       <p id="errorMsg" class="error-message"></p>
 
-      <!-- 🔘 Styled Add Name Button (same as others) -->
+      <!-- 🔘 Add Name Button -->
       <div class="vertical-buttons">
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
       </div>
 
-      <!-- 👥 Names List Displayed Left-Aligned + Smaller Width -->
+      <!-- 👥 Name List Display -->
       <div id="nameList" class="name-columns"></div>
 
-      <!-- 🔐 List Info for Saving -->
-      <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
-      <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" data-lang-placeholder="enterPin" />
-      <input type="text" id="secretCode" placeholder="Enter Secret Code" data-lang-placeholder="enterSecretCode" />
-
-      <!-- 💾 Save / Nav Buttons -->
+      <!-- 💾 Save and Navigation Buttons -->
       <div class="vertical-buttons">
         <button onclick="saveList()" data-lang="saveList">Save List</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
