@@ -49,29 +49,42 @@
         </div>
       </div>
 
-      <!-- 🎁 Drawing Area -->
-      <div id="drawSection" style="display: none;">
-        <div id="nameListContainer" class="columns"></div>
+      <!-- Drawing Section -->
+<div id="drawSection" style="display: none;">
+  <!-- 🔢 Names List -->
+  <div id="nameListContainer" class="columns" style="margin-bottom: 30px;"></div>
 
-        <div class="intro-text" id="namePrompt" data-lang="confirmDraw">
-          Confirm your name and draw one from the list.
-        </div>
+  <!-- 🧾 Confirm & Draw Prompt -->
+  <div id="namePrompt" class="intro-text" style="margin-bottom: 10px;" data-lang="confirmDraw">
+    Confirm your name and draw one from the list.
+  </div>
 
-        <input type="text" id="yourName" maxlength="30" placeholder="Enter your name" data-lang-placeholder="enterYourName" />
+  <!-- 👤 Enter Your Name -->
+  <input 
+    type="text" 
+    id="yourName" 
+    maxlength="30" 
+    data-lang-placeholder="enterYourName" 
+    placeholder="Enter your name" 
+  />
 
-        <p id="drawErrorMsg" class="error-message"></p>
+  <!-- ❗ Draw Error Message -->
+  <p id="drawErrorMsg" class="error-message"></p>
 
-        <div class="vertical-buttons">
-          <button onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
-        </div>
+  <!-- 🎯 Draw Button -->
+    <div id="drawAction" class="vertical-buttons">
+    <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
+     </div>
 
-        <div id="resultBox" class="intro-text"></div>
+  <!-- ✅ Result Box -->
+     <div id="resultBox" class="intro-text" style="margin-top: 20px;"></div>
 
-        <div class="vertical-buttons">
-          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-          <button onclick="location.href='help.html'" data-lang="help">Help</button>
-        </div>
+  <!-- ⬅️ Navigation -->
+      <div class="vertical-buttons">
+      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+      <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
+     </div>
     </main>
 
     <!-- 🔻 Footer -->
