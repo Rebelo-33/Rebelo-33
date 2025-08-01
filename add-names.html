@@ -1,3 +1,4 @@
+<!-- ✅ add-names.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,20 +26,21 @@
       </div>
     </header>
 
+    <!-- ➕ Add Names Main Section -->
     <main>
       <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- ✅ Error Message Now Appears Above the Add Name button -->
+      <!-- ✅ Name List Display (now ABOVE the input field) -->
+      <div id="nameListContainer" class="name-columns"></div>
+
+      <!-- ⚠️ Error Message Appears ABOVE Add Name Button -->
       <p id="errorMsg" class="error-message"></p>
 
-      <!-- ✅ Input Field + Add Button -->
+      <!-- ✅ Name Input and Add Button -->
       <div class="name-entry">
         <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
       </div>
-
-      <!-- ✅ Display Name List in Columns -->
-      <div id="nameListContainer" class="name-columns"></div>
 
       <!-- ✅ Save and Navigation Buttons -->
       <div class="vertical-buttons">
@@ -50,6 +52,7 @@
       <p id="successMsg" class="success-message"></p>
     </main>
 
+    <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
