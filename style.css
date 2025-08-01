@@ -1,29 +1,30 @@
 /* ✅ style.css */
+
 /* ===============================
    Base Reset and General Styling
    =============================== */
 body {
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  font-family: Arial, sans-serif; /* Simple, clean font */
-  background-color: #fdf9f3; /* Light cream background */
-  color: #333; /* Dark gray text for readability */
-  min-height: 100vh; /* Make body at least full viewport height */
-  display: flex; /* Enable flexbox layout */
-  flex-direction: column; /* Stack children vertically */
-}
-
-/* Container for entire page content */
-.container {
-  max-width: 800px; /* Limits width on large screens */
-  margin: 0 auto; /* Center horizontally */
-  padding: 20px; /* Inner spacing */
-  background: #fff; /* White background for content */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Soft shadow */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fdf9f3;
+  color: #333;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Full height container for footer push */
+}
+
+/* ✅ Container Layout */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* ===============================
@@ -33,17 +34,15 @@ header.header {
   position: relative;
   padding: 15px 20px;
   display: flex;
-  justify-content: space-between; /* Space between left and right items */
-  align-items: center; /* Vertical center */
-  border-bottom: 1px solid #ccc; /* Subtle bottom border */
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
 }
 
-/* Gift icon on the left */
 .gift-icon {
-  font-size: 3rem; /* Large icon */
+  font-size: 3rem;
 }
 
-/* Language selector container on the right */
 .language-top-right select {
   padding: 8px 12px;
   font-size: 1em;
@@ -55,41 +54,34 @@ header.header {
    Main Content Styling
    =============================== */
 main {
-  flex-grow: 1; /* Take remaining vertical space between header and footer */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding: 30px 20px;
-  align-items: center; /* Center horizontally */
-  text-align: center; /* Center text inside */
+  align-items: center;
+  text-align: center;
 }
 
-/* Page title style */
 .page-title {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-/* Subtitle / intro text style */
 .page-subtitle,
 .intro-text {
   font-size: 1.1rem;
-  max-width: 600px; /* Limit width for readability */
+  max-width: 600px;
   margin-bottom: 20px;
 }
 
-/* Left-aligned intro text variant */
 .intro-text.left {
-  text-align: left; /* Override center alignment */
-  align-self: flex-start; /* Align left inside flex container */
-  max-width: 100%; /* Full width in container */
+  text-align: left;
+  align-self: flex-start;
+  max-width: 100%;
 }
 
-/* ===============================
-   Input Field Styling
-   =============================== */
-
-/* ========== Input Styling ========== */
+/* ✅ Input Fields */
 input[type="text"],
 input[type="password"] {
   width: 300px;
@@ -103,17 +95,57 @@ input[type="password"] {
   margin-right: auto;
 }
 
-/* Error messages below inputs */
+/* ✅ Name Input Styling */
+.name-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ✅ Name List Item Styling (Add Names Page) */
+.name-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.name-item button.delete-btn {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* ✅ Error and Success Messages */
 .error-message {
   color: #d93025;
   font-size: 0.9rem;
-  margin-top: 2px;
+  margin-top: 5px;
   margin-bottom: 15px;
   text-align: center;
   min-height: 1.2em;
 }
 
-/* ========== Button Styling ========== */
+.success-message {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+/* ✅ Buttons */
 .vertical-buttons {
   display: flex;
   flex-direction: column;
@@ -138,7 +170,6 @@ input[type="password"] {
   background-color: #0056b3;
 }
 
-
 /* ===============================
    Footer Styling
    =============================== */
@@ -148,7 +179,7 @@ footer {
   font-size: 0.9em;
   color: #555;
   border-top: 1px solid #ccc;
-  margin-top: auto; /* Push footer to bottom */
+  margin-top: auto;
 }
 
 /* ===============================
@@ -160,22 +191,22 @@ footer {
     padding: 15px;
     border-radius: 6px;
   }
-  
+
   .gift-icon {
-    font-size: 2.5rem; /* Slightly smaller icon */
+    font-size: 2.5rem;
   }
-  
-  /* Make input and buttons full width on small screens */
+
   #nameInput {
-  width: 300px;           /* same width as buttons */
-  padding: 12px 24px;     /* same padding as buttons */
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;     /* match button's rounded corners */
-  margin: 0 auto 15px auto; /* center and add spacing below */
-  display: block;
-  box-sizing: border-box; /* ensure padding included in width */
-}
+    width: 300px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 0 auto 15px auto;
+    display: block;
+    box-sizing: border-box;
+  }
+
   main {
     padding: 20px 10px;
   }
