@@ -1,4 +1,3 @@
-<!-- ✅ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,11 +26,10 @@
       </div>
     </header>
 
-    <!-- 📋 Main Section -->
     <main>
       <h1 class="page-title" data-lang="myListsTitle">My Lists</h1>
 
-      <!-- 🔐 Login -->
+      <!-- 🔐 Login Section -->
       <div id="authSection">
         <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
         <input type="password" id="listPin" placeholder="Enter 4-digit PIN" data-lang-placeholder="enterPin" maxlength="4" />
@@ -45,13 +43,24 @@
         </div>
       </div>
 
-      <!-- ✏️ Editable List -->
+      <!-- ✏️ List Management Section -->
       <div id="listSection" style="display: none;">
-        <ul id="nameList"></ul>
+        <!-- 🔠 Current Names -->
+        <div id="nameListContainer"></div>
 
+        <!-- ➕ Add Name -->
+        <input type="text" id="newNameInput" placeholder="Enter new name" maxlength="30" />
+        <p id="nameErrorMsg" class="success-message"></p>
+
+        <div class="vertical-buttons">
+          <button onclick="addNameToList()" data-lang="addName">Add Name</button>
+        </div>
+
+        <!-- 💾 Save & Nav -->
         <div class="vertical-buttons">
           <button onclick="saveChanges()" data-lang="saveChanges">Save Changes</button>
           <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
         </div>
 
         <p id="successMsg" class="success-message"></p>
