@@ -81,7 +81,9 @@ main {
   max-width: 100%;
 }
 
-/* ✅ Input Fields */
+/* ===============================
+   Input Field Styling
+   =============================== */
 input[type="text"],
 input[type="password"] {
   width: 300px;
@@ -95,7 +97,17 @@ input[type="password"] {
   margin-right: auto;
 }
 
-/* ✅ Name Input Styling */
+/* ✅ Name Input Field */
+#nameInput {
+  width: 300px;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+/* ✅ Name Entry Wrapper */
 .name-entry {
   display: flex;
   flex-direction: column;
@@ -104,25 +116,41 @@ input[type="password"] {
   margin-top: 20px;
 }
 
-/* ✅ Name List Item Styling (Add Names Page) */
+/* ✅ Name List Display – Supports columns */
+.name-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 20px;
+  max-width: 700px;
+}
+
+/* ✅ Each Name Column */
+.name-column {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+}
+
+/* ✅ Each Name Item */
 .name-item {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  font-size: 0.95rem; /* Smaller font for better fit */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f1f1f1;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  width: 300px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
+/* ✅ Delete Button for Name */
 .name-item button.delete-btn {
   background: none;
   border: none;
   color: #c00;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -145,7 +173,9 @@ input[type="password"] {
   min-height: 1.2em;
 }
 
-/* ✅ Buttons */
+/* ===============================
+   Button Styling
+   =============================== */
 .vertical-buttons {
   display: flex;
   flex-direction: column;
@@ -183,7 +213,7 @@ footer {
 }
 
 /* ===============================
-   Responsive Design for Smaller Screens
+   Responsive Design
    =============================== */
 @media (max-width: 600px) {
   .container {
