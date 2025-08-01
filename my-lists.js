@@ -1,4 +1,3 @@
-// ✅ my-lists.js
 import { db } from './firebase-config.js';
 import {
   doc,
@@ -22,7 +21,7 @@ window.verifyListAccess = async function () {
     return;
   }
 
-  const combinedId = `${listName}_${listPin}`; // 🔄 Match document ID convention
+  const combinedId = `${listName}_${listPin}`;
 
   try {
     const docRef = doc(db, "lists", combinedId);
@@ -45,7 +44,7 @@ window.verifyListAccess = async function () {
     document.getElementById('authSection').style.display = "none";
     document.getElementById('listSection').style.display = "block";
 
-    renderList(data.participants || []); // ✅ Use correct array field
+    renderList(data.participants || []);
   } catch (err) {
     errorMsg.textContent = "Error connecting to database.";
     console.error("[verifyListAccess] DB Error:", err);
@@ -53,28 +52,67 @@ window.verifyListAccess = async function () {
 };
 
 function renderList(names) {
-  const listContainer = document.getElementById('nameList');
-  listContainer.innerHTML = '';
+  const container = document.getElementById('nameListContainer');
+  container.innerHTML = '';
 
   names.forEach(name => {
-    const li = document.createElement('li');
-    li.textContent = name;
+    const div = document.createElement('div');
+    div.className = 'name-item';
+    div.textContent = name;
 
-    const removeBtn = document.createElement('span');
-    removeBtn.textContent = "❌";
-    removeBtn.classList.add("delete-button");
-    removeBtn.onclick = () => {
-      li.remove();
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '❌';
+    deleteBtn.className = 'delete-button';
+    deleteBtn.style.marginLeft = '10px';
+    deleteBtn.onclick = () => {
+      div.remove();
     };
 
-    li.appendChild(removeBtn);
-    listContainer.appendChild(li);
+    div.appendChild(deleteBtn);
+    container.appendChild(div);
   });
 }
 
+window.addNameToList = function () {
+  const input = document.getElementById('newNameInput');
+  const newName = input.value.trim();
+  const msg = document.getElementById('nameErrorMsg');
+
+  msg.textContent = '';
+
+  if (!newName) {
+    msg.textContent = "Name cannot be empty.";
+    return;
+  }
+
+  const existing = Array.from(document.getElementById('nameListContainer').children)
+    .map(div => div.firstChild.textContent.trim());
+
+  if (existing.includes(newName)) {
+    msg.textContent = "Name already exists.";
+    return;
+  }
+
+  const div = document.createElement('div');
+  div.className = 'name-item';
+  div.textContent = newName;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '❌';
+  deleteBtn.className = 'delete-button';
+  deleteBtn.style.marginLeft = '10px';
+  deleteBtn.onclick = () => {
+    div.remove();
+  };
+
+  div.appendChild(deleteBtn);
+  document.getElementById('nameListContainer').appendChild(div);
+  input.value = '';
+};
+
 window.saveChanges = async function () {
-  const nameList = Array.from(document.getElementById('nameList').children)
-    .map(li => li.firstChild.textContent.trim());
+  const nameList = Array.from(document.getElementById('nameListContainer').children)
+    .map(div => div.firstChild.textContent.trim());
 
   const successMsg = document.getElementById('successMsg');
   const errorMsgList = document.getElementById('errorMsgList');
@@ -89,7 +127,7 @@ window.saveChanges = async function () {
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
-      participants: nameList // ✅ Update correct field
+      participants: nameList
     });
 
     successMsg.textContent = "List updated successfully.";
