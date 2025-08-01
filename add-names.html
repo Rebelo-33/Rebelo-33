@@ -12,7 +12,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- 🔼 Header -->
+    <!-- 🎁 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
       <div class="language-top-right">
@@ -26,29 +26,37 @@
       </div>
     </header>
 
-    <!-- ➕ Add Names Main Section -->
+    <!-- ➕ Add Names Section -->
     <main>
       <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- ✅ Name List Display (now ABOVE the input field) -->
-      <div id="nameListContainer" class="name-columns"></div>
+      <!-- Name Input Field -->
+      <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
 
-      <!-- ⚠️ Error Message Appears ABOVE Add Name Button -->
+      <!-- ⚠️ Error shown under name input -->
       <p id="errorMsg" class="error-message"></p>
 
-      <!-- ✅ Name Input and Add Button -->
-      <div class="name-entry">
-        <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
+      <!-- Add Name Button (same style as others) -->
+      <div class="vertical-buttons">
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
       </div>
 
-      <!-- ✅ Save and Navigation Buttons -->
+      <!-- 🔢 Dynamic name list (rendered in columns) -->
+      <div id="nameList"></div>
+
+      <!-- Save Form Fields (shown together at bottom) -->
+      <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
+      <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" data-lang-placeholder="enterPin" />
+      <input type="text" id="secretCode" placeholder="Enter Secret Code" data-lang-placeholder="enterSecretCode" />
+
+      <!-- ✅ Save + Navigation Buttons -->
       <div class="vertical-buttons">
         <button onclick="saveList()" data-lang="saveList">Save List</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
         <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
 
+      <!-- ✅ Feedback Messages -->
       <p id="successMsg" class="success-message"></p>
     </main>
 
