@@ -216,3 +216,56 @@ footer {
     width: 100%;
   }
 }
+
+/* ✅ Name Item (Editable List Items - my-lists.html) */
+.name-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.95rem;
+}
+
+/* ✅ Delete Button next to names */
+.name-item .delete-button {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: 1.2rem;
+  margin-left: 12px; /* 👈 Creates spacing from name */
+  cursor: pointer;
+}
+
+/* ✅ Input for adding name (same look across pages) */
+#newNameInput {
+  width: 300px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 16px;
+  margin-bottom: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ✅ Success message (used for inline validation like name exists etc) */
+.success-message {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+/* ❗ Optional: Better spacing below name list */
+#nameListContainer {
+  margin-bottom: 20px;
+}
