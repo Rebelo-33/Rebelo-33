@@ -1,4 +1,3 @@
-<!-- ✅ add-names.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,34 +25,31 @@
       </div>
     </header>
 
-    <!-- ➕ Add Names Main Section -->
     <main>
       <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- Name Input and Add Button -->
+      <!-- ✅ Error Message Now Appears Above the Add Name button -->
+      <p id="errorMsg" class="error-message"></p>
+
+      <!-- ✅ Input Field + Add Button -->
       <div class="name-entry">
         <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
       </div>
 
-      <!-- ⚠️ Error Message -->
-      <p id="errorMsg" class="error-message"></p>
+      <!-- ✅ Display Name List in Columns -->
+      <div id="nameListContainer" class="name-columns"></div>
 
-      <!-- Display list of added names -->
-      <div id="nameListContainer"></div>
-
-      <!-- Save Button -->
+      <!-- ✅ Save and Navigation Buttons -->
       <div class="vertical-buttons">
         <button onclick="saveList()" data-lang="saveList">Save List</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
         <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
 
-      <!-- ✅ Success Message -->
       <p id="successMsg" class="success-message"></p>
     </main>
 
-    <!-- 🔻 Footer -->
     <footer>
       <p data-lang="footerContact"></p>
       <p data-lang="footerCopyright">© 2025 All rights reserved</p>
