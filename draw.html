@@ -1,4 +1,4 @@
-<!-- ✅ draw.html - Draw Names Page -->
+<!-- ✅ draw.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- 🎁 Header with language -->
+    <!-- 🎁 Header -->
     <header class="header">
       <div class="gift-icon">🎁</div>
       <div class="language-top-right">
@@ -27,21 +27,16 @@
     </header>
 
     <main>
-      <!-- 🔠 Title and Subtitles -->
+      <!-- 🎯 Title -->
       <h1 class="page-title" data-lang="drawNameBtn">Draw Name</h1>
-      <p class="intro-text center" data-lang="drawIntro">
-        See list and your drawn name.
-      </p>
-      <p class="intro-text center" data-lang="surpriseLine">
-        <strong>Surprise, surprise!</strong>
-      </p>
+      <p class="intro-text center" data-lang="drawIntro">See list and your drawn name.</p>
+      <p class="intro-text center" data-lang="surpriseLine"><strong>Surprise, surprise!</strong></p>
 
       <!-- 🔐 Login Section -->
       <div id="authSection">
         <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
         <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" data-lang-placeholder="enterPin" />
         <p id="errorMsg" class="error-message"></p>
-
         <div class="vertical-buttons">
           <button onclick="verifyDrawAccess()" data-lang="submit">Login</button>
           <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
@@ -49,42 +44,37 @@
         </div>
       </div>
 
-      <!-- Drawing Section -->
-<div id="drawSection" style="display: none;">
-  <!-- 🔢 Names List -->
-  <div id="nameListContainer" class="columns" style="margin-bottom: 30px;"></div>
+      <!-- 🎁 Draw Section -->
+      <div id="drawSection" style="display: none;">
+        <div id="nameListContainer" class="columns"></div>
 
-  <!-- 🧾 Confirm & Draw Prompt -->
-  <div id="namePrompt" class="intro-text" style="margin-bottom: 10px;" data-lang="confirmDraw">
-    Confirm your name and draw one from the list.
-  </div>
+        <div class="intro-text" data-lang="confirmDraw">
+          Confirm your name and draw one from the list.
+        </div>
 
-  <!-- 👤 Enter Your Name -->
-  <input 
-    type="text" 
-    id="yourName" 
-    maxlength="30" 
-    data-lang-placeholder="enterYourName" 
-    placeholder="Enter your name" 
-  />
+        <input type="text" id="yourName" maxlength="30" placeholder="Enter your name" data-lang-placeholder="enterYourName" />
+        <p id="drawErrorMsg" class="error-message"></p>
 
-  <!-- ❗ Draw Error Message -->
-  <p id="drawErrorMsg" class="error-message"></p>
+        <!-- ✅ Confirm Prompt -->
+        <div id="confirmPrompt" class="intro-text" style="display: none;">
+          <p id="confirmText"></p>
+          <div class="vertical-buttons">
+            <button onclick="confirmUserName(true)">Yes</button>
+            <button onclick="confirmUserName(false)">No</button>
+          </div>
+        </div>
 
-  <!-- 🎯 Draw Button -->
-    <div id="drawAction" class="vertical-buttons">
-    <button id="drawButton" onclick="drawName()" data-lang="drawNameBtn">Draw Name</button>
-     </div>
+        <div class="vertical-buttons">
+          <button id="drawButton" onclick="validateUserName()" data-lang="drawNameBtn">Draw Name</button>
+        </div>
 
-  <!-- ✅ Result Box -->
-     <div id="resultBox" class="intro-text" style="margin-top: 20px;"></div>
+        <div id="resultBox" class="intro-text"></div>
 
-  <!-- ⬅️ Navigation -->
-      <div class="vertical-buttons">
-      <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
-      <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        <div class="vertical-buttons">
+          <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+          <button onclick="location.href='help.html'" data-lang="help">Help</button>
+        </div>
       </div>
-     </div>
     </main>
 
     <!-- 🔻 Footer -->
