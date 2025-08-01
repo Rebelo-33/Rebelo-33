@@ -1,4 +1,3 @@
-<!-- ✅ add-names.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,33 +29,39 @@
     <main>
       <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- Name Input Field -->
-      <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
+      <!-- 🔤 Name Entry Field -->
+      <input
+        type="text"
+        id="nameInput"
+        maxlength="30"
+        placeholder="Enter name"
+        data-lang-placeholder="enterYourName"
+      />
 
-      <!-- ⚠️ Error shown under name input -->
+      <!-- ❗ Error Message (shown under the name input) -->
       <p id="errorMsg" class="error-message"></p>
 
-      <!-- Add Name Button (same style as others) -->
+      <!-- 🔘 Styled Add Name Button (same as others) -->
       <div class="vertical-buttons">
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
       </div>
 
-      <!-- 🔢 Dynamic name list (rendered in columns) -->
-      <div id="nameList"></div>
+      <!-- 👥 Names List Displayed Left-Aligned + Smaller Width -->
+      <div id="nameList" class="name-columns"></div>
 
-      <!-- Save Form Fields (shown together at bottom) -->
+      <!-- 🔐 List Info for Saving -->
       <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
       <input type="password" id="listPin" maxlength="4" placeholder="Enter 4-digit PIN" data-lang-placeholder="enterPin" />
       <input type="text" id="secretCode" placeholder="Enter Secret Code" data-lang-placeholder="enterSecretCode" />
 
-      <!-- ✅ Save + Navigation Buttons -->
+      <!-- 💾 Save / Nav Buttons -->
       <div class="vertical-buttons">
         <button onclick="saveList()" data-lang="saveList">Save List</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
         <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
 
-      <!-- ✅ Feedback Messages -->
+      <!-- ✅ Feedback -->
       <p id="successMsg" class="success-message"></p>
     </main>
 
