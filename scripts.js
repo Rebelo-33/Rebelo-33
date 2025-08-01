@@ -1,5 +1,3 @@
-// ✅ scripts.js – Unified logic for add-names.html and others
-
 import { db } from './firebase-config.js';
 import {
   collection,
@@ -7,120 +5,96 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-// ✅ Shared state for names
+/* ✅ Shared state */
 let nameList = [];
 
-// ✅ DOM Elements
+/* ✅ DOM references */
 const nameInput = document.getElementById("nameInput");
-const nameListContainer = document.getElementById("nameList") || document.getElementById("nameListContainer");
+const nameListContainer = document.getElementById("nameList");
 const errorMsg = document.getElementById("errorMsg");
 const successMsg = document.getElementById("successMsg");
+const shareBox = document.getElementById("shareLinkBox");
 
-// ✅ Add Name to List
+/* ✅ Add name to in-memory list */
 window.addName = function () {
-  const name = nameInput?.value?.trim();
+  const name = nameInput.value.trim();
   errorMsg.textContent = "";
+  successMsg.textContent = "";
 
   if (!name) return showError("Name cannot be empty.");
-  if (name.length > 30) return showError("Name too long (max 30 characters).");
+  if (name.length > 30) return showError("Name too long (max 30 chars).");
   if (nameList.includes(name)) return showError("Name must be unique.");
 
-  nameList.unshift(name);
+  nameList.unshift(name); // Add to top
   nameInput.value = "";
   renderNames();
 };
 
-// ✅ Render Name List in Grid
+/* ✅ Display all names above input */
 function renderNames() {
-  if (!nameListContainer) return;
-  nameListContainer.innerHTML = "";
+  nameListContainer.innerHTML = ""; // Clear
 
   nameList.forEach((name, index) => {
     const div = document.createElement("div");
     div.className = "name-item";
     div.textContent = name;
 
-    const del = document.createElement("button");
-    del.className = "delete-btn";
-    del.textContent = "❌";
-    del.onclick = () => {
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "❌";
+    delBtn.className = "delete-btn";
+    delBtn.onclick = () => {
       nameList.splice(index, 1);
       renderNames();
     };
 
-    div.appendChild(del);
+    div.appendChild(delBtn);
     nameListContainer.appendChild(div);
   });
 }
 
-// ✅ Error display
+/* ✅ Show error message */
 function showError(msg) {
   if (errorMsg) errorMsg.textContent = msg;
 }
 
-// ✅ Success display
+/* ✅ Show success message */
 function showSuccess(msg) {
   if (successMsg) successMsg.textContent = msg;
 }
 
-// ✅ Open Save Modal (triggered by Save List button)
-window.openSavePrompt = function () {
+/* ✅ Save list with validation */
+window.saveList = async function () {
+  errorMsg.textContent = "";
+  successMsg.textContent = "";
+
   if (nameList.length < 2) {
-    return showError("Add at least 2 names to save a list.");
+    return showError("Please add at least 2 names.");
   }
 
-  const modal = document.getElementById("saveModal");
-  const modalError = document.getElementById("modalError");
-  if (modal) {
-    modal.style.display = "flex";
-    modalError.textContent = "";
-  }
-};
+  const listName = prompt("Enter a unique list name:");
+  const listPin = prompt("Enter a 4-digit PIN:");
+  const secretCode = prompt("Enter a secret code (letters and numbers):");
 
-// ✅ Close Save Modal
-window.closeSavePrompt = function () {
-  const modal = document.getElementById("saveModal");
-  if (modal) modal.style.display = "none";
-};
-
-// ✅ Final Save List (from modal)
-window.submitListDetails = async function () {
-  const listName = document.getElementById("modalListName")?.value.trim();
-  const pin = document.getElementById("modalPin")?.value.trim();
-  const code = document.getElementById("modalCode")?.value.trim();
-  const modalError = document.getElementById("modalError");
-
-  if (!listName || !pin || !code) {
-    modalError.textContent = "All fields are required.";
-    return;
+  if (!listName || !listPin || !secretCode) {
+    return showError("List name, PIN and secret code are required.");
   }
 
-  if (!/^\d{4}$/.test(pin)) {
-    modalError.textContent = "PIN must be exactly 4 digits.";
-    return;
-  }
-
-  if (!/^[a-zA-Z0-9]+$/.test(code)) {
-    modalError.textContent = "Secret Code must be alphanumeric.";
-    return;
-  }
-
-  const listId = `${listName}_${pin}`;
+  const listId = `${listName}_${listPin}`;
   const listRef = doc(db, "lists", listId);
 
   try {
-    const docSnap = await getDoc(listRef);
-    if (docSnap.exists()) {
-      const overwrite = confirm("List already exists. Overwrite?");
-      if (!overwrite) return;
+    const existing = await getDoc(listRef);
+    if (existing.exists()) {
+      return showError("List name with this PIN already exists. Choose a new name.");
     }
 
     await setDoc(listRef, {
       name: listName,
-      pin: pin,
-      secretCode: code,
+      pin: listPin,
+      secretCode,
       participants: nameList,
       drawn: [],
       lastDraw: null,
@@ -130,22 +104,11 @@ window.submitListDetails = async function () {
     showSuccess("✅ List saved successfully!");
     nameList = [];
     renderNames();
-
-    // Clear modal & inputs
-    document.getElementById("modalListName").value = '';
-    document.getElementById("modalPin").value = '';
-    document.getElementById("modalCode").value = '';
-    closeSavePrompt();
+    if (shareBox) {
+      shareBox.innerHTML = `<p>Share this list name: <strong>${listName}</strong> and PIN: <strong>${listPin}</strong>.</p>`;
+    }
   } catch (err) {
-    console.error("Error saving list:", err);
-    modalError.textContent = "An error occurred while saving. Try again.";
+    console.error("[saveList] Firebase error:", err);
+    showError("An error occurred while saving. Try again.");
   }
 };
-
-// ✅ Global close if user clicks outside modal content
-window.addEventListener("click", function (e) {
-  const modal = document.getElementById("saveModal");
-  if (e.target === modal) {
-    closeSavePrompt();
-  }
-});
