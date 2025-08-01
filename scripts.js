@@ -1,4 +1,5 @@
-// ✅ Import Firebase (unchanged) add-names.html my-lists.html draw.html 
+// ✅ scripts.js – Shared for add-names.html, my-lists.html
+
 import { db } from './firebase-config.js';
 import {
   collection,
@@ -9,88 +10,97 @@ import {
   serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
+// ✅ Shared state
 let nameList = [];
 
 // ✅ DOM references
 const nameInput = document.getElementById("nameInput");
-const nameListContainer = document.getElementById("nameListContainer");
+const nameListContainer = document.getElementById("nameListContainer") || document.getElementById("nameList");
+const shareLinkBox = document.getElementById("shareLinkBox");
 const errorMsg = document.getElementById("errorMsg");
 const successMsg = document.getElementById("successMsg");
 
-// ✅ Add Name
+// ✅ Add Name to List
 window.addName = function () {
   const name = nameInput.value.trim();
   errorMsg.textContent = "";
 
   if (!name) return showError("Name cannot be empty.");
-  if (name.length > 30) return showError("Name too long (max 30 chars).");
+  if (name.length > 30) return showError("Name too long (max 30 characters).");
   if (nameList.includes(name)) return showError("Name must be unique.");
 
-  nameList.unshift(name); // Add to top
+  nameList.unshift(name); // Add to beginning
   nameInput.value = "";
   renderNames();
 };
 
-// ✅ Render names in columns (max 10 per column)
+// ✅ Render Name List with Delete Buttons in Columns
 function renderNames() {
   nameListContainer.innerHTML = '';
 
-  const columns = Math.ceil(nameList.length / 10);
-  for (let i = 0; i < columns; i++) {
+  const columnsWrapper = document.createElement('div');
+  columnsWrapper.className = 'name-columns';
+
+  const columnCount = Math.ceil(nameList.length / 10);
+
+  for (let c = 0; c < columnCount; c++) {
     const col = document.createElement('div');
     col.className = 'name-column';
 
-    nameList.slice(i * 10, (i + 1) * 10).forEach((name, index) => {
-      const row = document.createElement('div');
-      row.className = 'name-item';
-      row.textContent = name;
+    nameList.slice(c * 10, c * 10 + 10).forEach((name, index) => {
+      const el = document.createElement('div');
+      el.className = 'name-item';
+      el.textContent = name;
 
       const del = document.createElement('button');
       del.className = 'delete-btn';
-      del.textContent = '❌';
+      del.innerHTML = '❌';
       del.onclick = () => {
-        nameList.splice(i * 10 + index, 1);
+        nameList.splice(nameList.indexOf(name), 1);
         renderNames();
       };
 
-      row.appendChild(del);
-      col.appendChild(row);
+      el.appendChild(del);
+      col.appendChild(el);
     });
 
-    nameListContainer.appendChild(col);
+    columnsWrapper.appendChild(col);
   }
+
+  nameListContainer.appendChild(columnsWrapper);
 }
 
-// ✅ Show error
+// ✅ Error Message
 function showError(msg) {
   if (errorMsg) errorMsg.textContent = msg;
 }
 
-// ✅ Show success
+// ✅ Success Message
 function showSuccess(msg) {
   if (successMsg) successMsg.textContent = msg;
 }
 
-// ✅ Save List
+// ✅ Save List to Firebase
 window.saveList = async function () {
-  const listName = prompt("Enter List Name")?.trim();
-  const listPin = prompt("Enter 4-digit PIN")?.trim();
-  const secretCode = prompt("Enter Secret Code")?.trim();
+  const listName = document.getElementById("listName")?.value.trim();
+  const listPin = document.getElementById("listPin")?.value.trim();
+  const secretCode = document.getElementById("secretCode")?.value.trim();
 
   errorMsg.textContent = "";
   successMsg.textContent = "";
 
+  // Validate fields
   if (!listName || !listPin || !secretCode) {
     return showError("List name, PIN and secret code are required.");
   }
   if (!/^\d{4}$/.test(listPin)) {
     return showError("PIN must be 4 digits.");
   }
-  if (!/^[a-zA-Z0-9]{1,}$/i.test(secretCode)) {
-    return showError("Secret code must be alphanumeric.");
+  if (!/^[a-zA-Z0-9]{3,}$/.test(secretCode)) {
+    return showError("Secret code must be at least 3 letters or numbers.");
   }
   if (nameList.length < 2) {
-    return showError("Add at least 2 names.");
+    return showError("Add at least 2 names before saving.");
   }
 
   const confirmSave = confirm("Do you want to save this list?");
@@ -119,8 +129,16 @@ window.saveList = async function () {
     showSuccess("✅ List saved successfully!");
     nameList = [];
     renderNames();
+    if (shareLinkBox) {
+      shareLinkBox.innerHTML = `<p>Share this list name: <strong>${listName}</strong> and PIN: <strong>${listPin}</strong>.</p>`;
+    }
+
+    // Clear form fields
+    document.getElementById("listName").value = '';
+    document.getElementById("listPin").value = '';
+    document.getElementById("secretCode").value = '';
   } catch (err) {
-    console.error("Error saving list:", err);
     showError("Failed to save list.");
+    console.error("[saveList] Error:", err);
   }
 };
