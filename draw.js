@@ -1,5 +1,4 @@
 // ✅ draw.js — Draw Name Functionality
-
 import { db } from './firebase-config.js';
 import {
   doc,
@@ -7,17 +6,16 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// 🔒 In-memory state for the current list
+// 🔒 Current list context
 let listData = null;
 let currentListId = null;
 
-// 🧪 Verify access before drawing
+// ✅ Login verification
 window.verifyDrawAccess = async function () {
   const listName = document.getElementById('listName').value.trim();
   const listPin = document.getElementById('listPin').value.trim();
   const errorMsg = document.getElementById('errorMsg');
 
-  // 🧼 Reset message
   errorMsg.textContent = '';
 
   if (!listName || !listPin) {
@@ -26,7 +24,7 @@ window.verifyDrawAccess = async function () {
   }
 
   try {
-    const docRef = doc(db, "lists", listName); // 🧾 Assume collection is named "lists"
+    const docRef = doc(db, "lists", `${listName}_${listPin}`);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -35,45 +33,55 @@ window.verifyDrawAccess = async function () {
     }
 
     const data = docSnap.data();
+
     if (data.pin !== listPin) {
       errorMsg.textContent = "Incorrect PIN.";
       return;
     }
 
-    // 🧠 Save current list data and ID
+    // ✅ Auth success
     listData = data;
-    currentListId = listName;
+    currentListId = `${listName}_${listPin}`;
 
-    // 💡 Hide login, show draw
     document.getElementById('authSection').style.display = "none";
     document.getElementById('drawSection').style.display = "block";
 
-    populateNameList(data.names || []);
+    populateNameList(data.participants || []);
   } catch (err) {
-    errorMsg.textContent = "Error connecting to database.";
     console.error("[verifyDrawAccess] DB Error:", err);
+    errorMsg.textContent = "Error connecting to database.";
   }
 };
 
-// 🧾 Display names in column list
+// ✅ Display all names in columns
 function populateNameList(names) {
   const container = document.getElementById('nameListContainer');
-  container.innerHTML = ''; // 🔄 Clear old list
+  container.innerHTML = '';
 
-  names.forEach(name => {
-    const div = document.createElement('div');
-    div.textContent = name;
-    container.appendChild(div);
-  });
+  if (!names.length) return;
+
+  const columns = Math.ceil(names.length / 10);
+
+  for (let i = 0; i < columns; i++) {
+    const col = document.createElement('div');
+    col.className = 'column';
+
+    names.slice(i * 10, i * 10 + 10).forEach(name => {
+      const item = document.createElement('div');
+      item.textContent = name;
+      col.appendChild(item);
+    });
+
+    container.appendChild(col);
+  }
 }
 
-// 🎁 Handle drawing name for user
+// ✅ Draw Name logic
 window.drawName = async function () {
   const yourName = document.getElementById('yourName').value.trim();
-  const resultBox = document.getElementById('resultBox');
   const drawErrorMsg = document.getElementById('drawErrorMsg');
+  const resultBox = document.getElementById('resultBox');
 
-  // 🧼 Reset display
   drawErrorMsg.textContent = '';
   resultBox.textContent = '';
 
@@ -82,17 +90,16 @@ window.drawName = async function () {
     return;
   }
 
-  if (!listData || !Array.isArray(listData.names)) {
+  if (!listData || !Array.isArray(listData.participants)) {
     drawErrorMsg.textContent = "List data is not loaded.";
     return;
   }
 
-  if (!listData.names.includes(yourName)) {
+  if (!listData.participants.includes(yourName)) {
     drawErrorMsg.textContent = "Your name is not on the list.";
     return;
   }
 
-  // ✅ Check if name was already drawn
   const alreadyDrawn = listData.drawn?.[yourName];
   if (alreadyDrawn) {
     resultBox.textContent = `You already drew: ${alreadyDrawn}`;
@@ -100,7 +107,7 @@ window.drawName = async function () {
   }
 
   const alreadyPicked = new Set(Object.values(listData.drawn || {}));
-  const available = listData.names.filter(name =>
+  const available = listData.participants.filter(name =>
     name !== yourName && !alreadyPicked.has(name)
   );
 
@@ -109,14 +116,8 @@ window.drawName = async function () {
     return;
   }
 
-  // 🎯 Random draw
   const drawnName = available[Math.floor(Math.random() * available.length)];
-
-  // 💾 Save result locally
-  listData.drawn = {
-    ...(listData.drawn || {}),
-    [yourName]: drawnName
-  };
+  listData.drawn = { ...(listData.drawn || {}), [yourName]: drawnName };
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
