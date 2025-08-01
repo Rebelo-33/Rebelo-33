@@ -7,7 +7,6 @@
   <title data-lang="addNamesTitle">Add Names</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="add-names.js"></script>
   <script type="module" src="scripts.js"></script>
   <script defer src="language.js"></script>
 </head>
@@ -31,27 +30,27 @@
     <main>
       <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
-      <input type="password" id="listPin" placeholder="Enter 4-digit PIN" maxlength="4" data-lang-placeholder="enterPin" />
-      <input type="password" id="secretCode" placeholder="Enter Secret Code" data-lang-placeholder="enterSecretCode" />
-
       <!-- Name Input and Add Button -->
       <div class="name-entry">
         <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
       </div>
 
+      <!-- ⚠️ Error Message -->
+      <p id="errorMsg" class="error-message"></p>
+
       <!-- Display list of added names -->
-      <ul id="nameList"></ul>
+      <div id="nameListContainer"></div>
 
       <!-- Save Button -->
       <div class="vertical-buttons">
         <button onclick="saveList()" data-lang="saveList">Save List</button>
         <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
+        <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
 
+      <!-- ✅ Success Message -->
       <p id="successMsg" class="success-message"></p>
-      <p id="errorMsg" class="error-message"></p>
     </main>
 
     <!-- 🔻 Footer -->
