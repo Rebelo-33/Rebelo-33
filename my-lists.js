@@ -1,3 +1,4 @@
+// ✅ my-lists.js
 import { db } from './firebase-config.js';
 import {
   doc,
@@ -21,10 +22,8 @@ window.verifyListAccess = async function () {
     return;
   }
 
-  const combinedId = `${listName}_${listPin}`;
-
   try {
-    const docRef = doc(db, "lists", combinedId);
+    const docRef = doc(db, "lists", `${listName}_${listPin}`);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -39,7 +38,7 @@ window.verifyListAccess = async function () {
     }
 
     listData = data;
-    currentListId = combinedId;
+    currentListId = `${listName}_${listPin}`;
 
     document.getElementById('authSection').style.display = "none";
     document.getElementById('listSection').style.display = "block";
@@ -51,78 +50,93 @@ window.verifyListAccess = async function () {
   }
 };
 
+// ✅ Renders current list into <ul>
 function renderList(names) {
-  const container = document.getElementById('nameListContainer');
-  container.innerHTML = '';
+  const listContainer = document.getElementById('nameList');
+  listContainer.innerHTML = '';
 
   names.forEach(name => {
-    const div = document.createElement('div');
-    div.className = 'name-item';
-    div.textContent = name;
+    const li = document.createElement('li');
+    li.className = 'name-item';
+    li.textContent = name;
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = '❌';
-    deleteBtn.className = 'delete-button';
-    deleteBtn.style.marginLeft = '10px';
-    deleteBtn.onclick = () => {
-      div.remove();
+    const removeBtn = document.createElement('span');
+    removeBtn.textContent = "❌";
+    removeBtn.classList.add("delete-button");
+    removeBtn.style.marginLeft = "12px"; // 👈 space between name and ❌
+    removeBtn.onclick = () => {
+      li.remove();
     };
 
-    div.appendChild(deleteBtn);
-    container.appendChild(div);
+    li.appendChild(removeBtn);
+    listContainer.appendChild(li);
   });
 }
 
-window.addNameToList = function () {
+// ✅ Adds new name (memory only)
+window.addNewName = function () {
   const input = document.getElementById('newNameInput');
-  const newName = input.value.trim();
-  const msg = document.getElementById('nameErrorMsg');
+  const name = input.value.trim();
+  const errorMsgList = document.getElementById('errorMsgList');
 
-  msg.textContent = '';
+  errorMsgList.textContent = '';
 
-  if (!newName) {
-    msg.textContent = "Name cannot be empty.";
+  if (!name || name.length > 30) {
+    errorMsgList.textContent = "Name must be 1–30 characters.";
     return;
   }
 
-  const existing = Array.from(document.getElementById('nameListContainer').children)
-    .map(div => div.firstChild.textContent.trim());
+  // Check for duplicate
+  const currentNames = Array.from(document.getElementById('nameList').children)
+    .map(li => li.firstChild.textContent.trim());
 
-  if (existing.includes(newName)) {
-    msg.textContent = "Name already exists.";
+  if (currentNames.includes(name)) {
+    errorMsgList.textContent = "Name already in the list.";
     return;
   }
 
-  const div = document.createElement('div');
-  div.className = 'name-item';
-  div.textContent = newName;
+  const li = document.createElement('li');
+  li.className = 'name-item';
+  li.textContent = name;
 
-  const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = '❌';
-  deleteBtn.className = 'delete-button';
-  deleteBtn.style.marginLeft = '10px';
-  deleteBtn.onclick = () => {
-    div.remove();
+  const removeBtn = document.createElement('span');
+  removeBtn.textContent = "❌";
+  removeBtn.classList.add("delete-button");
+  removeBtn.style.marginLeft = "12px";
+  removeBtn.onclick = () => {
+    li.remove();
   };
 
-  div.appendChild(deleteBtn);
-  document.getElementById('nameListContainer').appendChild(div);
-  input.value = '';
+  li.appendChild(removeBtn);
+  document.getElementById('nameList').appendChild(li);
+  input.value = "";
 };
 
+// ✅ Save list to Firestore with confirmation
 window.saveChanges = async function () {
-  const nameList = Array.from(document.getElementById('nameListContainer').children)
-    .map(div => div.firstChild.textContent.trim());
-
   const successMsg = document.getElementById('successMsg');
   const errorMsgList = document.getElementById('errorMsgList');
 
   successMsg.textContent = '';
   errorMsgList.textContent = '';
 
+  const nameList = Array.from(document.getElementById('nameList').children)
+    .map(li => li.firstChild.textContent.trim());
+
+  if (nameList.length < 2) {
+    errorMsgList.textContent = "List must contain at least two names.";
+    return;
+  }
+
   if (!listData || !currentListId) {
     errorMsgList.textContent = "No list loaded.";
     return;
+  }
+
+  // 🟨 Ask for confirmation before saving
+  const confirmSave = confirm("Do you want to save changes to the list?");
+  if (!confirmSave) {
+    return; // ❌ Cancel save
   }
 
   try {
