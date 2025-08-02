@@ -63,7 +63,7 @@ function renderList(names) {
     const removeBtn = document.createElement('span');
     removeBtn.textContent = "❌";
     removeBtn.classList.add("delete-button");
-    removeBtn.style.marginLeft = "12px"; // 👈 space between name and ❌
+    removeBtn.style.marginLeft = "8px"; // 👈 space between name and ❌
     removeBtn.onclick = () => {
       li.remove();
     };
@@ -102,7 +102,7 @@ window.addNewName = function () {
   const removeBtn = document.createElement('span');
   removeBtn.textContent = "❌";
   removeBtn.classList.add("delete-button");
-  removeBtn.style.marginLeft = "12px";
+  removeBtn.style.marginLeft = "10px";
   removeBtn.onclick = () => {
     li.remove();
   };
@@ -134,7 +134,7 @@ window.saveChanges = async function () {
   }
 
   // 🟨 Ask for confirmation before saving
-  const confirmSave = confirm("Do you want to save changes to the list?");
+  const confirmSave = confirm("Do you want to save changes?");
   if (!confirmSave) {
     return; // ❌ Cancel save
   }
@@ -145,6 +145,7 @@ window.saveChanges = async function () {
     });
 
     successMsg.textContent = "List updated successfully.";
+    successMsg.classList.add("red"); // ✅ Make the text red
   } catch (err) {
     errorMsgList.textContent = "Failed to save changes.";
     console.error("[saveChanges] Update error:", err);
