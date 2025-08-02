@@ -1,4 +1,3 @@
-// ✅ my-lists.js
 import { db } from './firebase-config.js';
 import {
   doc,
@@ -6,16 +5,18 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// 🔐 Shared state
 let listData = null;
 let currentListId = null;
 
+// ✅ Handle login for list editing
 window.verifyListAccess = async function () {
   const listName = document.getElementById('listName').value.trim();
   const listPin = document.getElementById('listPin').value.trim();
   const secretCode = document.getElementById('secretCode').value.trim();
   const errorMsg = document.getElementById('errorMsg');
 
-  errorMsg.textContent = '';
+  clearMessages();
 
   if (!listName || !listPin || !secretCode) {
     errorMsg.textContent = "Please fill in all fields.";
@@ -50,103 +51,70 @@ window.verifyListAccess = async function () {
   }
 };
 
-// ✅ Renders current list into <ul>
+// ✅ Render name list
 function renderList(names) {
   const listContainer = document.getElementById('nameList');
-  listContainer.innerHTML = '';
+  listContainer.innerHTML = "";
 
   names.forEach(name => {
-    const li = document.createElement('li');
-    li.className = 'name-item';
-    li.textContent = name;
+    const item = document.createElement('div');
+    item.className = "name-item";
+    item.textContent = name;
 
     const removeBtn = document.createElement('span');
     removeBtn.textContent = "❌";
     removeBtn.classList.add("delete-button");
-    removeBtn.style.marginLeft = "8px"; // 👈 space between name and ❌
     removeBtn.onclick = () => {
-      li.remove();
+      item.remove();
     };
 
-    li.appendChild(removeBtn);
-    listContainer.appendChild(li);
+    item.appendChild(removeBtn);
+    listContainer.appendChild(item);
   });
 }
 
-// ✅ Adds new name (memory only)
-window.addNewName = function () {
-  const input = document.getElementById('newNameInput');
-  const name = input.value.trim();
-  const errorMsgList = document.getElementById('errorMsgList');
-
-  errorMsgList.textContent = '';
-
-  if (!name || name.length > 30) {
-    errorMsgList.textContent = "Name must be 1–30 characters.";
-    return;
-  }
-
-  // Check for duplicate
-  const currentNames = Array.from(document.getElementById('nameList').children)
-    .map(li => li.firstChild.textContent.trim());
-
-  if (currentNames.includes(name)) {
-    errorMsgList.textContent = "Name already in the list.";
-    return;
-  }
-
-  const li = document.createElement('li');
-  li.className = 'name-item';
-  li.textContent = name;
-
-  const removeBtn = document.createElement('span');
-  removeBtn.textContent = "❌";
-  removeBtn.classList.add("delete-button");
-  removeBtn.style.marginLeft = "10px";
-  removeBtn.onclick = () => {
-    li.remove();
-  };
-
-  li.appendChild(removeBtn);
-  document.getElementById('nameList').appendChild(li);
-  input.value = "";
-};
-
-// ✅ Save list to Firestore with confirmation
+// ✅ Save list updates with confirmation
 window.saveChanges = async function () {
+  const nameList = Array.from(document.getElementById('nameList').children)
+    .map(div => div.firstChild.textContent.trim())
+    .filter(name => name.length > 0 && name.length <= 30);
+
   const successMsg = document.getElementById('successMsg');
   const errorMsgList = document.getElementById('errorMsgList');
 
-  successMsg.textContent = '';
-  errorMsgList.textContent = '';
-
-  const nameList = Array.from(document.getElementById('nameList').children)
-    .map(li => li.firstChild.textContent.trim());
-
-  if (nameList.length < 2) {
-    errorMsgList.textContent = "List must contain at least two names.";
-    return;
-  }
+  clearMessages();
 
   if (!listData || !currentListId) {
     errorMsgList.textContent = "No list loaded.";
     return;
   }
 
-  // 🟨 Ask for confirmation before saving
-  const confirmSave = confirm("Do you want to save changes?");
-  if (!confirmSave) {
-    return; // ❌ Cancel save
+  if (nameList.length < 2) {
+    errorMsgList.textContent = "Please enter at least two names.";
+    return;
   }
+
+  const confirmSave = confirm("Do you want to save the changes?");
+  if (!confirmSave) return;
 
   try {
     await updateDoc(doc(db, "lists", currentListId), {
       participants: nameList
     });
-
     successMsg.textContent = "List updated successfully.";
   } catch (err) {
     errorMsgList.textContent = "Failed to save changes.";
     console.error("[saveChanges] Update error:", err);
   }
 };
+
+// ✅ Clear both success and error messages
+function clearMessages() {
+  const errorMsg = document.getElementById('errorMsg');
+  const successMsg = document.getElementById('successMsg');
+  const errorMsgList = document.getElementById('errorMsgList');
+
+  if (errorMsg) errorMsg.textContent = "";
+  if (successMsg) successMsg.textContent = "";
+  if (errorMsgList) errorMsgList.textContent = "";
+}
