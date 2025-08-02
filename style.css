@@ -130,7 +130,7 @@ input[type="password"] {
   border: none;
   color: #c00;
   font-size: 1.2rem;
-  margin-left: 12px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -144,10 +144,6 @@ input[type="password"] {
   text-align: center;
   min-height: 1.2em;
   max-width: 300px;
-}
-
-.success-message.red {
-  color: red;
 }
 
 .success-message {
@@ -192,7 +188,7 @@ input[type="password"] {
 .columns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* ✅ Align columns to the left */
   margin-bottom: 20px;
 }
 
