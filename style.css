@@ -1,4 +1,4 @@
-/* ✅ style.css - Gift Exchange Project */
+/* ✅ style.css - Gift Exchange Project (Updated with My Lists and Add Names enhancements) */
 
 /* ===============================
    🧼 Base Reset and General Styling
@@ -115,13 +115,12 @@ input[type="password"] {
   justify-content: space-between;
   align-items: center;
   background: #f1f1f1;
-  padding: 8px 12px;
-  margin-bottom: 8px;
+  padding: 6px 10px;
+  margin-bottom: 4px;
   border-radius: 8px;
-  width: 280px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1rem;
+  width: 250px;
+  font-size: 0.95rem;
+  margin-left: 0; /* ⬅️ Align to left */
 }
 
 /* ❌ Red cross button for deletion */
@@ -130,7 +129,7 @@ input[type="password"] {
   border: none;
   color: #c00;
   font-size: 1.2rem;
-  margin-left: 10px;
+  margin-left: 12px; /* 🧭 Extra spacing between name and ❌ */
   cursor: pointer;
 }
 
@@ -140,7 +139,7 @@ input[type="password"] {
 .error-message {
   color: #d93025;
   font-size: 0.9rem;
-  margin: 8px auto 15px auto;
+  margin: 8px auto 10px auto;
   text-align: center;
   min-height: 1.2em;
   max-width: 300px;
@@ -149,7 +148,7 @@ input[type="password"] {
 .success-message {
   color: green;
   font-size: 0.9rem;
-  margin: 10px auto 20px auto;
+  margin: 8px auto 12px auto;
   text-align: center;
   min-height: 1.2em;
   max-width: 300px;
@@ -188,14 +187,15 @@ input[type="password"] {
 .columns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* ✅ Align columns to the left */
+  justify-content: flex-start; /* ✅ Align to left */
   margin-bottom: 20px;
-  gap: 0 15px;
+  gap: 0 8px; /* 👈 No vertical margin between columns */
 }
 
 .column {
   display: flex;
   flex-direction: column;
+  margin: 0 5px; /* 👈 Keep columns close */
 }
 
 /* ===============================
