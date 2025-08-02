@@ -1,4 +1,4 @@
-<!-- ✅ add-names.html - Clean layout using shared styles -->
+<!-- ✅ add-names.html - Add Names to List Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,20 +26,23 @@
       </div>
     </header>
 
-    <!-- ➕ Add Names Main Section -->
+    <!-- ➕ Add Names Section -->
     <main>
       <h1 class="page-title" data-lang="addNamesTitle">Add Names</h1>
 
-      <!-- ✅ Name list appears above input -->
-      <div id="nameList" class="name-list-wrapper"></div>
+      <!-- 🔢 List of Added Names -->
+      <div id="nameList" class="columns"></div>
 
-      <!-- ✅ Input field -->
+      <!-- 🔤 Input field for names -->
       <input type="text" id="nameInput" maxlength="30" placeholder="Enter name" data-lang-placeholder="enterYourName" />
 
-      <!-- ✅ Error message below input -->
+      <!-- ⚠️ Error message -->
       <p id="errorMsg" class="error-message"></p>
 
-      <!-- ✅ Buttons styled with existing .vertical-buttons -->
+      <!-- ✅ Success message -->
+      <p id="successMsg" class="success-message"></p>
+
+      <!-- 🔘 Action buttons -->
       <div class="vertical-buttons">
         <button onclick="addName()" data-lang="addNameBtn">Add Name</button>
         <button onclick="saveList()" data-lang="saveList">Save List</button>
@@ -47,8 +50,8 @@
         <button onclick="location.href='help.html'" data-lang="help">Help</button>
       </div>
 
-      <!-- ✅ Success message -->
-      <p id="successMsg" class="success-message"></p>
+      <!-- 🔗 Share link box -->
+      <div id="shareLinkBox"></div>
     </main>
 
     <!-- 🔻 Footer -->
