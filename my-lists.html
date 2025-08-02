@@ -1,3 +1,4 @@
+<!-- ✅ my-lists.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,7 @@
     <main>
       <h1 class="page-title" data-lang="myListsTitle">My Lists</h1>
 
-      <!-- 🔐 Login Section -->
+      <!-- 🔐 Login -->
       <div id="authSection">
         <input type="text" id="listName" placeholder="Enter List Name" data-lang-placeholder="enterListName" />
         <input type="password" id="listPin" placeholder="Enter 4-digit PIN" data-lang-placeholder="enterPin" maxlength="4" />
@@ -43,28 +44,29 @@
         </div>
       </div>
 
-      <!-- ✏️ List Management Section -->
+      <!-- ✏️ Editable List -->
       <div id="listSection" style="display: none;">
-        <!-- 🔠 Current Names -->
-        <div id="nameListContainer"></div>
+        <ul id="nameList"></ul>
 
-        <!-- ➕ Add Name -->
-        <input type="text" id="newNameInput" placeholder="Enter new name" maxlength="30" />
-        <p id="nameErrorMsg" class="success-message"></p>
+        <!-- ✅ New Name Input -->
+        <input 
+          type="text" 
+          id="newNameInput" 
+          maxlength="30" 
+          placeholder="Enter name" 
+          onkeydown="if(event.key === 'Enter') addNewName()" 
+        />
+        <!-- ✅ Error message directly below input -->
+        <p id="errorMsgList" class="error-message"></p>
 
         <div class="vertical-buttons">
-          <button onclick="addNameToList()" data-lang="addName">Add Name</button>
-        </div>
-
-        <!-- 💾 Save & Nav -->
-        <div class="vertical-buttons">
+          <button onclick="addNewName()">Add Name</button>
           <button onclick="saveChanges()" data-lang="saveChanges">Save Changes</button>
           <button onclick="location.href='index.html'" data-lang="backHome">Home</button>
           <button onclick="location.href='help.html'" data-lang="help">Help</button>
         </div>
 
         <p id="successMsg" class="success-message"></p>
-        <p id="errorMsgList" class="error-message"></p>
       </div>
     </main>
 
