@@ -146,6 +146,10 @@ input[type="password"] {
   max-width: 300px;
 }
 
+.success-message.red {
+  color: red;
+}
+
 .success-message {
   color: green;
   font-size: 0.9rem;
