@@ -145,7 +145,6 @@ window.saveChanges = async function () {
     });
 
     successMsg.textContent = "List updated successfully.";
-    successMsg.classList.add("red"); // ✅ Make the text red
   } catch (err) {
     errorMsgList.textContent = "Failed to save changes.";
     console.error("[saveChanges] Update error:", err);
