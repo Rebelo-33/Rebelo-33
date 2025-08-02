@@ -1,4 +1,8 @@
-/* ✅ Base Reset and General Styling */
+/* ✅ style.css - Gift Exchange Project */
+
+/* ===============================
+   🧼 Base Reset and General Styling
+   =============================== */
 body {
   margin: 0;
   padding: 0;
@@ -10,6 +14,7 @@ body {
   flex-direction: column;
 }
 
+/* ✅ Page Container */
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -22,7 +27,9 @@ body {
   min-height: 100vh;
 }
 
-/* ✅ Header Styling */
+/* ===============================
+   🎁 Header and Language Dropdown
+   =============================== */
 header.header {
   position: relative;
   padding: 15px 20px;
@@ -43,7 +50,9 @@ header.header {
   border: 1px solid #ccc;
 }
 
-/* ✅ Main Layout */
+/* ===============================
+   📄 Main Content
+   =============================== */
 main {
   flex-grow: 1;
   display: flex;
@@ -56,15 +65,25 @@ main {
 .page-title {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
+.page-subtitle,
 .intro-text {
   font-size: 1.1rem;
   max-width: 600px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
+.intro-text.left {
+  text-align: left;
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+/* ===============================
+   🧾 Inputs & Fields
+   =============================== */
 input[type="text"],
 input[type="password"] {
   width: 300px;
@@ -72,44 +91,79 @@ input[type="password"] {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 6px;
+  margin-bottom: 10px;
   display: block;
-  margin: 0 auto 8px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
-/* ✅ Name Entry Section */
+/* ===============================
+   🧍 Name Entry Block
+   =============================== */
 .name-entry {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-/* ✅ Error Message Below Input */
+/* ✅ Added name items (used in my-lists and add-names) */
+.name-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1rem;
+}
+
+/* ❌ Red cross button for deletion */
+.delete-button {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: 1.2rem;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+/* ===============================
+   ✅ Messages
+   =============================== */
 .error-message {
   color: #d93025;
   font-size: 0.9rem;
-  margin-top: 4px;
-  margin-bottom: 12px;
+  margin: 8px auto 15px auto;
   text-align: center;
   min-height: 1.2em;
+  max-width: 300px;
 }
 
-/* ✅ Success Message */
 .success-message {
   color: green;
   font-size: 0.9rem;
-  margin-top: 20px;
+  margin: 10px auto 20px auto;
   text-align: center;
+  min-height: 1.2em;
+  max-width: 300px;
 }
 
-/* ✅ Buttons Grouped Vertically */
+/* ===============================
+   🔘 Buttons
+   =============================== */
 .vertical-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .vertical-buttons button {
@@ -128,65 +182,25 @@ input[type="password"] {
   background-color: #0056b3;
 }
 
-/* ✅ Name List Display (in columns of 10) */
-.name-grid {
+/* ===============================
+   📃 Draw Page Columns
+   =============================== */
+.columns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 10px;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
-.name-item {
+.column {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f1f1f1;
-  padding: 6px 12px;
-  font-size: 0.95rem; /* Slightly smaller */
-  border-radius: 8px;
-  width: 260px;
+  flex-direction: column;
+  margin: 10px 15px;
 }
 
-.name-item button.delete-btn {
-  background: none;
-  border: none;
-  color: #c00;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/* ✅ Modal Styles for Save Prompt */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 30px 20px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.modal-content input {
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* ✅ Footer */
+/* ===============================
+   🔻 Footer
+   =============================== */
 footer {
   padding: 15px 10px;
   text-align: center;
@@ -196,7 +210,9 @@ footer {
   margin-top: auto;
 }
 
-/* ✅ Responsive Adjustments */
+/* ===============================
+   📱 Responsive Adjustments
+   =============================== */
 @media (max-width: 600px) {
   .container {
     margin: 0 10px;
@@ -212,60 +228,13 @@ footer {
     padding: 20px 10px;
   }
 
+  input[type="text"],
+  input[type="password"],
   .name-item {
     width: 100%;
   }
-}
 
-/* ✅ Name Item (Editable List Items - my-lists.html) */
-.name-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f1f1f1;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 0.95rem;
-}
-
-/* ✅ Delete Button next to names */
-.name-item .delete-button {
-  background: none;
-  border: none;
-  color: #c00;
-  font-size: 1.2rem;
-  margin-left: 12px; /* 👈 Creates spacing from name */
-  cursor: pointer;
-}
-
-/* ✅ Input for adding name (same look across pages) */
-#newNameInput {
-  width: 300px;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-top: 16px;
-  margin-bottom: 5px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ✅ Success message (used for inline validation like name exists etc) */
-.success-message {
-  color: green;
-  font-size: 0.9rem;
-  margin-top: 10px;
-  text-align: center;
-  min-height: 1.2em;
-}
-
-/* ❗ Optional: Better spacing below name list */
-#nameListContainer {
-  margin-bottom: 20px;
+  .vertical-buttons button {
+    width: 100%;
+  }
 }
